@@ -6,7 +6,10 @@ import ApiEndpoint from './src/apiEndpoint'
 import CrudApiEndpoint from './src/crudApiEndpoint'
 import ResourceApiEndpoint from './src/resourceApiEndpoint'
 
+import MessageBag from './src/errors/messageBag'
+
 export {
+    MessageBag,
     Endpoint,
     CrudEndpoint,
     ResourceEndpoint,
