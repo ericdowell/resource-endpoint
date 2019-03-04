@@ -1,4 +1,4 @@
-import ResourceEndpoint from './resourceEndpoint'
+const ResourceEndpoint = require('./resourceEndpoint')
 
 class ResourceApiEndpoint extends ResourceEndpoint {
   /**
@@ -20,4 +20,4 @@ class ResourceApiEndpoint extends ResourceEndpoint {
   }
 }
 
-export default ResourceApiEndpoint
+module.exports = ResourceApiEndpoint

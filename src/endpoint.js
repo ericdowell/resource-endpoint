@@ -1,5 +1,5 @@
-import qs from 'qs'
-import MessageBag from './errors/messageBag'
+const qs = require('qs')
+const MessageBag = require('./errors/messageBag')
 
 const trimSlashes = string =>
   (typeof string === 'string' && string.replace(/^\/|\/$/g, '')) || ''
@@ -235,4 +235,4 @@ class Endpoint {
   }
 }
 
-export default Endpoint
+module.exports = Endpoint
