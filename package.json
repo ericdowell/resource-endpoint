@@ -1,0 +1,49 @@
+{
+  "name": "api-endpoint",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "A simple wrapper for any Promise based HTTP client.",
+  "author": "Eric Dowell <github@ericdowell.com> (https://ericdowell.com)",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint ./src/**/*.js",
+    "format": "prettier --write 'src/**/*.{js,jsx}'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "axios": "^0.18.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.15.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "prettier": "^1.16.4",
+    "qs": "^6.6.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ericdowell/api-endpoint.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ericdowell/api-endpoint/issues"
+  },
+  "homepage": "https://github.com/ericdowell/api-endpoint#readme",
+  "keywords": [
+    "json",
+    "api",
+    "promise",
+    "client",
+    "wrapper",
+    "http",
+    "simple",
+    "endpoint",
+    "resource",
+    "crud",
+    "laravel",
+    "axios"
+  ]
+}
