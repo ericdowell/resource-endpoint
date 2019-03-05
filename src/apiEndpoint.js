@@ -1,4 +1,4 @@
-const Endpoint = require('./endpoint')
+import Endpoint from './endpoint'
 
 class ApiEndpoint extends Endpoint {
   /**
@@ -20,4 +20,4 @@ class ApiEndpoint extends Endpoint {
   }
 }
 
-module.exports = ApiEndpoint
+export default ApiEndpoint

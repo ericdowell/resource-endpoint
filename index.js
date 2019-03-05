@@ -1,14 +1,14 @@
-const Endpoint = require('./src/endpoint')
-const CrudEndpoint = require('./src/crudEndpoint')
-const ResourceEndpoint = require('./src/resourceEndpoint')
+import Endpoint from './src/endpoint'
+import CrudEndpoint from './src/crudEndpoint'
+import ResourceEndpoint from './src/resourceEndpoint'
 
-const ApiEndpoint = require('./src/apiEndpoint')
-const CrudApiEndpoint = require('./src/crudApiEndpoint')
-const ResourceApiEndpoint = require('./src/resourceApiEndpoint')
+import ApiEndpoint from './src/apiEndpoint'
+import CrudApiEndpoint from './src/crudApiEndpoint'
+import ResourceApiEndpoint from './src/resourceApiEndpoint'
 
-const MessageBag = require('./src/errors/messageBag')
+import MessageBag from './src/errors/messageBag'
 
-module.exports = {
+export {
     MessageBag,
     Endpoint,
     CrudEndpoint,

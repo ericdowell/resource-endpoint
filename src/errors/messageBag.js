@@ -167,4 +167,4 @@ class MessageBag extends Error {
   }
 }
 
-module.exports = MessageBag
+export default MessageBag

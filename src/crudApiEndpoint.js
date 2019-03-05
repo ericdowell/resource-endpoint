@@ -1,4 +1,4 @@
-const CrudEndpoint = require('./crudEndpoint')
+import CrudEndpoint from './crudEndpoint'
 
 class CrudApiEndpoint extends CrudEndpoint {
   /**
@@ -20,4 +20,4 @@ class CrudApiEndpoint extends CrudEndpoint {
   }
 }
 
-module.exports = CrudApiEndpoint
+export default CrudApiEndpoint
