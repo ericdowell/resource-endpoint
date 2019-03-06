@@ -1,4 +1,4 @@
-const mix = require('laravel-mix');
+const mix = require('laravel-mix')
 
 /*
  |--------------------------------------------------------------------------
@@ -12,15 +12,6 @@ const mix = require('laravel-mix');
  */
 
 mix
-    .options({
-        uglify: {
-            uglifyOptions: {
-                compress: {
-                    drop_console: true,
-                }
-            }
-        }
-    })
-    .setResourceRoot('src')
-    .setPublicPath('dist')
-    .babel('src/index.js', 'dist/index.js');
+  .setResourceRoot('src')
+  .setPublicPath('dist')
+  .babel('src/index.js', 'dist/index.js')
