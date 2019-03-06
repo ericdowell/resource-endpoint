@@ -1,29 +1,9 @@
 {
   "name": "api-endpoint",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "license": "MIT",
   "description": "A simple wrapper for any Promise based HTTP client.",
   "author": "Eric Dowell <github@ericdowell.com> (https://ericdowell.com)",
-  "main": "index.js",
-  "scripts": {
-    "lint": "eslint ./src/**/*.js",
-    "format": "prettier --write 'src/**/*.{js,jsx}'",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "devDependencies": {
-    "axios": "^0.18.0",
-    "babel-eslint": "^10.0.1",
-    "eslint": "^5.15.0",
-    "eslint-config-prettier": "^4.1.0",
-    "eslint-config-standard": "^12.0.0",
-    "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-node": "^8.0.1",
-    "eslint-plugin-prettier": "^3.0.1",
-    "eslint-plugin-promise": "^4.0.1",
-    "eslint-plugin-standard": "^4.0.0",
-    "prettier": "^1.16.4",
-    "qs": "^6.6.0"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ericdowell/api-endpoint.git"
@@ -45,5 +25,37 @@
     "crud",
     "laravel",
     "axios"
-  ]
+  ],
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "format": "prettier --write 'src/**/*.{js,jsx}'",
+    "lint": "eslint ./src/**/*.js",
+    "publish": "npm run production && rm -f ./dist/mix-manifest.json && npm publish",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.3.4",
+    "@babel/plugin-transform-classes": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^24.1.0",
+    "cross-env": "^5.2.0",
+    "eslint": "^5.15.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "jest": "^24.1.0",
+    "laravel-mix": "^4.0.14",
+    "prettier": "^1.16.4"
+  },
+  "optionalDependencies": {
+    "axios": "^0.18.0",
+    "qs": "^6.6.0",
+    "whatwg-fetch": "^3.0.0"
+  }
 }

@@ -1,4 +1,3 @@
-import qs from 'qs'
 import MessageBag from './errors/messageBag'
 
 const trimSlashes = string =>
@@ -97,7 +96,7 @@ class Endpoint {
     if (!options.data || typeof options.data !== 'object') {
       return options
     }
-    return this.prepareQuery(options)
+    return options
   }
 
   /**
@@ -106,12 +105,6 @@ class Endpoint {
    * @returns {object}
    */
   prepareQuery(options) {
-    const headers = options.headers || {}
-    options.data = qs.stringify(options.data)
-    // Always set Content-Type to application/x-www-form-urlencoded, place in assign last.
-    options.headers = Object.assign({}, headers, {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    })
     return options
   }
 
@@ -125,6 +118,7 @@ class Endpoint {
   query(url, method, options) {
     const client = this.client
     options = this.queryOptions(url, method, options)
+    options = this.prepareQuery(options)
 
     return client(options)
       .then(response => {
@@ -220,12 +214,12 @@ class Endpoint {
   /**
    *
    * @param {Error} error
-   * @param {object|ApiEndpoint} object
+   * @param {object|Endpoint} object
    * @returns {Function|void}
    */
   static handleQueryError(error, object) {
     if (
-      !(object instanceof ApiEndpoint) ||
+      !(object instanceof Endpoint) ||
       !object.handleError ||
       typeof object.handleError !== 'function'
     ) {
