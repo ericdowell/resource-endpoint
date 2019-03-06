@@ -1,17 +1,17 @@
 {
-  "name": "api-endpoint",
-  "version": "0.0.1",
+  "name": "resource-endpoint",
+  "version": "0.0.5",
   "license": "MIT",
   "description": "A simple wrapper for any Promise based HTTP client.",
   "author": "Eric Dowell <github@ericdowell.com> (https://ericdowell.com)",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ericdowell/api-endpoint.git"
+    "url": "git+https://github.com/ericdowell/resource-endpoint.git"
   },
   "bugs": {
-    "url": "https://github.com/ericdowell/api-endpoint/issues"
+    "url": "https://github.com/ericdowell/resource-endpoint/issues"
   },
-  "homepage": "https://github.com/ericdowell/api-endpoint#readme",
+  "homepage": "https://github.com/ericdowell/resource-endpoint#readme",
   "keywords": [
     "json",
     "api",

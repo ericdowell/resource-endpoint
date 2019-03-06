@@ -1,2 +1,2 @@
-# api-endpoint
+# resource-endpoint
 A simple wrapper for any Promise based HTTP client
