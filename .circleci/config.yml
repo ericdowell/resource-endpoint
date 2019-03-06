@@ -22,10 +22,12 @@ jobs:
             - v1-dependencies-
 
       - run: npm install
-      - run: npm run build
       - run:
           name: Run tests (Re-enable later)
           command: npm test || true
+      - run:
+          name: Build package
+          command: npm run build
 
       - save_cache:
           paths:
@@ -43,9 +45,6 @@ jobs:
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
-      - run:
-          name: Build package
-          command: npm run build
       - run:
           name: Publish package
           command: npm publish
