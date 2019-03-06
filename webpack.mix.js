@@ -14,4 +14,12 @@ const mix = require('laravel-mix')
 mix
   .setResourceRoot('src')
   .setPublicPath('dist')
-  .babel('src/index.js', 'dist/index.js')
+  .js('src/index.js', 'dist/index.js')
+
+mix.webpackConfig({
+  output: {
+    library: 'resource-endpoint',
+    libraryTarget: 'umd',
+    umdNamedDefine: true
+  }
+})
