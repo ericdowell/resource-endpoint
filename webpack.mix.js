@@ -1,4 +1,5 @@
 const mix = require('laravel-mix')
+const path = require('path')
 
 /*
  |--------------------------------------------------------------------------
@@ -14,12 +15,11 @@ const mix = require('laravel-mix')
 mix
   .setResourceRoot('src')
   .setPublicPath('dist')
-  .js('src/index.js', 'dist/index.js')
-
-mix.webpackConfig({
-  output: {
-    library: 'resource-endpoint',
-    libraryTarget: 'umd',
-    umdNamedDefine: true
-  }
-})
+  .babel('src/errors/messageBag.js', 'dist/errors/messageBag.js')
+  .babel('src/apiEndpoint.js', 'dist/apiEndpoint.js')
+  .babel('src/crudApiEndpoint.js', 'dist/crudApiEndpoint.js')
+  .babel('src/crudEndpoint.js', 'dist/crudEndpoint.js')
+  .babel('src/endpoint.js', 'dist/endpoint.js')
+  .babel('src/index.js', 'dist/index.js')
+  .babel('src/resourceApiEndpoint.js', 'dist/resourceApiEndpoint.js')
+  .babel('src/resourceEndpoint.js', 'dist/resourceEndpoint.js')

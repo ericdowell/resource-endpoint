@@ -1,6 +1,6 @@
 {
   "name": "resource-endpoint",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "license": "MIT",
   "description": "A simple wrapper for any Promise based HTTP client.",
   "author": "Eric Dowell <github@ericdowell.com> (https://ericdowell.com)",
@@ -52,6 +52,7 @@
     "laravel-mix": "^4.0.14",
     "prettier": "^1.16.4"
   },
+  "dependencies": {},
   "optionalDependencies": {
     "axios": "^0.18.0",
     "qs": "^6.6.0",

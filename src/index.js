@@ -9,11 +9,11 @@ import ResourceApiEndpoint from './resourceApiEndpoint'
 import MessageBag from './errors/messageBag'
 
 export {
-    MessageBag,
-    Endpoint,
-    CrudEndpoint,
-    ResourceEndpoint,
-    ApiEndpoint,
-    CrudApiEndpoint,
-    ResourceApiEndpoint,
+  MessageBag,
+  Endpoint,
+  CrudEndpoint,
+  ResourceEndpoint,
+  ApiEndpoint,
+  CrudApiEndpoint,
+  ResourceApiEndpoint
 }
