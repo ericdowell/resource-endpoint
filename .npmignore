@@ -1,5 +1,5 @@
-dist/*
-!dist/*.js
-!dist/errors/*.js
-!dist/*.map
-!dist/errors/*.map
+lib/*
+!lib/*.js
+!lib/errors/*.js
+!lib/*.map
+!lib/errors/*.map

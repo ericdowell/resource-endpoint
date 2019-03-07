@@ -13,15 +13,15 @@ const mix = require('laravel-mix')
 
 mix
   .setResourceRoot('src')
-  .setPublicPath('dist')
-  .js('src/errors/messageBag.js', 'dist/errors/messageBag.js')
-  .js('src/apiEndpoint.js', 'dist/apiEndpoint.js')
-  .js('src/crudApiEndpoint.js', 'dist/crudApiEndpoint.js')
-  .js('src/crudEndpoint.js', 'dist/crudEndpoint.js')
-  .js('src/endpoint.js', 'dist/endpoint.js')
-  .js('src/index.js', 'dist/index.js')
-  .js('src/resourceApiEndpoint.js', 'dist/resourceApiEndpoint.js')
-  .js('src/resourceEndpoint.js', 'dist/resourceEndpoint.js')
+  .setPublicPath('lib')
+  .babel('src/errors/messageBag.js', 'lib/errors/messageBag.js')
+  .babel('src/apiEndpoint.js', 'lib/apiEndpoint.js')
+  .babel('src/crudApiEndpoint.js', 'lib/crudApiEndpoint.js')
+  .babel('src/crudEndpoint.js', 'lib/crudEndpoint.js')
+  .babel('src/endpoint.js', 'lib/endpoint.js')
+  .babel('src/index.js', 'lib/index.js')
+  .babel('src/resourceApiEndpoint.js', 'lib/resourceApiEndpoint.js')
+  .babel('src/resourceEndpoint.js', 'lib/resourceEndpoint.js')
   .webpackConfig({
     externals: {
       // Don't bundle qs
@@ -33,4 +33,3 @@ mix
       }
     }
   })
-  .sourceMaps()

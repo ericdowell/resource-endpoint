@@ -1,9 +1,9 @@
 .cache
 .idea
 
-# Build folder
-dist/
-!dist/.gitkeep
+# compiled js files
+lib/
+!lib/.gitkeep
 
 # Logs
 logs
