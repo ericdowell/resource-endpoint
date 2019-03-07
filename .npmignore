@@ -1,0 +1,5 @@
+dist/*
+!dist/*.js
+!dist/errors/*.js
+!dist/*.map
+!dist/errors/*.map

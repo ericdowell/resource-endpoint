@@ -1,6 +1,10 @@
 .cache
 .idea
 
+# Build folder
+dist/
+!dist/.gitkeep
+
 # Logs
 logs
 *.log
