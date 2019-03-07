@@ -1,3 +1,11 @@
+.circleci/
+
+.babelrc
+.eslintrc.json
+.prettierrc.json
+webpack.mix.js
+
+# compiled js files
 lib/*
 !lib/*.js
 !lib/errors/*.js
