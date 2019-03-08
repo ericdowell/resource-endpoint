@@ -1,4 +1,5 @@
 import CrudEndpoint from './crudEndpoint'
+import qs from 'qs'
 
 class ResourceEndpoint extends CrudEndpoint {
   /**
@@ -6,8 +7,13 @@ class ResourceEndpoint extends CrudEndpoint {
    *
    * @returns {Promise<any>}
    */
-  index() {
-    return this.get('/')
+  index(query) {
+    let path = '/'
+    query = query || {}
+    if (Object.keys(query).length !== 0) {
+      path += '?' + qs.stringify(query)
+    }
+    return this.get(path)
   }
 
   /**
