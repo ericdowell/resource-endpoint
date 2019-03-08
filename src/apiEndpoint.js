@@ -40,21 +40,6 @@ class ApiEndpoint extends Endpoint {
     })
     return options
   }
-
-  /**
-   *
-   * @param {object} options
-   * @returns {object}
-   */
-  prepareQuery(options) {
-    const headers = options.headers || {}
-    options.data = qs.stringify(options.data)
-    // Always set Content-Type to application/x-www-form-urlencoded, place in assign last.
-    options.headers = Object.assign({}, headers, {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    })
-    return options
-  }
 }
 
 export default ApiEndpoint

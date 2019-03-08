@@ -101,15 +101,6 @@ class Endpoint {
 
   /**
    *
-   * @param {object} options
-   * @returns {object}
-   */
-  prepareQuery(options) {
-    return options
-  }
-
-  /**
-   *
    * @param {string} url
    * @param {string} method
    * @param {object=} options
@@ -118,7 +109,6 @@ class Endpoint {
   query(url, method, options) {
     const client = this.client
     options = this.queryOptions(url, method, options)
-    options = this.prepareQuery(options)
 
     return client(options)
       .then(response => {
