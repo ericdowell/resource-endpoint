@@ -1,7 +1,7 @@
-import Endpoint from './endpoint'
+import ResourceEndpoint from '../resourceEndpoint'
 import qs from 'qs'
 
-class ApiEndpoint extends Endpoint {
+class ResourceApiEndpoint extends ResourceEndpoint {
   /**
    *
    * @returns {string}
@@ -42,4 +42,4 @@ class ApiEndpoint extends Endpoint {
   }
 }
 
-export default ApiEndpoint
+export default ResourceApiEndpoint
