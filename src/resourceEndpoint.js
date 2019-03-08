@@ -5,6 +5,7 @@ class ResourceEndpoint extends CrudEndpoint {
   /**
    * Display a listing of the resource.
    *
+   * @param {object=} query
    * @returns {Promise<any>}
    */
   index(query) {
