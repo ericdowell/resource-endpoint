@@ -25,6 +25,14 @@ class Endpoint {
   }
 
   /**
+   *
+   * @returns {boolean}
+   */
+  isDebugEnabled() {
+    return this._debug === true
+  }
+
+  /**
    * This contains the protocol and domain, aka location.origin.
    * e.g. https://example.com or https://localhost:3000
    *
@@ -112,14 +120,14 @@ class Endpoint {
 
     return client(options)
       .then(response => {
-        if (this._debug === true) {
+        if (this.isDebugEnabled()) {
           this.debugResponse(url, method, options, response)
         }
         return this.responseData(response)
       })
       .catch(error => {
         const responseError = this.responseError(url, method, options, error)
-        if (this._debug === true) {
+        if (this.isDebugEnabled()) {
           this.debugResponseError(url, method, options, responseError)
         }
         return Endpoint.handleQueryError(responseError, this)
