@@ -9,5 +9,4 @@ webpack.mix.js
 lib/*
 !lib/*.js
 !lib/errors/*.js
-!lib/*.map
-!lib/errors/*.map
+!lib/api/*.js

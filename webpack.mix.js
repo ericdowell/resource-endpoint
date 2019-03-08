@@ -14,13 +14,13 @@ const mix = require('laravel-mix')
 mix
   .setResourceRoot('src')
   .setPublicPath('lib')
+  .babel('src/api/apiEndpoint.js', 'lib/api/apiEndpoint.js')
+  .babel('src/api/crudApiEndpoint.js', 'lib/api/crudApiEndpoint.js')
+  .babel('src/api/resourceApiEndpoint.js', 'lib/api/resourceApiEndpoint.js')
   .babel('src/errors/messageBag.js', 'lib/errors/messageBag.js')
-  .babel('src/apiEndpoint.js', 'lib/apiEndpoint.js')
-  .babel('src/crudApiEndpoint.js', 'lib/crudApiEndpoint.js')
   .babel('src/crudEndpoint.js', 'lib/crudEndpoint.js')
   .babel('src/endpoint.js', 'lib/endpoint.js')
   .babel('src/index.js', 'lib/index.js')
-  .babel('src/resourceApiEndpoint.js', 'lib/resourceApiEndpoint.js')
   .babel('src/resourceEndpoint.js', 'lib/resourceEndpoint.js')
   .webpackConfig({
     externals: {
