@@ -1,3 +1,4 @@
+/* global FormData */
 import ResourceEndpoint from '../resourceEndpoint'
 import qs from 'qs'
 
@@ -42,7 +43,9 @@ class ResourceApiEndpoint extends ResourceEndpoint {
     if (!options.data || typeof options.data !== 'object') {
       return options
     }
-    options.data = qs.stringify(options.data)
+    if (!(options.data instanceof FormData)) {
+      options.data = qs.stringify(options.data)
+    }
     return options
   }
 }
