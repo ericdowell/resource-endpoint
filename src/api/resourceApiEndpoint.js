@@ -3,6 +3,16 @@ import qs from 'qs'
 
 class ResourceApiEndpoint extends ResourceEndpoint {
   /**
+   * Always set Content-Type to application/x-www-form-urlencoded, place in assign last.
+   *
+   * @type {{}}
+   * @protected
+   */
+  _headers = {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
+
+  /**
    *
    * @returns {string}
    */
@@ -33,11 +43,6 @@ class ResourceApiEndpoint extends ResourceEndpoint {
       return options
     }
     options.data = qs.stringify(options.data)
-    const headers = options.headers || {}
-    // Always set Content-Type to application/x-www-form-urlencoded, place in assign last.
-    options.headers = Object.assign({}, headers, {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    })
     return options
   }
 }

@@ -16,11 +16,17 @@ class Endpoint {
 
   /**
    *
+   * @type {object}
+   * @protected
+   */
+  _headers = {}
+
+  /**
+   *
    * @returns {this}
    */
   debug() {
     this._debug = true
-
     return this
   }
 
@@ -30,6 +36,32 @@ class Endpoint {
    */
   isDebugEnabled() {
     return this._debug === true
+  }
+
+  /**
+   *
+   * @param {object} headers
+   * @returns {Endpoint}
+   */
+  set headers(headers) {
+    this._headers = headers
+    return this
+  }
+
+  /**
+   *
+   * @returns {object}
+   */
+  get headers() {
+    return this._headers
+  }
+
+  /**
+   *
+   * @returns {boolean}
+   */
+  hasHeaders() {
+    return Object.keys(this.headers).length < 0
   }
 
   /**
@@ -101,6 +133,9 @@ class Endpoint {
     options = options || {}
     options = Object.assign({}, options, { url, method })
     options.baseURL = this.getBaseUrl()
+    if (this.hasHeaders()) {
+      options.headers = Object.assign({}, options.headers || {}, this.headers)
+    }
     if (!options.data || typeof options.data !== 'object') {
       return options
     }
