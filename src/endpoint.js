@@ -43,7 +43,7 @@ class Endpoint {
    * @param {object} headers
    * @returns {Endpoint}
    */
-  set headers(headers) {
+  setHeaders(headers) {
     this._headers = headers
     return this
   }
