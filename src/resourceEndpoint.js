@@ -1,40 +1,39 @@
 import CrudEndpoint from './crudEndpoint'
-import qs from 'qs'
 
 class ResourceEndpoint extends CrudEndpoint {
   /**
    * Display a listing of the resource.
    *
-   * @param {object=} query
+   * @param {object=} params
    * @returns {Promise<any>}
    */
-  index(query) {
-    let path = '/'
-    query = query || {}
-    if (Object.keys(query).length !== 0) {
-      path += '?' + qs.stringify(query)
-    }
-    return this.get(path)
+  index(params) {
+    params = params || {}
+    return this.get('/', { params })
   }
 
   /**
    * Store a newly created resource in storage.
    *
    * @param {object} data
+   * @param {object=} params
    * @returns {*|Promise<any | void>}
    */
-  store(data) {
-    return this.post('/', { data })
+  store(data, params) {
+    params = params || {}
+    return this.post('/', { data, params })
   }
 
   /**
    * Display the specified resource.
    *
    * @param {integer} id
+   * @param {object=} params
    * @returns {*|Promise<any | void>}
    */
-  show(id) {
-    return this.get(`/${id}`)
+  show(id, params) {
+    params = params || {}
+    return this.get(`/${id}`, { params })
   }
 
   /**
@@ -42,20 +41,24 @@ class ResourceEndpoint extends CrudEndpoint {
    *
    * @param {integer} id
    * @param {object} data
+   * @param {object=} params
    * @returns {*|Promise<any | void>}
    */
-  update(id, data) {
-    return this.put(`/${id}`, { data })
+  update(id, data, params) {
+    params = params || {}
+    return this.put(`/${id}`, { data, params })
   }
 
   /**
    * Remove the specified resource from storage.
    *
    * @param {integer} id
+   * @param {object=} params
    * @returns {*|Promise<any | void>}
    */
-  destroy(id) {
-    return this.delete(`/${id}`)
+  destroy(id, params) {
+    params = params || {}
+    return this.delete(`/${id}`, { params })
   }
 }
 

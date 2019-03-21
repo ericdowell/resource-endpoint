@@ -1,4 +1,5 @@
 import MessageBag from './errors/messageBag'
+import qs from 'qs'
 
 const trimSlashes = string =>
   (typeof string === 'string' && string.replace(/^\/|\/$/g, '')) || ''
@@ -133,6 +134,11 @@ class Endpoint {
     options = options || {}
     options = Object.assign({}, options, { url, method })
     options.baseURL = this.getBaseUrl()
+    if (!options.paramsSerializer) {
+      options.paramsSerializer = params => {
+        return qs.stringify(params, { arrayFormat: 'brackets' })
+      }
+    }
     if (this.hasHeaders()) {
       options.headers = Object.assign({}, options.headers || {}, this.headers)
     }
