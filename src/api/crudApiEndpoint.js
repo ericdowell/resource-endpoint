@@ -15,6 +15,13 @@ class CrudApiEndpoint extends CrudEndpoint {
 
   /**
    *
+   * @type {boolean}
+   * @private
+   */
+  _stringify = true
+
+  /**
+   *
    * @returns {string}
    */
   get apiVersion() {
@@ -33,6 +40,16 @@ class CrudApiEndpoint extends CrudEndpoint {
 
   /**
    *
+   * @returns {this}
+   */
+  preventStringify() {
+    this._stringify = false
+
+    return this
+  }
+
+  /**
+   *
    * @param {string} url
    * @param {string} method
    * @param {object} options
@@ -43,7 +60,7 @@ class CrudApiEndpoint extends CrudEndpoint {
     if (!options.data || typeof options.data !== 'object') {
       return options
     }
-    if (!(options.data instanceof FormData)) {
+    if (this._stringify === true && !(options.data instanceof FormData)) {
       options.data = qs.stringify(options.data)
     }
     return options
