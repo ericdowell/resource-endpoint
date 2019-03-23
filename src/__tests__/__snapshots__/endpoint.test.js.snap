@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`the getBaseUrl is localhost with trailing slash 1`] = `"http://localhost/"`;
+
+exports[`the origin is localhost 1`] = `"http://localhost"`;
+
+exports[`the queryOptions will return default options 1`] = `
+Object {
+  "baseURL": "http://localhost/",
+  "method": "GET",
+  "paramsSerializer": [Function],
+  "url": "final/path",
+}
+`;
+
+exports[`the responseData will return data key of object 1`] = `"test"`;
+
+exports[`the responseError will return default MessageBag 1`] = `
+"function MessageBag() {
+    var _this;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _Error.call.apply(_Error, [this].concat(args)) || this;
+
+    _defineProperty(_assertThisInitialized(_this), \\"_url\\", '');
+
+    _defineProperty(_assertThisInitialized(_this), \\"_method\\", 'unkown');
+
+    _defineProperty(_assertThisInitialized(_this), \\"_options\\", {});
+
+    _defineProperty(_assertThisInitialized(_this), \\"_config\\", {});
+
+    _defineProperty(_assertThisInitialized(_this), \\"_response\\", {});
+
+    _defineProperty(_assertThisInitialized(_this), \\"_original\\", null);
+
+    return _this;
+  }"
+`;
+
+exports[`the responseError will return default MessageBag 2`] = `
+Object {
+  "baseURL": "http://localhost/",
+  "method": "GET",
+  "paramsSerializer": [Function],
+  "url": "final/path",
+}
+`;
+
+exports[`the responseError will return default MessageBag 3`] = `"failure to foo bar"`;
+
+exports[`the responseError will return default MessageBag 4`] = `"Error: failure to foo bar"`;
+
+exports[`the responseError will return default MessageBag 5`] = `"final/path"`;
+
+exports[`the responseError will return default MessageBag 6`] = `"GET"`;
