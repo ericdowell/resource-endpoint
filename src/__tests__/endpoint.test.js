@@ -25,7 +25,7 @@ test('the getBaseUrl is localhost with trailing slash', () => {
 })
 
 test('the queryOptions will return default options', () => {
-  const options = new Endpoint().queryOptions('final/path', 'GET')
+  const options = new Endpoint().queryOptions('final/path', 'get')
   expect(options).toMatchSnapshot()
 })
 
@@ -35,7 +35,7 @@ test('the responseData will return data key of object', () => {
 })
 
 test('the query will return response object', done => {
-  new Endpoint().query('123', 'GET').then(response => {
+  new Endpoint().query('123', 'get').then(response => {
     expect(response).toMatchSnapshot()
     done()
   })
@@ -43,7 +43,7 @@ test('the query will return response object', done => {
 
 test('the query will return MessageBag object', done => {
   new Endpoint()
-    .query('123', 'GET', { errors: { foo: 'bar is something else.' } })
+    .query('123', 'get', { errors: { foo: 'bar is something else.' } })
     .catch(messageBag => {
       expect(messageBag).toBeInstanceOf(MessageBag)
       expect(messageBag.toString()).toMatchSnapshot()
@@ -55,7 +55,7 @@ test('the query will return MessageBag object', done => {
 
 test('the responseError will return default MessageBag', () => {
   const endpoint = new Endpoint()
-  const options = endpoint.queryOptions('final/path', 'GET')
+  const options = endpoint.queryOptions('final/path', 'get')
   const messageBag = endpoint.responseError(
     options.url,
     options.method,
