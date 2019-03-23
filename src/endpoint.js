@@ -1,3 +1,4 @@
+import axios from 'axios'
 import MessageBag from './errors/messageBag'
 import qs from 'qs'
 
@@ -100,7 +101,7 @@ class Endpoint {
    * @returns {{AxiosStatic: AxiosStatic}}
    */
   get client() {
-    return window.axios
+    return axios || window.axios
   }
 
   /**

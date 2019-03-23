@@ -24,7 +24,13 @@ mix
   .babel('src/resourceEndpoint.js', 'lib/resourceEndpoint.js')
   .webpackConfig({
     externals: {
-      // Don't bundle qs
+      // Don't bundle axios or qs
+      axios: {
+        commonjs: 'axios',
+        commonjs2: 'axios',
+        amd: 'axios',
+        root: 'axios'
+      },
       qs: {
         commonjs: 'qs',
         commonjs2: 'qs',

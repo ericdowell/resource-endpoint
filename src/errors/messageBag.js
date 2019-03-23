@@ -192,10 +192,7 @@ class MessageBag extends Error {
    */
   hasMessage(key) {
     const errors = this.getErrors()
-    if (errors && errors[key]) {
-      return true
-    }
-    return false
+    return errors && typeof errors[key] !== 'undefined'
   }
 
   /**

@@ -4,6 +4,18 @@ exports[`the getBaseUrl is localhost with trailing slash 1`] = `"http://localhos
 
 exports[`the origin is localhost 1`] = `"http://localhost"`;
 
+exports[`the query will return MessageBag object 1`] = `"Error: An unexpected error has occurred. Please try again."`;
+
+exports[`the query will return MessageBag object 2`] = `true`;
+
+exports[`the query will return MessageBag object 3`] = `"bar is something else."`;
+
+exports[`the query will return response object 1`] = `
+Object {
+  "foo": "bar",
+}
+`;
+
 exports[`the queryOptions will return default options 1`] = `
 Object {
   "baseURL": "http://localhost/",

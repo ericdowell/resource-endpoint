@@ -6,6 +6,7 @@
 webpack.mix.js
 
 jest.config.js
+mock/
 __tests__/
 
 # compiled js files

@@ -1,6 +1,12 @@
-/* global test, expect */
+/* global test, expect, jest */
+import axios from 'axios'
 import Endpoint from '../endpoint'
+import { BasicMock } from '../../mock/axios'
 import MessageBag from '../errors/messageBag'
+
+jest.mock('axios')
+
+axios.mockImplementation(BasicMock)
 
 test('the origin is localhost', () => {
   expect(new Endpoint().origin).toMatchSnapshot()
@@ -26,6 +32,25 @@ test('the queryOptions will return default options', () => {
 test('the responseData will return data key of object', () => {
   const data = new Endpoint().responseData({ data: 'test' })
   expect(data).toMatchSnapshot()
+})
+
+test('the query will return response object', done => {
+  new Endpoint().query('123', 'GET').then(response => {
+    expect(response).toMatchSnapshot()
+    done()
+  })
+})
+
+test('the query will return MessageBag object', done => {
+  new Endpoint()
+    .query('123', 'GET', { errors: { foo: 'bar is something else.' } })
+    .catch(messageBag => {
+      expect(messageBag).toBeInstanceOf(MessageBag)
+      expect(messageBag.toString()).toMatchSnapshot()
+      expect(messageBag.hasMessage('foo')).toMatchSnapshot()
+      expect(messageBag.getMessage('foo')).toMatchSnapshot()
+      done()
+    })
 })
 
 test('the responseError will return default MessageBag', () => {
