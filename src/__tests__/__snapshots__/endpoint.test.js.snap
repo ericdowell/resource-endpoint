@@ -10,6 +10,12 @@ exports[`the query will return MessageBag object 2`] = `true`;
 
 exports[`the query will return MessageBag object 3`] = `"bar is something else."`;
 
+exports[`the query will return MessageBag object and debug to console 1`] = `"Error: An unexpected error has occurred. Please try again."`;
+
+exports[`the query will return MessageBag object and debug to console 2`] = `true`;
+
+exports[`the query will return MessageBag object and debug to console 3`] = `"bar is something else."`;
+
 exports[`the query will return response object 1`] = `
 Object {
   "foo": "bar",

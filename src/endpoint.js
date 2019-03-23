@@ -109,7 +109,7 @@ class Endpoint {
    * @returns {Console}
    */
   get output() {
-    return window.console
+    return console || window.console
   }
 
   /**

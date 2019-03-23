@@ -5,6 +5,7 @@ import { BasicMock } from '../../mock/axios'
 import MessageBag from '../errors/messageBag'
 
 jest.mock('axios')
+jest.spyOn(global.console, 'log')
 
 axios.mockImplementation(BasicMock)
 
@@ -49,6 +50,21 @@ test('the query will return MessageBag object', done => {
       expect(messageBag.toString()).toMatchSnapshot()
       expect(messageBag.hasMessage('foo')).toMatchSnapshot()
       expect(messageBag.getMessage('foo')).toMatchSnapshot()
+      expect(console.log).not.toHaveBeenCalled()
+      done()
+    })
+})
+
+test('the query will return MessageBag object and debug to console', done => {
+  new Endpoint()
+    .debug()
+    .query('123', 'get', { errors: { foo: 'bar is something else.' } })
+    .catch(messageBag => {
+      expect(messageBag).toBeInstanceOf(MessageBag)
+      expect(messageBag.toString()).toMatchSnapshot()
+      expect(messageBag.hasMessage('foo')).toMatchSnapshot()
+      expect(messageBag.getMessage('foo')).toMatchSnapshot()
+      expect(console.log).toHaveBeenCalled()
       done()
     })
 })
