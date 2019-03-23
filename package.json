@@ -31,7 +31,7 @@
     "build": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js && rm -f ./lib/mix-manifest.json",
     "format": "prettier --write 'src/**/*.{js,jsx}'",
     "lint": "eslint ./src/**/*.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.3.4",

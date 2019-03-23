@@ -120,6 +120,9 @@ class Endpoint {
     const origin = trimSlashes(this.origin)
     const path = trimSlashes(this.path)
     const endpoint = trimStartSlash(this.endpoint)
+    if (!endpoint) {
+      return `${origin}/${path}`
+    }
     return `${origin}/${path}/${endpoint}`
   }
 
@@ -127,7 +130,7 @@ class Endpoint {
    *
    * @param {string} url
    * @param {string} method
-   * @param {object} options
+   * @param {object=} options
    * @returns {object}
    */
   queryOptions(url, method, options) {
@@ -177,11 +180,11 @@ class Endpoint {
 
   /**
    *
-   * @param response
+   * @param {object} response
    * @returns {*}
    */
   responseData(response) {
-    return response.data
+    return response && response.data
   }
 
   /**
@@ -190,15 +193,26 @@ class Endpoint {
    * @param {string} method
    * @param {object=} options
    * @param {AxiosError|Error} error
+   * @returns {MessageBag}
    */
   responseError(url, method, options, error) {
-    const messageBag = new MessageBag()
+    const messageBag = this.newMessageBag()
     messageBag.url = url
     messageBag.method = method
     messageBag.options = options
-    messageBag.config = error.config || {}
-    messageBag.response = error.response || {}
+    error = error || { config: {}, response: {} }
+    messageBag.original = error
+    messageBag.config = (error && error.config) || {}
+    messageBag.response = (error && error.response) || {}
     return messageBag
+  }
+
+  /**
+   *
+   * @returns {MessageBag}
+   */
+  newMessageBag() {
+    return new MessageBag()
   }
 
   /**
@@ -254,7 +268,8 @@ class Endpoint {
    *
    * @param {Error} error
    * @param {object|Endpoint} object
-   * @returns {Function|void}
+   * @returns {void|*}
+   * @throw {Error}
    */
   static handleQueryError(error, object) {
     if (

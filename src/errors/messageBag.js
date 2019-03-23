@@ -32,6 +32,13 @@ class MessageBag extends Error {
 
   /**
    *
+   * @type {Error|null}
+   * @private
+   */
+  _original = null
+
+  /**
+   *
    * @param {string} url
    */
   set url(url) {
@@ -68,6 +75,22 @@ class MessageBag extends Error {
    */
   set options(options) {
     this._options = options
+  }
+
+  /**
+   *
+   * @returns {object|Error}
+   */
+  get original() {
+    return this._original || { message: this.default }
+  }
+
+  /**
+   *
+   * @param {object|Error} original
+   */
+  set original(original) {
+    this._original = original
   }
 
   /**
@@ -120,12 +143,20 @@ class MessageBag extends Error {
 
   /**
    *
+   * @return {string}
+   */
+  get default() {
+    return 'An unexpected error has occurred. Please try again.'
+  }
+
+  /**
+   *
    * @returns {string}
    */
   getApiMessage() {
     return this._response.data && this._response.data.message
       ? this._response.data.message
-      : 'An unexpected error has occurred. Please try again.'
+      : this.default
   }
 
   /**
@@ -140,10 +171,18 @@ class MessageBag extends Error {
 
   /**
    *
+   * @return {number}
+   */
+  get defaultStatus() {
+    return 500
+  }
+
+  /**
+   *
    * @returns {object}
    */
   getStatus() {
-    return this._response.status ? this._response.status : 500
+    return this._response.status ? this._response.status : this.defaultStatus
   }
 
   /**
@@ -153,7 +192,10 @@ class MessageBag extends Error {
    */
   hasMessage(key) {
     const errors = this.getErrors()
-    return errors && errors[key]
+    if (errors && errors[key]) {
+      return true
+    }
+    return false
   }
 
   /**

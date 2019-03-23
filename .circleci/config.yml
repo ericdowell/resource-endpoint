@@ -23,8 +23,8 @@ jobs:
 
       - run: npm install
       - run:
-          name: Run tests (Re-enable later)
-          command: npm test || true
+          name: Run tests
+          command: npm test
       - run:
           name: Build package
           command: npm run build

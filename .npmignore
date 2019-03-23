@@ -5,6 +5,8 @@
 .prettierrc.json
 webpack.mix.js
 
+__tests__
+
 # compiled js files
 lib/*
 !lib/*.js
