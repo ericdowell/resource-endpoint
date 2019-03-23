@@ -25,6 +25,17 @@ test('the getBaseUrl is localhost with trailing slash', () => {
   expect(new Endpoint().getBaseUrl()).toMatchSnapshot()
 })
 
+test('the headers default is empty', () => {
+  expect(new Endpoint().hasHeaders()).toMatchSnapshot()
+  expect(new Endpoint().headers).toMatchSnapshot()
+})
+
+test('the setHeaders updates headers value', () => {
+  const endpoint = new Endpoint().setHeaders({ Accept: 'application/json' })
+  expect(endpoint.hasHeaders()).toMatchSnapshot()
+  expect(endpoint.headers).toMatchSnapshot()
+})
+
 test('the queryOptions will return default options', () => {
   const options = new Endpoint().queryOptions('final/path', 'get')
   expect(options).toMatchSnapshot()
@@ -56,8 +67,9 @@ test('the query will return MessageBag object', done => {
 })
 
 test('the query will return MessageBag object and debug to console', done => {
-  new Endpoint()
-    .debug()
+  const endpoint = new Endpoint().debug()
+  expect(endpoint.isDebugEnabled()).toMatchSnapshot()
+  endpoint
     .query('123', 'get', { errors: { foo: 'bar is something else.' } })
     .catch(messageBag => {
       expect(messageBag).toBeInstanceOf(MessageBag)
@@ -91,4 +103,6 @@ test('the responseError will return default MessageBag', () => {
   expect(messageBag.original.toString()).toMatchSnapshot()
   expect(messageBag.url).toMatchSnapshot()
   expect(messageBag.method).toMatchSnapshot()
+  expect(messageBag.config).toMatchSnapshot()
+  expect(messageBag.response).toMatchSnapshot()
 })

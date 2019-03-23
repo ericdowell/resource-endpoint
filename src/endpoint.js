@@ -63,7 +63,7 @@ class Endpoint {
    * @returns {boolean}
    */
   hasHeaders() {
-    return Object.keys(this.headers).length < 0
+    return Object.keys(this.headers).length > 0
   }
 
   /**

@@ -24,7 +24,7 @@ jobs:
       - run: npm install
       - run:
           name: Run tests
-          command: npm test
+          command: npm test --coverage
       - run:
           name: Build package
           command: npm run build
@@ -33,6 +33,9 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
+
+      - store_test_results:
+          path: coverage
 
       - persist_to_workspace:
           root: ~/repo
