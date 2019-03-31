@@ -1,6 +1,9 @@
 .cache
 .idea
 
+package-lock.lock
+yarn.lock
+
 # compiled js files
 lib/
 !lib/.gitkeep
