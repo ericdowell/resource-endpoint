@@ -10,6 +10,7 @@ class CrudApiEndpoint extends CrudEndpoint {
    * @protected
    */
   _headers = {
+    Accept: 'application/json',
     'Content-Type': 'application/x-www-form-urlencoded'
   }
 

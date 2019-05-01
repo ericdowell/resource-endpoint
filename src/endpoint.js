@@ -52,6 +52,17 @@ class Endpoint {
 
   /**
    *
+   * @param {string} key
+   * @param {*} value
+   * @returns {Endpoint}
+   */
+  setHeader(key, value) {
+    this._headers[key] = value
+    return this
+  }
+
+  /**
+   *
    * @returns {object}
    */
   get headers() {

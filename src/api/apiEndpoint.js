@@ -10,6 +10,7 @@ class ApiEndpoint extends Endpoint {
    * @protected
    */
   _headers = {
+    Accept: 'application/json',
     'Content-Type': 'application/x-www-form-urlencoded'
   }
 

@@ -31,7 +31,7 @@ test('the headers default is empty', () => {
 })
 
 test('the setHeaders updates headers value', () => {
-  const endpoint = new Endpoint().setHeaders({ Accept: 'application/json' })
+  const endpoint = new Endpoint().setHeader('Accept', 'application/json')
   expect(endpoint.hasHeaders()).toMatchSnapshot()
   expect(endpoint.headers).toMatchSnapshot()
 })
