@@ -1,6 +1,6 @@
 {
   "name": "resource-endpoint",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "license": "MIT",
   "description": "A simple wrapper for any Promise based HTTP client.",
   "author": "Eric Dowell <github@ericdowell.com> (https://ericdowell.com)",
@@ -37,7 +37,7 @@
     "@babel/plugin-proposal-class-properties": "^7.3.4",
     "@babel/plugin-transform-classes": "^7.3.4",
     "@babel/preset-env": "^7.3.4",
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.1.0",
     "cross-env": "^5.2.0",
