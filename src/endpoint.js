@@ -88,7 +88,7 @@ class Endpoint {
   }
 
   /**
-   * This it the middle of the url path, usually a group prefix.
+   * This is the middle of the url path, usually a group prefix.
    * e.g. api/v1 or user/settings
    *
    * @returns {string}
@@ -98,7 +98,7 @@ class Endpoint {
   }
 
   /**
-   * This should be singular.
+   * This recommended to be singular.
    * e.g. "user" or "profile" or this.constructor.name.toLowerCase()
    *
    * @returns {string}
@@ -108,6 +108,7 @@ class Endpoint {
   }
 
   /**
+   * Returns Promise based HTTP Client, default is Axios
    *
    * @returns {{AxiosStatic: AxiosStatic}}
    */
@@ -116,6 +117,7 @@ class Endpoint {
   }
 
   /**
+   * Returns console for output.
    *
    * @returns {Console}
    */
@@ -139,6 +141,7 @@ class Endpoint {
   }
 
   /**
+   * Returns object of query options, currently defaults to Axios options.
    *
    * @param {string} url
    * @param {string} method
@@ -164,6 +167,7 @@ class Endpoint {
   }
 
   /**
+   * General query method that is used by all HTTP calls.
    *
    * @param {string} url
    * @param {string} method
