@@ -113,7 +113,7 @@ class Endpoint {
    * @returns {{AxiosStatic: AxiosStatic}}
    */
   get client() {
-    return axios || window.axios
+    return (window && window.axios) || axios
   }
 
   /**
@@ -122,7 +122,7 @@ class Endpoint {
    * @returns {Console}
    */
   get output() {
-    return console || window.console
+    return (window && window.console) || console
   }
 
   /**
