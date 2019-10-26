@@ -50,6 +50,16 @@ class CrudEndpoint extends Endpoint {
   put(path, options) {
     return this.query(path, 'put', options)
   }
+
+  /**
+   *
+   * @param {string} path
+   * @param {object=} options
+   * @returns {Promise<any>}
+   */
+  search(path, options) {
+    return this.query(path, 'search', options)
+  }
 }
 
 export default CrudEndpoint

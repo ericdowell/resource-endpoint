@@ -262,7 +262,7 @@ class Endpoint {
    * @param {object} data
    */
   debugQuery(url, method, options, label, data) {
-    let output = [
+    const output = [
       'color: #e55ea2;',
       url,
       'color: black;',

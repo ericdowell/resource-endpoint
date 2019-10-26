@@ -27,7 +27,7 @@ class ResourceEndpoint extends CrudEndpoint {
   /**
    * Display the specified resource.
    *
-   * @param {integer} id
+   * @param {int} id
    * @param {object=} params
    * @returns {*|Promise<any | void>}
    */
@@ -39,7 +39,7 @@ class ResourceEndpoint extends CrudEndpoint {
   /**
    * Update the specified resource in storage.
    *
-   * @param {integer} id
+   * @param {int} id
    * @param {object} data
    * @param {object=} params
    * @returns {*|Promise<any | void>}
@@ -52,7 +52,7 @@ class ResourceEndpoint extends CrudEndpoint {
   /**
    * Remove the specified resource from storage.
    *
-   * @param {integer} id
+   * @param {int} id
    * @param {object=} params
    * @returns {*|Promise<any | void>}
    */
