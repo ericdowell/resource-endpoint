@@ -5,7 +5,7 @@ import { BasicMock } from '../../mock/axios'
 import MessageBag from '../errors/messageBag'
 
 jest.mock('axios')
-jest.spyOn(global.console, 'log')
+jest.spyOn(global.console, 'log').mockImplementation(() => {})
 
 axios.mockImplementation(BasicMock)
 

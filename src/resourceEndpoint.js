@@ -50,6 +50,21 @@ class ResourceEndpoint extends CrudEndpoint {
   }
 
   /**
+   * Store or update specified resource in storage.
+   *
+   * @param {int|null|undefined} id
+   * @param {object} data
+   * @param {object=} params
+   * @returns {*|Promise<any|void>}
+   */
+  storeOrUpdate(id, data, params) {
+    if (!id) {
+      return this.store(data, params)
+    }
+    return this.update(id, data, params)
+  }
+
+  /**
    * Remove the specified resource from storage.
    *
    * @param {int} id
