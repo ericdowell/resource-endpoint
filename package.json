@@ -1,6 +1,6 @@
 {
   "name": "resource-endpoint",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "license": "MIT",
   "description": "A simple wrapper for any Promise based HTTP client.",
   "author": "Eric Dowell <github@ericdowell.com> (https://ericdowell.com)",
@@ -40,7 +40,10 @@
     }
   },
   "lint-staged": {
-    "*.js": ["npm run lint -- --fix", "git add"]
+    "*.js": [
+      "npm run lint -- --fix",
+      "git add"
+    ]
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.7.4",
