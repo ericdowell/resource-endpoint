@@ -1,14 +1,19 @@
-import axios from 'axios'
-import MessageBag from './errors/messageBag'
+import axios, {
+  AxiosError,
+  AxiosRequestConfig,
+  AxiosResponse,
+  Method,
+} from 'axios'
+import { MessageBag } from '@errors/messageBag'
 import qs from 'qs'
 
-const trimSlashes = string =>
+const trimSlashes = (string: any): string =>
   (typeof string === 'string' && string.replace(/^\/|\/$/g, '')) || ''
 
-const trimStartSlash = string =>
+const trimStartSlash = (string: any): string =>
   (typeof string === 'string' && string.replace(/^\/+/g, '')) || ''
 
-class Endpoint {
+export class Endpoint {
   /**
    *
    * @type {boolean}
@@ -21,13 +26,13 @@ class Endpoint {
    * @type {object}
    * @protected
    */
-  _headers = {}
+  _headers: { [key: string]: any } = {}
 
   /**
    *
    * @returns {this}
    */
-  debug() {
+  debug(): this {
     this._debug = true
     return this
   }
@@ -36,16 +41,16 @@ class Endpoint {
    *
    * @returns {boolean}
    */
-  isDebugEnabled() {
-    return this._debug === true
+  isDebugEnabled(): boolean {
+    return this._debug
   }
 
   /**
    *
    * @param {object} headers
-   * @returns {Endpoint}
+   * @returns {this}
    */
-  setHeaders(headers) {
+  setHeaders(headers: any): this {
     this._headers = headers
     return this
   }
@@ -54,9 +59,9 @@ class Endpoint {
    *
    * @param {string} key
    * @param {*} value
-   * @returns {Endpoint}
+   * @returns {this}
    */
-  setHeader(key, value) {
+  setHeader(key: string, value: any): this {
     this._headers[key] = value
     return this
   }
@@ -65,7 +70,7 @@ class Endpoint {
    *
    * @returns {object}
    */
-  get headers() {
+  get headers(): { [key: string]: any } {
     return this._headers
   }
 
@@ -73,7 +78,7 @@ class Endpoint {
    *
    * @returns {boolean}
    */
-  hasHeaders() {
+  hasHeaders(): boolean {
     return Object.keys(this.headers).length !== 0
   }
 
@@ -83,7 +88,7 @@ class Endpoint {
    *
    * @returns {string}
    */
-  get origin() {
+  get origin(): string {
     return window.location.origin
   }
 
@@ -93,7 +98,7 @@ class Endpoint {
    *
    * @returns {string}
    */
-  get path() {
+  get path(): string {
     return ''
   }
 
@@ -103,17 +108,8 @@ class Endpoint {
    *
    * @returns {string}
    */
-  get endpoint() {
+  get endpoint(): string {
     return ''
-  }
-
-  /**
-   * Returns Promise based HTTP Client, default is Axios
-   *
-   * @returns {{AxiosStatic: AxiosStatic}}
-   */
-  get client() {
-    return (window && window.axios) || axios
   }
 
   /**
@@ -121,7 +117,7 @@ class Endpoint {
    *
    * @returns {Console}
    */
-  get output() {
+  get output(): Console {
     return (window && window.console) || console
   }
 
@@ -130,7 +126,7 @@ class Endpoint {
    *
    * @returns {string}
    */
-  getBaseUrl() {
+  getBaseUrl(): string {
     const origin = trimSlashes(this.origin)
     const path = trimSlashes(this.path)
     const endpoint = trimStartSlash(this.endpoint)
@@ -148,22 +144,22 @@ class Endpoint {
    * @param {object=} options
    * @returns {object}
    */
-  queryOptions(url, method, options) {
-    options = options || {}
-    options = Object.assign({}, options, { url, method })
-    options.baseURL = this.getBaseUrl()
-    if (!options.paramsSerializer) {
-      options.paramsSerializer = params => {
+  queryOptions(
+    url: string,
+    method: Method,
+    options?: AxiosRequestConfig,
+  ): AxiosRequestConfig {
+    const config = { ...(options ?? {}), ...{ url, method } }
+    config.baseURL = this.getBaseUrl()
+    if (!config.paramsSerializer) {
+      config.paramsSerializer = (params): string => {
         return qs.stringify(params, { arrayFormat: 'brackets' })
       }
     }
     if (this.hasHeaders()) {
-      options.headers = Object.assign({}, options.headers || {}, this.headers)
+      config.headers = { ...config.headers, ...this.headers }
     }
-    if (!options.data || typeof options.data !== 'object') {
-      return options
-    }
-    return options
+    return config
   }
 
   /**
@@ -174,32 +170,33 @@ class Endpoint {
    * @param {object=} options
    * @returns {Promise<any>}
    */
-  query(url, method, options) {
-    const client = this.client
-    options = this.queryOptions(url, method, options)
-
-    return client(options)
-      .then(response => {
-        if (this.isDebugEnabled()) {
-          this.debugResponse(url, method, options, response)
-        }
-        return this.responseData(response)
-      })
-      .catch(error => {
-        const responseError = this.responseError(url, method, options, error)
-        if (this.isDebugEnabled()) {
-          this.debugResponseError(url, method, options, responseError)
-        }
-        return Endpoint.handleQueryError(responseError, this)
-      })
+  async query<T = any, R = AxiosResponse<T>>(
+    url: string,
+    method: Method,
+    options?: AxiosRequestConfig | any,
+  ): Promise<R> {
+    const config = this.queryOptions(url, method, options)
+    try {
+      const response = await axios.request<T, R>(config)
+      if (this.isDebugEnabled()) {
+        this.debugResponse(url, method, config, response)
+      }
+      return this.responseData<R>(response)
+    } catch (error) {
+      const responseError = this.responseError(url, method, config, error)
+      if (this.isDebugEnabled()) {
+        this.debugResponseError(url, method, config, responseError)
+      }
+      return Endpoint.handleQueryError(responseError, this)
+    }
   }
 
   /**
    *
    * @param {object} response
-   * @returns {*}
+   * @returns {any}
    */
-  responseData(response) {
+  responseData<T = any>(response: AxiosResponse | any): T {
     return response && response.data
   }
 
@@ -211,7 +208,12 @@ class Endpoint {
    * @param {AxiosError|Error} error
    * @returns {MessageBag}
    */
-  responseError(url, method, options, error) {
+  responseError(
+    url: string,
+    method: Method,
+    options: AxiosRequestConfig,
+    error: AxiosError | any,
+  ): MessageBag {
     const messageBag = this.newMessageBag()
     messageBag.url = url
     messageBag.method = method
@@ -227,7 +229,7 @@ class Endpoint {
    *
    * @returns {MessageBag}
    */
-  newMessageBag() {
+  newMessageBag(): MessageBag {
     return new MessageBag()
   }
 
@@ -238,8 +240,13 @@ class Endpoint {
    * @param {object=} options
    * @param {object} response
    */
-  debugResponse(url, method, options, response) {
-    this.debugQuery(url, method, options, 'response', response)
+  debugResponse<T = any, R = AxiosResponse<T>>(
+    url: string,
+    method: string,
+    options: AxiosRequestConfig,
+    response: R,
+  ): void {
+    this.debugQuery<R>(url, method, options, 'response', response)
   }
 
   /**
@@ -249,8 +256,13 @@ class Endpoint {
    * @param {object=} options
    * @param {MessageBag} error
    */
-  debugResponseError(url, method, options, error) {
-    this.debugQuery(url, method, options, 'error', error)
+  debugResponseError<T = MessageBag>(
+    url: string,
+    method: string,
+    options: AxiosRequestConfig,
+    error: T,
+  ): void {
+    this.debugQuery<T>(url, method, options, 'error', error)
   }
 
   /**
@@ -261,7 +273,13 @@ class Endpoint {
    * @param {string} label
    * @param {object} data
    */
-  debugQuery(url, method, options, label, data) {
+  debugQuery<T = any>(
+    url: string,
+    method: string,
+    options: AxiosRequestConfig,
+    label: string,
+    data: T,
+  ): void {
     const output = [
       'color: #e55ea2;',
       url,
@@ -269,7 +287,7 @@ class Endpoint {
       'color: #e55ea2;',
       method,
       'color: black;',
-      options
+      options,
     ]
     let format = 'url: %c"%s"%c\nmethod: %c"%s"%c\noptions:\n%o'
     if (label && data) {
@@ -280,23 +298,21 @@ class Endpoint {
     this.output.log(format, ...output)
   }
 
+  handleError(error: AxiosError | Error): never {
+    throw error
+  }
+
   /**
    *
    * @param {Error} error
-   * @param {object|Endpoint} object
+   * @param {any} endpointInstance
    * @returns {void|*}
    * @throw {Error}
    */
-  static handleQueryError(error, object) {
-    if (
-      !(object instanceof Endpoint) ||
-      !object.handleError ||
-      typeof object.handleError !== 'function'
-    ) {
-      throw error
-    }
-    return object.handleError(error)
+  static handleQueryError(
+    error: AxiosError | Error,
+    endpointInstance: Endpoint,
+  ): any {
+    return endpointInstance.handleError(error)
   }
 }
-
-export default Endpoint
