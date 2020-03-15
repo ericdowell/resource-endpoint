@@ -7,9 +7,7 @@ module.exports = {
   coveragePathIgnorePatterns: ['/lib/', '/node_modules/'],
   rootDir: './src',
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/$1',
-    '^@api/(.*)$': '<rootDir>/api/$1',
-    '^@errors/(.*)$': '<rootDir>/errors/$1',
+    '^~/(.*)$': '<rootDir>/$1',
   },
   testEnvironment: 'jsdom',
 }
