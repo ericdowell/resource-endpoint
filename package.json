@@ -28,19 +28,19 @@
   ],
   "main": "lib/index.js",
   "scripts": {
-    "build": "cross-env NODE_ENV=production tsc",
+    "clean": "rm -fr ./lib",
+    "build": "npm run clean && cross-env NODE_ENV=production tsc && rm -fr ./lib/__tests__",
     "lint": "eslint ./src --ext .ts",
     "lint:fix": "npm run lint -- --fix --quiet",
     "test": "jest"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "npm test"
+      "pre-commit": "tsc --noEmit && lint-staged"
     }
   },
   "lint-staged": {
-    "*.js": "npm run lint:fix"
+    "*.ts": "npm run lint:fix"
   },
   "devDependencies": {
     "@types/jest": "^25.1.4",
