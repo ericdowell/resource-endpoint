@@ -6,14 +6,5 @@ coverage/
 .eslintrc.js
 
 jest.config.js
+lib/__tests__/
 src/__tests__/
-
-# compiled js files
-dist/*
-!dist/*.js
-!dist/errors/*.js
-!dist/api/*.js
-lib/*
-!lib/*.js
-!lib/errors/*.js
-!lib/api/*.js

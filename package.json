@@ -32,8 +32,7 @@
     "prebuild": "npm run lint -- --quiet && rm -fr ./lib",
     "build": "npm run prebuild && npm run build:ts && npm run build:webpack && npm run postbuild",
     "build:ts": "cross-env NODE_ENV=production tsc",
-    "build:webpack": "cross-env NODE_ENV=production webpack",
-    "postbuild": "rm -fr ./lib/__tests__",
+    "build:webpack": "cross-env NODE_ENV=production webpack -p",
     "lint": "tsc --noEmit && eslint ./src --ext .ts",
     "lint:fix": "npm run lint -- --fix --quiet",
     "test": "jest"
