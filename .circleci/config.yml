@@ -19,14 +19,6 @@ jobs:
 
       - run: npm install
       - run:
-          name: Publish package
-          command: |
-            if [[ "${CIRCLE_BRANCH}" == *"aste"* ]]; then
-              echo "Publish BETA: ${CIRCLE_BRANCH}"
-            else
-              echo "Publish BETA: ${CIRCLE_BRANCH}"
-            fi
-      - run:
           name: Run tests
           command: npm test
       - run:
