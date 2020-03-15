@@ -4,7 +4,6 @@ import axios, {
   AxiosResponse,
   Method,
 } from 'axios'
-import { MessageBag } from '@errors/messageBag'
 import qs from 'qs'
 
 const trimSlashes = (string: any): string =>
@@ -141,15 +140,15 @@ export class Endpoint {
    *
    * @param {string} url
    * @param {string} method
-   * @param {object=} options
+   * @param {object=} requestConfig
    * @returns {object}
    */
   queryOptions(
     url: string,
     method: Method,
-    options?: AxiosRequestConfig,
+    requestConfig?: AxiosRequestConfig,
   ): AxiosRequestConfig {
-    const config = { ...(options ?? {}), ...{ url, method } }
+    const config = { ...(requestConfig ?? {}), ...{ url, method } }
     config.baseURL = this.getBaseUrl()
     if (!config.paramsSerializer) {
       config.paramsSerializer = (params): string => {
@@ -167,15 +166,15 @@ export class Endpoint {
    *
    * @param {string} url
    * @param {string} method
-   * @param {object=} options
+   * @param {object=} requestConfig
    * @returns {Promise<any>}
    */
   async query<T = any, R = AxiosResponse<T>>(
     url: string,
     method: Method,
-    options?: AxiosRequestConfig | any,
+    requestConfig?: AxiosRequestConfig | any,
   ): Promise<R> {
-    const config = this.queryOptions(url, method, options)
+    const config = this.queryOptions(url, method, requestConfig)
     try {
       const response = await axios.request<T, R>(config)
       if (this.isDebugEnabled()) {
@@ -183,11 +182,10 @@ export class Endpoint {
       }
       return this.responseData<R>(response)
     } catch (error) {
-      const responseError = this.responseError(url, method, config, error)
       if (this.isDebugEnabled()) {
-        this.debugResponseError(url, method, config, responseError)
+        this.debugResponseError(url, method, config, error)
       }
-      return Endpoint.handleQueryError(responseError, this)
+      return Endpoint.handleQueryError(error, this)
     }
   }
 
@@ -204,79 +202,46 @@ export class Endpoint {
    *
    * @param {string} url
    * @param {string} method
-   * @param {object=} options
-   * @param {AxiosError|Error} error
-   * @returns {MessageBag}
-   */
-  responseError(
-    url: string,
-    method: Method,
-    options: AxiosRequestConfig,
-    error: AxiosError | any,
-  ): MessageBag {
-    const messageBag = this.newMessageBag()
-    messageBag.url = url
-    messageBag.method = method
-    messageBag.options = options
-    error = error || { config: {}, response: {} }
-    messageBag.original = error
-    messageBag.config = (error && error.config) || {}
-    messageBag.response = (error && error.response) || {}
-    return messageBag
-  }
-
-  /**
-   *
-   * @returns {MessageBag}
-   */
-  newMessageBag(): MessageBag {
-    return new MessageBag()
-  }
-
-  /**
-   *
-   * @param {string} url
-   * @param {string} method
-   * @param {object=} options
+   * @param {object=} config
    * @param {object} response
    */
   debugResponse<T = any, R = AxiosResponse<T>>(
     url: string,
     method: string,
-    options: AxiosRequestConfig,
+    config: AxiosRequestConfig,
     response: R,
   ): void {
-    this.debugQuery<R>(url, method, options, 'response', response)
+    this.debugQuery<R>(url, method, config, 'response', response)
   }
 
   /**
    *
    * @param {string} url
    * @param {string} method
-   * @param {object=} options
-   * @param {MessageBag} error
+   * @param {object=} config
+   * @param {AxiosError} error
    */
-  debugResponseError<T = MessageBag>(
+  debugResponseError<T = AxiosError>(
     url: string,
     method: string,
-    options: AxiosRequestConfig,
+    config: AxiosRequestConfig,
     error: T,
   ): void {
-    this.debugQuery<T>(url, method, options, 'error', error)
+    this.debugQuery<T>(url, method, config, 'error', error)
   }
 
   /**
    *
    * @param {string} url
    * @param {string} method
-   * @param {object=} options
+   * @param {object=} config
    * @param {string} label
    * @param {object} data
    */
   debugQuery<T = any>(
     url: string,
     method: string,
-    options: AxiosRequestConfig,
+    config: AxiosRequestConfig,
     label: string,
     data: T,
   ): void {
@@ -287,9 +252,9 @@ export class Endpoint {
       'color: #e55ea2;',
       method,
       'color: black;',
-      options,
+      config,
     ]
-    let format = 'url: %c"%s"%c\nmethod: %c"%s"%c\noptions:\n%o'
+    let format = 'url: %c"%s"%c\nmethod: %c"%s"%c\nconfig:\n%o'
     if (label && data) {
       format += '\n%s:\n%o'
       output.push(label)
