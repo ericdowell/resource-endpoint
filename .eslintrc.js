@@ -9,7 +9,6 @@ module.exports = {
   plugins: [
     '@typescript-eslint',
     'import',
-    'prettier',
   ],
   extends: [
     'standard',
@@ -18,8 +17,6 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
-    'prettier/standard',
-    'plugin:prettier/recommended',
   ],
   parserOptions: {
     sourceType: 'module',
@@ -28,8 +25,17 @@ module.exports = {
   rules: {
     'linebreak-style': ['error', 'unix'],
     'import/first': 'error',
-    'no-eval': 'error',
-    'prettier/prettier': 'error',
     'import/no-unresolved': ['error', {ignore: ['@api','@errors','@/']}],
+    'no-eval': 'error',
+    // Prettier replacements
+    'arrow-parens': ["error", "always"],
+    'comma-dangle': ["error", "always-multiline"],
+    indent: ['error', 2],
+    'max-len': ['error', { "code": 120 }],
+    'object-curly-spacing': ["error", "always"],
+    quotes: ["error", "single"],
+    semi: 'off',
+    'space-before-function-paren': ['error', 'never'],
+    '@typescript-eslint/semi': ['error', 'never']
   },
 }
