@@ -3,8 +3,15 @@ const path = require('path')
 
 module.exports = {
   mode: process.env.NODE_ENV || 'production',
-  entry: './src/index.ts',
-  devtool: 'inline-source-map',
+  entry: {
+    'resource-endpoint': path.resolve(__dirname, 'src/index.ts'),
+  },
+  devtool: 'source-map',
+  output: {
+    path: path.resolve(__dirname, 'lib'),
+    filename: 'index.js',
+    libraryTarget: 'umd',
+  },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
     alias: {
@@ -25,10 +32,6 @@ module.exports = {
         loader: 'source-map-loader',
       },
     ],
-  },
-  output: {
-    filename: 'index.js',
-    path: path.resolve(__dirname, 'lib'),
   },
   externals: {
     // Don't bundle axios or qs
