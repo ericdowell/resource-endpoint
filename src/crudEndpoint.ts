@@ -1,4 +1,4 @@
-import { Endpoint } from '~/endpoint'
+import { Endpoint } from './endpoint'
 import { AxiosRequestConfig, AxiosResponse } from 'axios'
 
 export class CrudEndpoint extends Endpoint {
@@ -10,7 +10,7 @@ export class CrudEndpoint extends Endpoint {
    */
   delete<T = any, R = AxiosResponse<T>>(
     path: string,
-    options: AxiosRequestConfig,
+    options?: AxiosRequestConfig,
   ): Promise<R> {
     return this.query<T, R>(path, 'delete', options)
   }
@@ -23,7 +23,7 @@ export class CrudEndpoint extends Endpoint {
    */
   get<T = any, R = AxiosResponse<T>>(
     path: string,
-    options: AxiosRequestConfig,
+    options?: AxiosRequestConfig,
   ): Promise<R> {
     return this.query<T, R>(path, 'get', options)
   }
@@ -36,7 +36,7 @@ export class CrudEndpoint extends Endpoint {
    */
   patch<T = any, R = AxiosResponse<T>>(
     path: string,
-    options: AxiosRequestConfig,
+    options?: AxiosRequestConfig,
   ): Promise<R> {
     return this.query<T, R>(path, 'patch', options)
   }
@@ -44,12 +44,12 @@ export class CrudEndpoint extends Endpoint {
   /**
    *
    * @param {string} path
-   * @param {object=} options
+   * @param {AxiosRequestConfig=} options
    * @returns {Promise<any>}
    */
   post<T = any, R = AxiosResponse<T>>(
     path: string,
-    options: AxiosRequestConfig,
+    options?: AxiosRequestConfig,
   ): Promise<R> {
     return this.query<T, R>(path, 'post', options)
   }
@@ -57,12 +57,12 @@ export class CrudEndpoint extends Endpoint {
   /**
    *
    * @param {string} path
-   * @param {object=} options
+   * @param {AxiosRequestConfig=} options
    * @returns {Promise<any>}
    */
   put<T = any, R = AxiosResponse<T>>(
     path: string,
-    options: AxiosRequestConfig,
+    options?: AxiosRequestConfig,
   ): Promise<R> {
     return this.query<T, R>(path, 'put', options)
   }

@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2019",
+    "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",
     "lib": [
@@ -17,11 +17,6 @@
     "rootDir": "src",
     "strict": true,
     "baseUrl": "src",
-    "paths": {
-      "~/*": [
-        "*"
-      ]
-    },
     "types": [
       "@types/jest",
       "@types/node"

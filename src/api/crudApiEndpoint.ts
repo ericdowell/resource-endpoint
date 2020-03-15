@@ -1,5 +1,5 @@
 /* global FormData */
-import { CrudEndpoint } from '~/crudEndpoint'
+import { CrudEndpoint } from '../crudEndpoint'
 import qs from 'qs'
 import { AxiosRequestConfig, Method } from 'axios'
 

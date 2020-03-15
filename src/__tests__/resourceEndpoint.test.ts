@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { ResourceEndpoint } from '~/resourceEndpoint'
-import { BasicMock } from '~/__tests__/mock/axios'
+import { ResourceEndpoint } from '../resourceEndpoint'
+import { BasicMock } from './mock/axios'
 
 const axiosRequest = jest.spyOn(axios, 'request').mockImplementation(BasicMock)
 // eslint-disable-next-line @typescript-eslint/no-empty-function

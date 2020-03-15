@@ -1,9 +1,9 @@
 /* global FormData */
-import { Endpoint } from '~/endpoint'
+import { Endpoint } from '../endpoint'
 import { AxiosRequestConfig, Method } from 'axios'
 import qs from 'qs'
 
-// TODO: Look into Mixin for duplicate code
+// TODO: Look into Mixin for duplicate code within src/api folder
 export class ApiEndpoint extends Endpoint {
   /**
    * Always set Content-Type to application/x-www-form-urlencoded, place in assign last.
