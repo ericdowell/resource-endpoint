@@ -28,15 +28,18 @@
   ],
   "main": "lib/index.js",
   "scripts": {
-    "clean": "rm -fr ./lib",
-    "build": "npm run clean && cross-env NODE_ENV=production tsc && rm -fr ./lib/__tests__",
-    "lint": "eslint ./src --ext .ts",
+    "clean": "npm run lint -- --quiet && rm -fr ./lib",
+    "build": "npm run clean && npm run build:webpack && npm run build:clean",
+    "build:clean": "rm -fr ./lib/__tests__",
+    "build:ts": "cross-env NODE_ENV=production tsc",
+    "build:webpack": "cross-env NODE_ENV=production webpack",
+    "lint": "tsc --noEmit && eslint ./src --ext .ts",
     "lint:fix": "npm run lint -- --fix --quiet",
     "test": "jest"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "tsc --noEmit && lint-staged"
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
@@ -61,6 +64,9 @@
     "lint-staged": "^10.0.8",
     "qs": "^6.9.1",
     "ts-jest": "^25.2.1",
-    "typescript": "^3.8.3"
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.8.3",
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11"
   }
 }

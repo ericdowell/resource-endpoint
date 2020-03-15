@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2019",
     "module": "commonjs",
     "moduleResolution": "node",
     "lib": [
@@ -13,19 +13,13 @@
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "outDir": "./lib",
-    "rootDir": "./src",
+    "outDir": "lib",
+    "rootDir": "src",
     "strict": true,
-    "baseUrl": ".",
+    "baseUrl": "src",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@api/*": [
-        "./src/api/*"
-      ],
-      "@errors/*": [
-        "./src/errors/*"
+      "~/*": [
+        "*"
       ]
     },
     "types": [

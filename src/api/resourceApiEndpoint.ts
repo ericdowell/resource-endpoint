@@ -1,5 +1,5 @@
 /* global FormData */
-import { ResourceEndpoint } from '@/resourceEndpoint'
+import { ResourceEndpoint } from '~/resourceEndpoint'
 import qs from 'qs'
 import { AxiosRequestConfig, Method } from 'axios'
 

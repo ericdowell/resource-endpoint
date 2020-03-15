@@ -25,7 +25,7 @@ module.exports = {
   rules: {
     'linebreak-style': ['error', 'unix'],
     'import/first': 'error',
-    'import/no-unresolved': ['error', {ignore: ['@api','@errors','@/']}],
+    'import/no-unresolved': ['error', {ignore: ['~/']}],
     'no-eval': 'error',
     // Prettier replacements
     'arrow-parens': ["error", "always"],

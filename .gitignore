@@ -6,8 +6,8 @@ package-lock.lock
 yarn.lock
 
 # compiled js files
+dist/
 lib/
-!lib/.gitkeep
 
 # Logs
 logs

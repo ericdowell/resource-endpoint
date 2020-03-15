@@ -1,11 +1,11 @@
 // Base
-export { Endpoint } from '@/endpoint'
-export { CrudEndpoint } from '@/crudEndpoint'
-export { ResourceEndpoint } from '@/resourceEndpoint'
+export { Endpoint } from '~/endpoint'
+export { CrudEndpoint } from '~/crudEndpoint'
+export { ResourceEndpoint } from '~/resourceEndpoint'
 // Api
-export { ApiEndpoint } from '@api/apiEndpoint'
-export { CrudApiEndpoint } from '@api/crudApiEndpoint'
-export { ResourceApiEndpoint } from '@api/resourceApiEndpoint'
+export { ApiEndpoint } from '~/api/apiEndpoint'
+export { CrudApiEndpoint } from '~/api/crudApiEndpoint'
+export { ResourceApiEndpoint } from '~/api/resourceApiEndpoint'
 // Errors
 export {
   getFallbackMessage,
@@ -13,4 +13,4 @@ export {
   getStatus,
   hasMessage,
   getMessage,
-} from '@errors/messages'
+} from '~/errors/messages'
