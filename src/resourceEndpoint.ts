@@ -1,15 +1,16 @@
-import CrudEndpoint from './crudEndpoint'
+import { CrudEndpoint } from '~/crudEndpoint'
+import { AxiosResponse } from 'axios'
 
-class ResourceEndpoint extends CrudEndpoint {
+export class ResourceEndpoint extends CrudEndpoint {
   /**
    * Display a listing of the resource.
    *
    * @param {object=} params
    * @returns {Promise<any>}
    */
-  index(params) {
+  index<T = any, R = AxiosResponse<T>>(params?: any): Promise<R> {
     params = params || {}
-    return this.get('/', { params })
+    return this.get<T, R>('/', { params })
   }
 
   /**
@@ -19,21 +20,24 @@ class ResourceEndpoint extends CrudEndpoint {
    * @param {object=} params
    * @returns {*|Promise<any | void>}
    */
-  store(data, params) {
+  store<T = any, R = AxiosResponse<T>>(data: any, params?: any): Promise<R> {
     params = params || {}
-    return this.post('/', { data, params })
+    return this.post<T, R>('/', { data, params })
   }
 
   /**
    * Display the specified resource.
    *
-   * @param {int} id
+   * @param {any} id
    * @param {object=} params
    * @returns {*|Promise<any | void>}
    */
-  show(id, params) {
+  show<T = any, R = AxiosResponse<T>>(
+    id: string | number,
+    params?: any,
+  ): Promise<R> {
     params = params || {}
-    return this.get(`/${id}`, { params })
+    return this.get<T, R>(`/${id}`, { params })
   }
 
   /**
@@ -44,9 +48,13 @@ class ResourceEndpoint extends CrudEndpoint {
    * @param {object=} params
    * @returns {*|Promise<any | void>}
    */
-  update(id, data, params) {
+  update<T = any, R = AxiosResponse<T>>(
+    id: string | number,
+    data: any,
+    params?: any,
+  ): Promise<R> {
     params = params || {}
-    return this.put(`/${id}`, { data, params })
+    return this.put<T, R>(`/${id}`, { data, params })
   }
 
   /**
@@ -57,11 +65,15 @@ class ResourceEndpoint extends CrudEndpoint {
    * @param {object=} params
    * @returns {*|Promise<any|void>}
    */
-  storeOrUpdate(id, data, params) {
+  storeOrUpdate<T = any, R = AxiosResponse<T>>(
+    id: null | string | number,
+    data: any,
+    params?: any,
+  ): Promise<R> {
     if (!id) {
-      return this.store(data, params)
+      return this.store<T, R>(data, params)
     }
-    return this.update(id, data, params)
+    return this.update<T, R>(id, data, params)
   }
 
   /**
@@ -71,10 +83,11 @@ class ResourceEndpoint extends CrudEndpoint {
    * @param {object=} params
    * @returns {*|Promise<any | void>}
    */
-  destroy(id, params) {
+  destroy<T = any, R = AxiosResponse<T>>(
+    id: string | number,
+    params?: any,
+  ): Promise<R> {
     params = params || {}
-    return this.delete(`/${id}`, { params })
+    return this.delete<T, R>(`/${id}`, { params })
   }
 }
-
-export default ResourceEndpoint

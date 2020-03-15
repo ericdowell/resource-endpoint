@@ -27,43 +27,47 @@
     "axios"
   ],
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
-    "build": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js && rm -f ./lib/mix-manifest.json",
-    "format": "prettier --write 'src/**/*.{js,jsx}'",
-    "lint": "eslint ./src",
+    "prebuild": "npm run lint -- --quiet && rm -fr ./lib",
+    "build": "npm run prebuild && npm run build:webpack && npm run postbuild",
+    "build:ts": "cross-env NODE_ENV=production tsc",
+    "build:webpack": "cross-env NODE_ENV=production webpack",
+    "postbuild": "rm -fr ./lib/__tests__",
+    "lint": "tsc --noEmit && eslint ./src --ext .ts",
+    "lint:fix": "npm run lint -- --fix --quiet",
     "test": "jest"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "npm test"
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
-    "*.js": "npm run lint -- --fix"
+    "*.ts": "npm run lint:fix"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.7.4",
-    "@babel/plugin-transform-classes": "^7.7.4",
-    "@babel/preset-env": "^7.7.4",
+    "@types/jest": "^25.1.4",
+    "@types/node": "^13.9.1",
+    "@types/qs": "^6.9.1",
+    "@typescript-eslint/eslint-plugin": "^2.23.0",
+    "@typescript-eslint/parser": "^2.23.0",
     "axios": "^0.19.0",
-    "babel-eslint": "^10.0.3",
-    "babel-jest": "^25.1.0",
     "cross-env": "^7.0.2",
     "eslint": "^6.7.2",
-    "eslint-config-prettier": "^6.7.0",
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-node": "^11.0.0",
-    "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "husky": "^4.2.3",
     "jest": "^25.1.0",
-    "laravel-mix": "^5.0.0",
     "lint-staged": "^10.0.8",
-    "prettier": "^1.19.1",
     "qs": "^6.9.1",
-    "whatwg-fetch": "^3.0.0"
+    "ts-jest": "^25.2.1",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.8.3",
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11"
   }
 }

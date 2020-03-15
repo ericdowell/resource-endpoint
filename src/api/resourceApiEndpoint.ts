@@ -1,8 +1,9 @@
 /* global FormData */
-import Endpoint from '../endpoint'
+import { ResourceEndpoint } from '~/resourceEndpoint'
 import qs from 'qs'
+import { AxiosRequestConfig, Method } from 'axios'
 
-class ApiEndpoint extends Endpoint {
+export class ResourceApiEndpoint extends ResourceEndpoint {
   /**
    * Always set Content-Type to application/x-www-form-urlencoded, place in assign last.
    *
@@ -11,7 +12,7 @@ class ApiEndpoint extends Endpoint {
    */
   _headers = {
     Accept: 'application/json',
-    'Content-Type': 'application/x-www-form-urlencoded'
+    'Content-Type': 'application/x-www-form-urlencoded',
   }
 
   /**
@@ -25,7 +26,7 @@ class ApiEndpoint extends Endpoint {
    *
    * @returns {string}
    */
-  get apiVersion() {
+  get apiVersion(): string {
     return 'v1'
   }
 
@@ -35,7 +36,7 @@ class ApiEndpoint extends Endpoint {
    *
    * @returns {string}
    */
-  get path() {
+  get path(): string {
     return `api/${this.apiVersion}`
   }
 
@@ -43,9 +44,8 @@ class ApiEndpoint extends Endpoint {
    *
    * @returns {this}
    */
-  preventStringify() {
+  preventStringify(): this {
     this._stringify = false
-
     return this
   }
 
@@ -53,19 +53,21 @@ class ApiEndpoint extends Endpoint {
    *
    * @param {string} url
    * @param {string} method
-   * @param {object} options
-   * @returns {object}
+   * @param {AxiosRequestConfig} options
+   * @returns {AxiosRequestConfig}
    */
-  queryOptions(url, method, options) {
+  queryOptions(
+    url: string,
+    method: Method,
+    options: AxiosRequestConfig,
+  ): AxiosRequestConfig {
     options = super.queryOptions(url, method, options)
     if (!options.data || typeof options.data !== 'object') {
       return options
     }
-    if (this._stringify === true && !(options.data instanceof FormData)) {
+    if (this._stringify && !(options.data instanceof FormData)) {
       options.data = qs.stringify(options.data)
     }
     return options
   }
 }
-
-export default ApiEndpoint

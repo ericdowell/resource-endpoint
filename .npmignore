@@ -1,15 +1,18 @@
+.cache/
 .circleci/
 
-.babelrc
-.eslintrc.json
-.prettierrc.json
-webpack.mix.js
+coverage/
+.eslintignore
+.eslintrc.js
 
 jest.config.js
-mock/
-__tests__/
+src/__tests__/
 
 # compiled js files
+dist/*
+!dist/*.js
+!dist/errors/*.js
+!dist/api/*.js
 lib/*
 !lib/*.js
 !lib/errors/*.js
