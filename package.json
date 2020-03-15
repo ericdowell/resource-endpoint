@@ -27,6 +27,7 @@
     "axios"
   ],
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "prebuild": "npm run lint -- --quiet && rm -fr ./lib",
     "build": "npm run prebuild && npm run build:webpack && npm run postbuild",
