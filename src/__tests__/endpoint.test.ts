@@ -2,53 +2,52 @@ import axios from 'axios'
 import { Endpoint } from '../endpoint'
 import { BasicMock } from './mock/axios'
 
-const axiosRequest = jest.spyOn(axios, 'request').mockImplementation(BasicMock)
+jest.spyOn(axios, 'request').mockImplementation(BasicMock)
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 jest.spyOn(global.console, 'log').mockImplementation(() => {})
 
 describe(Endpoint.name, (): void => {
-  beforeEach((): void => {
-    axiosRequest.mockClear()
-  })
-
   it('the origin is localhost', () => {
-    expect(new Endpoint().origin).toMatchSnapshot()
+    expect(new Endpoint().origin).toBe('http://localhost')
   })
 
   it('the path is empty', () => {
-    expect(new Endpoint().path).toStrictEqual('')
+    expect(new Endpoint().path).toBe('')
   })
 
   it('the endpoint is empty', () => {
-    expect(new Endpoint().endpoint).toStrictEqual('')
+    expect(new Endpoint().endpoint).toBe('')
   })
 
-  it('the getBaseUrl is localhost with trailing slash', () => {
-    expect(new Endpoint().getBaseUrl()).toMatchSnapshot()
+  it('the getBaseUrl is localhost', () => {
+    expect(new Endpoint().getBaseUrl()).toBe('http://localhost')
   })
 
   it('the headers default is empty', () => {
-    expect(new Endpoint().hasHeaders()).toMatchSnapshot()
-    expect(new Endpoint().headers).toMatchSnapshot()
+    expect(new Endpoint().hasHeaders()).toBe(false)
+    expect(new Endpoint().headers).toStrictEqual({})
   })
 
   it('the setHeaders updates headers value', () => {
     const endpoint = new Endpoint().setHeader('Accept', 'application/json')
-    expect(endpoint.hasHeaders()).toMatchSnapshot()
-    expect(endpoint.headers).toMatchSnapshot()
+    expect(endpoint.hasHeaders()).toBe(true)
+    expect(endpoint.headers).toStrictEqual({
+      Accept: 'application/json',
+    })
   })
 
   it('the queryOptions will return default options', () => {
-    const options = new Endpoint().queryOptions('final/path', 'get')
-    expect(options).toMatchSnapshot()
+    expect(new Endpoint().queryOptions('final/path', 'get')).toMatchSnapshot()
   })
 
   it('the responseData will return data key of object', () => {
-    const data = new Endpoint().responseData({ data: 'it' })
-    expect(data).toMatchSnapshot()
+    const data = 'it'
+    expect(new Endpoint().responseData({ data })).toBe(data)
   })
 
   it('the query will return response object', async(): Promise<void> => {
-    await expect(new Endpoint().query('123', 'get')).toMatchSnapshot()
+    await expect(new Endpoint().query('123', 'get')).resolves.toStrictEqual({
+      foo: 'bar',
+    })
   })
 })

@@ -2,7 +2,7 @@ import axios from 'axios'
 import { ResourceEndpoint } from '../resourceEndpoint'
 import { BasicMock } from './mock/axios'
 
-const axiosRequest = jest.spyOn(axios, 'request').mockImplementation(BasicMock)
+jest.spyOn(axios, 'request').mockImplementation(BasicMock)
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 jest.spyOn(global.console, 'log').mockImplementation((): void => {})
 
@@ -14,10 +14,6 @@ const createInstance = () => {
 }
 
 describe(ResourceEndpoint.name, (): void => {
-  beforeEach((): void => {
-    axiosRequest.mockClear()
-  })
-
   it('the storeOrUpdate calls store when NO id is passed', () => {
     const { instance, storeMethod, updateMethod } = createInstance()
     instance.storeOrUpdate(null, { title: 'foo' })

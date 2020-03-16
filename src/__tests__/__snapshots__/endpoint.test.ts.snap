@@ -1,30 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Endpoint the getBaseUrl is localhost with trailing slash 1`] = `"http://localhost"`;
-
-exports[`Endpoint the headers default is empty 1`] = `false`;
-
-exports[`Endpoint the headers default is empty 2`] = `Object {}`;
-
-exports[`Endpoint the origin is localhost 1`] = `"http://localhost"`;
-
-exports[`Endpoint the query will return response object 1`] = `Promise {}`;
-
 exports[`Endpoint the queryOptions will return default options 1`] = `
 Object {
   "baseURL": "http://localhost",
   "method": "get",
   "paramsSerializer": [Function],
   "url": "final/path",
-}
-`;
-
-exports[`Endpoint the responseData will return data key of object 1`] = `"it"`;
-
-exports[`Endpoint the setHeaders updates headers value 1`] = `true`;
-
-exports[`Endpoint the setHeaders updates headers value 2`] = `
-Object {
-  "Accept": "application/json",
 }
 `;

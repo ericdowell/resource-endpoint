@@ -1,10 +1,17 @@
 module.exports = {
   preset: 'ts-jest',
+  testEnvironment: 'jsdom',
+  rootDir: '.',
+  roots: [
+    '<rootDir>/src',
+  ],
+  testMatch: ['**/?(*.)+(spec|test).[tj]s?(x)'],
   // Automatically clear mock calls and instances between every test
   clearMocks: true,
-  testMatch: ['**/?(*.)+(spec|test).[tj]s?(x)'],
+  collectCoverage: true,
   coverageDirectory: 'coverage',
-  coveragePathIgnorePatterns: ['/lib/', '/node_modules/'],
-  rootDir: './src',
-  testEnvironment: 'jsdom',
+  collectCoverageFrom: [
+    'src/**/*.{ts,tsx}',
+  ],
+  coveragePathIgnorePatterns: ['/lib/', '/node_modules/', '/src/__tests__/'],
 }
