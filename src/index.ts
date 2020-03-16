@@ -5,8 +5,8 @@ export { Endpoint } from './endpoint'
 export { CrudEndpoint } from './crudEndpoint'
 export { ResourceEndpoint } from './resourceEndpoint'
 // Endpoints
-export { Auth } from './endpoints/auth'
-export { User } from './endpoints/user'
+export { AuthEndpoint } from './endpoints/authEndpoint'
+export { UserEndpoint } from './endpoints/userEndpoint'
 // Errors
 export {
   getFallbackMessage,

@@ -1,7 +1,7 @@
 import { CrudEndpoint } from '../crudEndpoint'
 import { AxiosRequestConfig, AxiosResponse } from 'axios'
 
-export class User extends CrudEndpoint {
+export class UserEndpoint extends CrudEndpoint {
   /**
    *
    * @param {string|number} userId

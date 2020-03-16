@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios'
 import { CrudEndpoint } from '../crudEndpoint'
 
-export class Auth extends CrudEndpoint {
+export class AuthEndpoint extends CrudEndpoint {
   /**
    *
    * @param {string} email
