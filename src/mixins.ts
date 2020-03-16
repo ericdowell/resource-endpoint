@@ -14,7 +14,7 @@ export function ApiEndpointMixin<T extends Constructor<any>>(superClass: T) {
          * @type {{}}
          * @protected
          */
-        _headers = {
+        _headers: { [key: string]: any } = {
           Accept: 'application/json',
           'Content-Type': 'application/x-www-form-urlencoded',
         }

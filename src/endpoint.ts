@@ -59,7 +59,7 @@ export class Endpoint {
    * @param {object} headers
    * @returns {this}
    */
-  setHeaders(headers: any): this {
+  setHeaders(headers: { [key: string]: any }): this {
     this._headers = headers
     return this
   }
