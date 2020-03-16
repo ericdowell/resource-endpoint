@@ -34,7 +34,6 @@ module.exports = {
     ],
   },
   externals: {
-    // Don't bundle axios or qs
     axios: {
       commonjs: 'axios',
       commonjs2: 'axios',
@@ -46,6 +45,12 @@ module.exports = {
       commonjs2: 'qs',
       amd: 'qs',
       root: 'qs',
+    },
+    'url-join': {
+      commonjs: 'url-join',
+      commonjs2: 'url-join',
+      amd: 'url-join',
+      root: 'url-join',
     },
   },
 }

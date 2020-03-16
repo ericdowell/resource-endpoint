@@ -5,12 +5,7 @@ import axios, {
   Method,
 } from 'axios'
 import qs from 'qs'
-
-const trimSlashes = (string: any): string =>
-  (typeof string === 'string' && string.replace(/^\/|\/$/g, '')) || ''
-
-const trimStartSlash = (string: any): string =>
-  (typeof string === 'string' && string.replace(/^\/+/g, '')) || ''
+import urljoin from 'url-join'
 
 export class Endpoint {
   /**
@@ -31,7 +26,7 @@ export class Endpoint {
    *
    * @returns {this}
    */
-  debug(): this {
+  enableDebug(): this {
     this._debug = true
     return this
   }
@@ -102,8 +97,8 @@ export class Endpoint {
   }
 
   /**
-   * This recommended to be singular.
-   * e.g. "user" or "profile" or this.constructor.name.toLowerCase()
+   * This is the last part of the url path, usually the resource name.
+   * e.g. "user" or "profile"
    *
    * @returns {string}
    */
@@ -116,7 +111,7 @@ export class Endpoint {
    *
    * @returns {Console}
    */
-  get output(): Console {
+  get console(): Console {
     return (window && window.console) || console
   }
 
@@ -126,13 +121,7 @@ export class Endpoint {
    * @returns {string}
    */
   getBaseUrl(): string {
-    const origin = trimSlashes(this.origin)
-    const path = trimSlashes(this.path)
-    const endpoint = trimStartSlash(this.endpoint)
-    if (!endpoint) {
-      return `${origin}/${path}`
-    }
-    return `${origin}/${path}/${endpoint}`
+    return urljoin(this.origin, this.path, this.endpoint)
   }
 
   /**
@@ -195,7 +184,7 @@ export class Endpoint {
    * @returns {any}
    */
   responseData<T = any>(response: AxiosResponse | any): T {
-    return response && response.data
+    return response?.data
   }
 
   /**
@@ -260,7 +249,7 @@ export class Endpoint {
       output.push(label)
       output.push(data)
     }
-    this.output.log(format, ...output)
+    this.console.log(format, ...output)
   }
 
   handleError(error: AxiosError | Error): never {
