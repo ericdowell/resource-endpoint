@@ -42,12 +42,15 @@ describe(Endpoint.name, (): void => {
 
   it('the responseData will return data key of object', () => {
     const data = 'it'
-    expect(new Endpoint().responseData({ data })).toBe(data)
+    expect(Endpoint.responseData({ data })).toBe(data)
   })
 
   it('the query will return response object', async(): Promise<void> => {
     await expect(new Endpoint().query('123', 'get')).resolves.toStrictEqual({
-      foo: 'bar',
+      config: {},
+      data: {
+        foo: 'bar',
+      },
     })
   })
 })

@@ -11,7 +11,7 @@ export class CrudEndpoint extends Endpoint {
   delete<T = any, R = AxiosResponse<T>>(
     path: string,
     options?: AxiosRequestConfig,
-  ): Promise<T | R> {
+  ): Promise<R> {
     return this.query<T, R>(path, 'delete', options)
   }
 
@@ -24,7 +24,7 @@ export class CrudEndpoint extends Endpoint {
   get<T = any, R = AxiosResponse<T>>(
     path: string,
     options?: AxiosRequestConfig,
-  ): Promise<T | R> {
+  ): Promise<R> {
     return this.query<T, R>(path, 'get', options)
   }
 
@@ -37,7 +37,7 @@ export class CrudEndpoint extends Endpoint {
   patch<T = any, R = AxiosResponse<T>>(
     path: string,
     options?: AxiosRequestConfig,
-  ): Promise<T | R> {
+  ): Promise<R> {
     return this.query<T, R>(path, 'patch', options)
   }
 
@@ -50,7 +50,7 @@ export class CrudEndpoint extends Endpoint {
   post<T = any, R = AxiosResponse<T>>(
     path: string,
     options?: AxiosRequestConfig,
-  ): Promise<T | R> {
+  ): Promise<R> {
     return this.query<T, R>(path, 'post', options)
   }
 
@@ -63,7 +63,7 @@ export class CrudEndpoint extends Endpoint {
   put<T = any, R = AxiosResponse<T>>(
     path: string,
     options?: AxiosRequestConfig,
-  ): Promise<T | R> {
+  ): Promise<R> {
     return this.query<T, R>(path, 'put', options)
   }
 }

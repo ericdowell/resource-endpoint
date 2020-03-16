@@ -23,21 +23,6 @@ export class Endpoint {
   _headers: { [key: string]: any } = {}
 
   /**
-   * @type {boolean}
-   * @protected
-   */
-  _axiosResponse = false
-
-  /**
-   *
-   * @returns {this}
-   */
-  axiosResponse(): this {
-    this._axiosResponse = true
-    return this
-  }
-
-  /**
    *
    * @returns {this}
    */
@@ -177,14 +162,14 @@ export class Endpoint {
     url: string,
     method: Method,
     requestConfig?: AxiosRequestConfig | any,
-  ): Promise<T | R> {
+  ): Promise<R> {
     const config = this.queryOptions(url, method, requestConfig)
     try {
       const response = await axios.request<T, R>(config)
       if (this.isDebugEnabled()) {
         this.debugResponse(url, method, config, response)
       }
-      return this._axiosResponse ? response : this.responseData<T>(response)
+      return response
     } catch (error) {
       if (this.isDebugEnabled()) {
         this.debugResponseError(url, method, config, error)
@@ -198,7 +183,7 @@ export class Endpoint {
    * @param {object} response
    * @returns {any}
    */
-  responseData<T = any>(response: AxiosResponse | any): T {
+  static responseData<T = any>(response: AxiosResponse<T> | any): T {
     return response?.data
   }
 
