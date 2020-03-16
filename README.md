@@ -4,8 +4,6 @@
 
 A simple resource wrapper for Axios.
 
-Currently only can be built using Webpack, no dist files available.
-
 ## Todo
-- [x] Convert to TypeScript.
+- [ ] Add React Hooks, Form components and context
 - [ ] Write tests.

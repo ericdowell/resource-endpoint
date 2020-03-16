@@ -19,8 +19,8 @@ describe(Endpoint.name, (): void => {
     expect(new Endpoint().endpoint).toBe('')
   })
 
-  it('the getBaseUrl is localhost', () => {
-    expect(new Endpoint().getBaseUrl()).toBe('http://localhost')
+  it('the baseURL is localhost', () => {
+    expect(new Endpoint().baseURL).toBe('http://localhost')
   })
 
   it('the headers default is empty', () => {

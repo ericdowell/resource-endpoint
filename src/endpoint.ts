@@ -23,6 +23,21 @@ export class Endpoint {
   _headers: { [key: string]: any } = {}
 
   /**
+   * @type {boolean}
+   * @protected
+   */
+  _axiosResponse = false
+
+  /**
+   *
+   * @returns {this}
+   */
+  axiosResponse(): this {
+    this._axiosResponse = true
+    return this
+  }
+
+  /**
    *
    * @returns {this}
    */
@@ -120,7 +135,7 @@ export class Endpoint {
    *
    * @returns {string}
    */
-  getBaseUrl(): string {
+  get baseURL(): string {
     return urljoin(this.origin, this.path, this.endpoint)
   }
 
@@ -138,7 +153,7 @@ export class Endpoint {
     requestConfig?: AxiosRequestConfig,
   ): AxiosRequestConfig {
     const config = { ...(requestConfig ?? {}), ...{ url, method } }
-    config.baseURL = this.getBaseUrl()
+    config.baseURL = this.baseURL
     if (!config.paramsSerializer) {
       config.paramsSerializer = (params): string => {
         return qs.stringify(params, { arrayFormat: 'brackets' })
@@ -162,14 +177,14 @@ export class Endpoint {
     url: string,
     method: Method,
     requestConfig?: AxiosRequestConfig | any,
-  ): Promise<R> {
+  ): Promise<T | R> {
     const config = this.queryOptions(url, method, requestConfig)
     try {
       const response = await axios.request<T, R>(config)
       if (this.isDebugEnabled()) {
         this.debugResponse(url, method, config, response)
       }
-      return this.responseData<R>(response)
+      return this._axiosResponse ? response : this.responseData<T>(response)
     } catch (error) {
       if (this.isDebugEnabled()) {
         this.debugResponseError(url, method, config, error)
