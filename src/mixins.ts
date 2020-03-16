@@ -1,5 +1,6 @@
 import { AxiosRequestConfig, Method } from 'axios'
 import qs from 'qs'
+import urljoin from 'url-join'
 
 export type Constructor<T> =
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -22,16 +23,18 @@ export function ApiEndpointMixin<T extends Constructor<any>>(superClass: T) {
         /**
          *
          * @type {boolean}
-         * @private
+         * @protected
          */
         _stringify = true
 
         /**
+         * Override to set as version, default to empty
+         * e.g. v1, v3, v5 and so on.
          *
          * @returns {string}
          */
         get apiVersion(): string {
-          return 'v1'
+          return ''
         }
 
         /**
@@ -41,7 +44,7 @@ export function ApiEndpointMixin<T extends Constructor<any>>(superClass: T) {
          * @returns {string}
          */
         get path(): string {
-          return `api/${this.apiVersion}`
+          return urljoin('api', this.apiVersion)
         }
 
         /**
@@ -65,14 +68,14 @@ export function ApiEndpointMixin<T extends Constructor<any>>(superClass: T) {
           method: Method,
           options: AxiosRequestConfig,
         ): AxiosRequestConfig {
-          options = super.queryOptions(url, method, options)
-          if (!options.data || typeof options.data !== 'object') {
-            return options
+          const config = super.queryOptions(url, method, options)
+          if (!config.data || typeof config.data !== 'object') {
+            return config
           }
-          if (this._stringify && !(options.data instanceof FormData)) {
-            options.data = qs.stringify(options.data)
+          if (this._stringify && !(config.data instanceof FormData)) {
+            config.data = qs.stringify(config.data)
           }
-          return options
+          return config
         }
   }
 }
