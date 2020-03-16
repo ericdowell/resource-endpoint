@@ -1,9 +1,12 @@
+// Api Mixin
+export { ApiEndpointMixin } from './mixins'
 // Base
 export { Endpoint } from './endpoint'
 export { CrudEndpoint } from './crudEndpoint'
 export { ResourceEndpoint } from './resourceEndpoint'
-// Api Mixin
-export { ApiEndpointMixin } from './mixins'
+// Endpoints
+export { Auth } from './endpoints/auth'
+export { User } from './endpoints/user'
 // Errors
 export {
   getFallbackMessage,
