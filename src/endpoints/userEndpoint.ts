@@ -27,32 +27,29 @@ export class UserEndpoint extends CrudEndpoint {
    *
    * @param {string} email
    * @param {string} emailConfirmation
-   * @param {any} name
-   * @param {any} phone
    * @param {any} password
    * @param {any} passwordConfirmation
+   * @param {any} attributes
    * @param {boolean} remember
    * @returns {Promise<any>}
    */
   register<T = any, R = AxiosResponse<T>>(
     email: string,
     emailConfirmation: string,
-    name: any,
-    phone: any,
     password: any,
     passwordConfirmation: any,
+    attributes?: { [key: string]: any },
     remember = true,
   ): Promise<R> {
     const data = {
       email,
       // eslint-disable-next-line @typescript-eslint/camelcase
       email_confirmation: emailConfirmation,
-      name,
-      phone,
       password,
       // eslint-disable-next-line @typescript-eslint/camelcase
       password_confirmation: passwordConfirmation,
       remember,
+      ...attributes,
     }
     return this.post<T, R>('/register', { data })
   }
