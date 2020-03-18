@@ -7,9 +7,13 @@ class TestEndpoint extends ApiEndpointMixin(Endpoint) {}
 describe('ApiEndpointMixin', (): void => {
   it('values are inherited by Endpoint', (): void => {
     const endpoint = new TestEndpoint()
-    expect(endpoint.headers).toStrictEqual({
+    const headers = {
       Accept: 'application/json',
       'Content-Type': 'application/x-www-form-urlencoded',
+    }
+    expect(endpoint.headers).toStrictEqual(headers)
+    expect(endpoint.config).toStrictEqual({
+      headers,
     })
     expect(endpoint.apiVersion).toBe('')
     expect(endpoint.path).toBe('api')

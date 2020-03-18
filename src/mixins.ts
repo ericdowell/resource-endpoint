@@ -15,9 +15,11 @@ export function ApiEndpointMixin<T extends Constructor<any>>(superClass: T) {
          * @type {{}}
          * @protected
          */
-        _headers: { [key: string]: any } = {
-          Accept: 'application/json',
-          'Content-Type': 'application/x-www-form-urlencoded',
+        _config: AxiosRequestConfig = {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
         }
 
         /**
@@ -75,7 +77,7 @@ export function ApiEndpointMixin<T extends Constructor<any>>(superClass: T) {
           method: Method,
           requestConfig?: AxiosRequestConfig,
         ): AxiosRequestConfig {
-          const config = super.requestConfig(url, method, requestConfig)
+          const config: AxiosRequestConfig = super.requestConfig(url, method, requestConfig)
           if (!config.data || typeof config.data !== 'object') {
             return config
           }

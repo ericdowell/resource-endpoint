@@ -17,10 +17,18 @@ export class Endpoint {
 
   /**
    *
-   * @type {object}
+   * @type {AxiosRequestConfig}
    * @protected
    */
-  _headers: { [key: string]: any } = {}
+  _config: AxiosRequestConfig = {}
+
+  /**
+   *
+   * @returns {AxiosRequestConfig}
+   */
+  get config(): AxiosRequestConfig {
+    return this._config
+  }
 
   /**
    *
@@ -45,7 +53,7 @@ export class Endpoint {
    * @returns {this}
    */
   setHeaders(headers: { [key: string]: any }): this {
-    this._headers = headers
+    this._config.headers = headers
     return this
   }
 
@@ -56,7 +64,8 @@ export class Endpoint {
    * @returns {this}
    */
   setHeader(key: string, value: any): this {
-    this._headers[key] = value
+    this._config.headers = this._config.headers ?? {}
+    this._config.headers[key] = value
     return this
   }
 
@@ -65,7 +74,7 @@ export class Endpoint {
    * @returns {object}
    */
   get headers(): { [key: string]: any } {
-    return this._headers
+    return this.config.headers ?? {}
   }
 
   /**
@@ -147,7 +156,7 @@ export class Endpoint {
     method: Method,
     requestConfig?: AxiosRequestConfig,
   ): AxiosRequestConfig {
-    const config = { ...(requestConfig ?? {}), ...{ url, method } }
+    const config: AxiosRequestConfig = { ...this.config, ...(requestConfig ?? {}), ...{ url, method } }
     config.baseURL = this.baseURL
     if (!config.paramsSerializer) {
       config.paramsSerializer = this.paramsSerializer

@@ -78,6 +78,7 @@ describe(Endpoint.name, (): void => {
   it('the requestConfig will return combine headers', () => {
     const endpoint = new Endpoint()
     endpoint.setHeaders({ Accept: 'application/json', 'X-A': 'baz' })
+    endpoint.setHeader('X-B', 'bar')
     const config = { headers: { foo: 'bar', Accept: 'text/html' }, paramsSerializer: (): string => '' }
     expect(endpoint.requestConfig('final/path', 'PUT', config)).toMatchSnapshot()
   })

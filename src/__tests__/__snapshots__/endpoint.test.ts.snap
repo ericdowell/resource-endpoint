@@ -6,6 +6,7 @@ Object {
   "headers": Object {
     "Accept": "text/html",
     "X-A": "baz",
+    "X-B": "bar",
     "foo": "bar",
   },
   "method": "PUT",
