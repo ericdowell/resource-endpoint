@@ -6,5 +6,4 @@
 A simple resource wrapper for Axios.
 
 ## Todo
-- [ ] Add React Hooks, Form components and context
-- [ ] Write tests.
+- [ ] Write more tests.

@@ -1,5 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Endpoint the queryOptions will return combine headers 1`] = `
+Object {
+  "baseURL": "http://localhost",
+  "headers": Object {
+    "Accept": "text/html",
+    "X-A": "baz",
+    "foo": "bar",
+  },
+  "method": "PUT",
+  "paramsSerializer": [Function],
+  "url": "final/path",
+}
+`;
+
 exports[`Endpoint the queryOptions will return default options 1`] = `
 Object {
   "baseURL": "http://localhost",

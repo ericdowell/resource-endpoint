@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResourceEndpoint the destroy calls delete 1`] = `
+Array [
+  "/1234",
+  Object {
+    "params": Object {
+      "filter": "baz",
+    },
+  },
+]
+`;
+
+exports[`ResourceEndpoint the index calls get 1`] = `
+Array [
+  "/",
+  Object {
+    "params": Object {
+      "filter": "bar",
+    },
+  },
+]
+`;
+
+exports[`ResourceEndpoint the show calls get 1`] = `
+Array [
+  "/[object Object]",
+  Object {
+    "params": undefined,
+  },
+]
+`;
+
+exports[`ResourceEndpoint the store calls post 1`] = `
+Array [
+  "/",
+  Object {
+    "data": Object {
+      "foo": "bar",
+    },
+    "params": Object {
+      "filter": "baz",
+    },
+  },
+]
+`;
+
+exports[`ResourceEndpoint the store calls post 2`] = `
+Array [
+  "/",
+  Object {
+    "data": Object {
+      "foo": "bar",
+    },
+    "params": Object {
+      "filter": "baz",
+    },
+  },
+]
+`;
+
+exports[`ResourceEndpoint the update calls put 1`] = `
+Array [
+  "/1234",
+  Object {
+    "data": Object {
+      "foo": "bar",
+    },
+    "params": Object {
+      "filter": "baz",
+    },
+  },
+]
+`;

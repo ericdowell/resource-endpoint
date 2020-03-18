@@ -111,8 +111,8 @@ export class Endpoint {
    *
    * @returns {Console}
    */
-  get console(): Console {
-    return (window && window.console) || console
+  console(): Console {
+    return window.console
   }
 
   /**
@@ -122,6 +122,12 @@ export class Endpoint {
    */
   get baseURL(): string {
     return urljoin(this.origin, this.path, this.endpoint)
+  }
+
+  get paramsSerializer(): (params: any) => string {
+    return (params): string => {
+      return qs.stringify(params, { arrayFormat: 'brackets' })
+    }
   }
 
   /**
@@ -140,12 +146,10 @@ export class Endpoint {
     const config = { ...(requestConfig ?? {}), ...{ url, method } }
     config.baseURL = this.baseURL
     if (!config.paramsSerializer) {
-      config.paramsSerializer = (params): string => {
-        return qs.stringify(params, { arrayFormat: 'brackets' })
-      }
+      config.paramsSerializer = this.paramsSerializer
     }
     if (this.hasHeaders()) {
-      config.headers = { ...config.headers, ...this.headers }
+      config.headers = { ...this.headers, ...config.headers }
     }
     return config
   }
@@ -196,7 +200,7 @@ export class Endpoint {
    */
   debugResponse<T = any, R = AxiosResponse<T>>(
     url: string,
-    method: string,
+    method: Method,
     config: AxiosRequestConfig,
     response: R,
   ): void {
@@ -212,7 +216,7 @@ export class Endpoint {
    */
   debugResponseError<T = AxiosError>(
     url: string,
-    method: string,
+    method: Method,
     config: AxiosRequestConfig,
     error: T,
   ): void {
@@ -224,15 +228,15 @@ export class Endpoint {
    * @param {string} url
    * @param {string} method
    * @param {object=} config
-   * @param {string} label
-   * @param {object} data
+   * @param {string=} label
+   * @param {object=} data
    */
   debugQuery<T = any>(
     url: string,
-    method: string,
-    config: AxiosRequestConfig,
-    label: string,
-    data: T,
+    method: Method,
+    config?: AxiosRequestConfig,
+    label?: string,
+    data?: T,
   ): void {
     const output = [
       'color: #e55ea2;',
@@ -249,7 +253,7 @@ export class Endpoint {
       output.push(label)
       output.push(data)
     }
-    this.console.log(format, ...output)
+    this.console().log(format, ...output)
   }
 
   handleError(error: AxiosError | Error): never {

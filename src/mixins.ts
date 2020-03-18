@@ -57,22 +57,29 @@ export function ApiEndpointMixin<T extends Constructor<any>>(superClass: T) {
         }
 
         /**
+         * @returns {boolean}
+         */
+        get shouldStringify(): boolean {
+          return this._stringify
+        }
+
+        /**
          *
          * @param {string} url
          * @param {string} method
-         * @param {object} options
+         * @param {object=} options
          * @returns {object}
          */
         queryOptions(
           url: string,
           method: Method,
-          options: AxiosRequestConfig,
+          options?: AxiosRequestConfig,
         ): AxiosRequestConfig {
           const config = super.queryOptions(url, method, options)
           if (!config.data || typeof config.data !== 'object') {
             return config
           }
-          if (this._stringify && !(config.data instanceof FormData)) {
+          if (this.shouldStringify && !(config.data instanceof FormData)) {
             config.data = qs.stringify(config.data)
           }
           return config
