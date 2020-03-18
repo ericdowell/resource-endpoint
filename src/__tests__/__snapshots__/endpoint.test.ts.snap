@@ -24,3 +24,13 @@ Object {
   "url": "final/path",
 }
 `;
+
+exports[`Endpoint the requestConfig will return passed baseURL 1`] = `
+Object {
+  "baseURL": "https://example.com",
+  "headers": Object {},
+  "method": "PATCH",
+  "paramsSerializer": [Function],
+  "url": "final/path",
+}
+`;

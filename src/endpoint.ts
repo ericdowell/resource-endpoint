@@ -148,8 +148,8 @@ export class Endpoint {
     method: Method,
     requestConfig?: AxiosRequestConfig,
   ): AxiosRequestConfig {
-    const config: AxiosRequestConfig = { ...this.config, ...(requestConfig ?? {}), ...{ url, method } }
-    config.baseURL = this.baseURL
+    const config: AxiosRequestConfig = { ...this.config, ...requestConfig, ...{ url, method } }
+    config.baseURL = config.baseURL ?? this.baseURL
     config.headers = { ...this.headers, ...config.headers }
     config.paramsSerializer = config.paramsSerializer ?? this.paramsSerializer
     return config

@@ -72,6 +72,12 @@ describe(Endpoint.name, (): void => {
     expect(new Endpoint().requestConfig('final/path', 'get')).toMatchSnapshot()
   })
 
+  it('the requestConfig will return passed baseURL', () => {
+    const endpoint = new Endpoint()
+    const config = { baseURL: 'https://example.com' }
+    expect(endpoint.requestConfig('final/path', 'PATCH', config)).toMatchSnapshot()
+  })
+
   it('the requestConfig will return combine headers', () => {
     const endpoint = new Endpoint()
     endpoint.setHeaders({ Accept: 'application/json', 'X-A': 'baz' })
