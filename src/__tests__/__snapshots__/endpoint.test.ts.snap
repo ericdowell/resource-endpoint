@@ -18,6 +18,7 @@ Object {
 exports[`Endpoint the requestConfig will return default config 1`] = `
 Object {
   "baseURL": "http://localhost",
+  "headers": Object {},
   "method": "get",
   "paramsSerializer": [Function],
   "url": "final/path",

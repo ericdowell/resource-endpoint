@@ -40,14 +40,12 @@ describe(Endpoint.name, (): void => {
     expect(new Endpoint().console()).toBe(window.console)
   })
 
-  it('the headers default is empty', () => {
-    expect(new Endpoint().hasHeaders()).toBe(false)
-    expect(new Endpoint().headers).toStrictEqual({})
+  it('the headers default is undefined', () => {
+    expect(new Endpoint().headers).toBeUndefined()
   })
 
   it('the setHeaders overrides headers values', () => {
     const endpoint = new Endpoint().setHeaders({ Accept: 'application/json' })
-    expect(endpoint.hasHeaders()).toBe(true)
     expect(endpoint.headers).toStrictEqual({
       Accept: 'application/json',
     })
@@ -55,7 +53,6 @@ describe(Endpoint.name, (): void => {
 
   it('the setHeader updates single headers value', () => {
     const endpoint = new Endpoint().setHeader('Accept', 'application/json')
-    expect(endpoint.hasHeaders()).toBe(true)
     expect(endpoint.headers).toStrictEqual({
       Accept: 'application/json',
     })

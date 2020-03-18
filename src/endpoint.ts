@@ -71,18 +71,10 @@ export class Endpoint {
 
   /**
    *
-   * @returns {object}
+   * @returns {object|undefined}
    */
-  get headers(): { [key: string]: any } {
-    return this.config.headers ?? {}
-  }
-
-  /**
-   *
-   * @returns {boolean}
-   */
-  hasHeaders(): boolean {
-    return Object.keys(this.headers).length !== 0
+  get headers(): { [key: string]: any } | undefined {
+    return this.config.headers
   }
 
   /**
@@ -158,12 +150,8 @@ export class Endpoint {
   ): AxiosRequestConfig {
     const config: AxiosRequestConfig = { ...this.config, ...(requestConfig ?? {}), ...{ url, method } }
     config.baseURL = this.baseURL
-    if (!config.paramsSerializer) {
-      config.paramsSerializer = this.paramsSerializer
-    }
-    if (this.hasHeaders()) {
-      config.headers = { ...this.headers, ...config.headers }
-    }
+    config.headers = { ...this.headers, ...config.headers }
+    config.paramsSerializer = config.paramsSerializer ?? this.paramsSerializer
     return config
   }
 
