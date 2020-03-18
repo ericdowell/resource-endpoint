@@ -1,13 +1,13 @@
-export function BasicMock(options: any): Promise<any> {
+export function BasicMock(config: any): Promise<any> {
   return new Promise((resolve, reject) => {
-    if (options.errors) {
+    if (config.errors) {
       const error = {
         config: {},
         response: {
           data: {
-            errors: options.errors,
+            errors: config.errors,
           },
-          status: options.status || 422,
+          status: config.status || 422,
         },
       }
       return reject(error)

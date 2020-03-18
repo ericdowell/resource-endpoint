@@ -71,7 +71,7 @@ describe(Endpoint.name, (): void => {
     stringify.mockRestore()
   })
 
-  it('the requestConfig will return default options', () => {
+  it('the requestConfig will return default config', () => {
     expect(new Endpoint().requestConfig('final/path', 'get')).toMatchSnapshot()
   })
 

@@ -14,7 +14,7 @@ Object {
 }
 `;
 
-exports[`Endpoint the requestConfig will return default options 1`] = `
+exports[`Endpoint the requestConfig will return default config 1`] = `
 Object {
   "baseURL": "http://localhost",
   "method": "get",
