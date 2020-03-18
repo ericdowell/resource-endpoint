@@ -6,4 +6,4 @@
 A simple resource wrapper for Axios.
 
 ## Todo
-- [ ] Write more tests.
+- [ ] Add documentation?
