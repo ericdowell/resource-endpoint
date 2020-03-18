@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ApiEndpointMixin calling preventStringify before queryOptions prevents call to qs.stringify 1`] = `
+exports[`ApiEndpointMixin calling preventStringify before requestConfig prevents call to qs.stringify 1`] = `
 Object {
   "baseURL": "http://localhost/api",
   "data": Object {
@@ -16,7 +16,7 @@ Object {
 }
 `;
 
-exports[`ApiEndpointMixin queryOptions calls qs.stringify if data is an object and not FormData 1`] = `
+exports[`ApiEndpointMixin requestConfig calls qs.stringify if data is an object and not FormData 1`] = `
 Object {
   "baseURL": "http://localhost/api",
   "data": "string",

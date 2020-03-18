@@ -71,15 +71,15 @@ describe(Endpoint.name, (): void => {
     stringify.mockRestore()
   })
 
-  it('the queryOptions will return default options', () => {
-    expect(new Endpoint().queryOptions('final/path', 'get')).toMatchSnapshot()
+  it('the requestConfig will return default options', () => {
+    expect(new Endpoint().requestConfig('final/path', 'get')).toMatchSnapshot()
   })
 
-  it('the queryOptions will return combine headers', () => {
+  it('the requestConfig will return combine headers', () => {
     const endpoint = new Endpoint()
     endpoint.setHeaders({ Accept: 'application/json', 'X-A': 'baz' })
     const config = { headers: { foo: 'bar', Accept: 'text/html' }, paramsSerializer: (): string => '' }
-    expect(endpoint.queryOptions('final/path', 'PUT', config)).toMatchSnapshot()
+    expect(endpoint.requestConfig('final/path', 'PUT', config)).toMatchSnapshot()
   })
 
   it('the responseData will return data key of object', () => {
@@ -91,10 +91,10 @@ describe(Endpoint.name, (): void => {
   it.each([
     [true],
     [false],
-  ])('the query will return response object', async(debug): Promise<void> => {
+  ])('the request will return response object', async(debug): Promise<void> => {
     const endpoint = createEndpoint(debug)
     const debugResponse = jest.spyOn(endpoint, 'debugResponse').mockImplementation((): any => true)
-    await expect(endpoint.query('123', 'get')).resolves.toStrictEqual({
+    await expect(endpoint.request('123', 'get')).resolves.toStrictEqual({
       config: {},
       data: {
         foo: 'bar',
@@ -106,37 +106,37 @@ describe(Endpoint.name, (): void => {
   it.each([
     [true],
     [false],
-  ])('the query will throw error axios.request throws', async(debug): Promise<void> => {
+  ])('the request will throw error axios.request throws', async(debug): Promise<void> => {
     const error = new Error('testing')
     const endpoint = createEndpoint(debug)
     const axiosRequest = jest.spyOn(axios, 'request').mockImplementation((): never => {
       throw error
     })
     const debugResponseError = jest.spyOn(endpoint, 'debugResponseError').mockImplementation((): any => true)
-    await expect(endpoint.query('123', 'get')).rejects.toBe(error)
+    await expect(endpoint.request('123', 'get')).rejects.toBe(error)
     expect(debugResponseError).toHaveBeenCalledTimes(debug ? 1 : 0)
     axiosRequest.mockRestore()
   })
 
-  it('debugResponse and debugResponseError calls debugQuery', (): void => {
+  it('debugResponse and debugResponseError calls debug', (): void => {
     const endpoint = new Endpoint()
-    const debugQuery = jest.spyOn(endpoint, 'debugQuery').mockImplementation((): any => true)
+    const debug = jest.spyOn(endpoint, 'debug').mockImplementation((): any => true)
     endpoint.debugResponse('url', 'get', {}, {})
     endpoint.debugResponseError('url', 'get', {}, {})
-    expect(debugQuery).toHaveBeenCalledTimes(2)
+    expect(debug).toHaveBeenCalledTimes(2)
   })
 
-  it('debugQuery calls this.console', (): void => {
+  it('debug calls this.console', (): void => {
     const endpoint = new Endpoint()
     const log = jest.fn()
     const console = jest.spyOn(endpoint, 'console').mockImplementation((): any => ({ log }))
-    expect(endpoint.debugQuery('url', 'get'))
-    expect(endpoint.debugQuery('url', 'get', {}, 'label', {}))
+    expect(endpoint.debug('url', 'get'))
+    expect(endpoint.debug('url', 'get', {}, 'label', {}))
     expect(console).toHaveBeenCalled()
   })
 
-  it('static method handleQueryError calls endpoint implementation of handleError', (): void => {
+  it('static method handleRequestError calls endpoint implementation of handleError', (): void => {
     const error = new Error()
-    expect((): void => Endpoint.handleQueryError(error, new Endpoint())).toThrowError(error)
+    expect((): void => Endpoint.handleRequestError(error, new Endpoint())).toThrowError(error)
   })
 })

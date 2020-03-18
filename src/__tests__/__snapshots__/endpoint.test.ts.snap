@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Endpoint the queryOptions will return combine headers 1`] = `
+exports[`Endpoint the requestConfig will return combine headers 1`] = `
 Object {
   "baseURL": "http://localhost",
   "headers": Object {
@@ -14,7 +14,7 @@ Object {
 }
 `;
 
-exports[`Endpoint the queryOptions will return default options 1`] = `
+exports[`Endpoint the requestConfig will return default options 1`] = `
 Object {
   "baseURL": "http://localhost",
   "method": "get",

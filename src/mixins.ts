@@ -70,12 +70,12 @@ export function ApiEndpointMixin<T extends Constructor<any>>(superClass: T) {
          * @param {object=} options
          * @returns {object}
          */
-        queryOptions(
+        requestConfig(
           url: string,
           method: Method,
           options?: AxiosRequestConfig,
         ): AxiosRequestConfig {
-          const config = super.queryOptions(url, method, options)
+          const config = super.requestConfig(url, method, options)
           if (!config.data || typeof config.data !== 'object') {
             return config
           }

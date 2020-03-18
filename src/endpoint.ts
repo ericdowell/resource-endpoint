@@ -124,6 +124,10 @@ export class Endpoint {
     return urljoin(this.origin, this.path, this.endpoint)
   }
 
+  /**
+   *
+   * @returns {Function}
+   */
   get paramsSerializer(): (params: any) => string {
     return (params): string => {
       return qs.stringify(params, { arrayFormat: 'brackets' })
@@ -131,14 +135,14 @@ export class Endpoint {
   }
 
   /**
-   * Returns object of query options, currently defaults to Axios options.
+   * Returns object of request config.
    *
    * @param {string} url
    * @param {string} method
    * @param {object=} requestConfig
    * @returns {object}
    */
-  queryOptions(
+  requestConfig(
     url: string,
     method: Method,
     requestConfig?: AxiosRequestConfig,
@@ -155,19 +159,19 @@ export class Endpoint {
   }
 
   /**
-   * General query method that is used by all HTTP calls.
+   * General request method that is used by all HTTP calls.
    *
    * @param {string} url
    * @param {string} method
    * @param {object=} requestConfig
    * @returns {Promise<any>}
    */
-  async query<T = any, R = AxiosResponse<T>>(
+  async request<T = any, R = AxiosResponse<T>>(
     url: string,
     method: Method,
     requestConfig?: AxiosRequestConfig | any,
   ): Promise<R> {
-    const config = this.queryOptions(url, method, requestConfig)
+    const config = this.requestConfig(url, method, requestConfig)
     try {
       const response = await axios.request<T, R>(config)
       if (this.isDebugEnabled()) {
@@ -178,7 +182,7 @@ export class Endpoint {
       if (this.isDebugEnabled()) {
         this.debugResponseError(url, method, config, error)
       }
-      return Endpoint.handleQueryError(error, this)
+      return Endpoint.handleRequestError(error, this)
     }
   }
 
@@ -204,7 +208,7 @@ export class Endpoint {
     config: AxiosRequestConfig,
     response: R,
   ): void {
-    this.debugQuery<R>(url, method, config, 'response', response)
+    this.debug<R>(url, method, config, 'response', response)
   }
 
   /**
@@ -220,7 +224,7 @@ export class Endpoint {
     config: AxiosRequestConfig,
     error: T,
   ): void {
-    this.debugQuery<T>(url, method, config, 'error', error)
+    this.debug<T>(url, method, config, 'error', error)
   }
 
   /**
@@ -231,7 +235,7 @@ export class Endpoint {
    * @param {string=} label
    * @param {object=} data
    */
-  debugQuery<T = any>(
+  debug<T = any>(
     url: string,
     method: Method,
     config?: AxiosRequestConfig,
@@ -267,7 +271,7 @@ export class Endpoint {
    * @returns {void|*}
    * @throw {Error}
    */
-  static handleQueryError(
+  static handleRequestError(
     error: AxiosError | Error,
     endpointInstance: Endpoint,
   ): any {

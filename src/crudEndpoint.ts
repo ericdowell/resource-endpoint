@@ -12,7 +12,7 @@ export class CrudEndpoint extends Endpoint {
     path: string,
     options?: AxiosRequestConfig,
   ): Promise<R> {
-    return this.query<T, R>(path, 'delete', options)
+    return this.request<T, R>(path, 'delete', options)
   }
 
   /**
@@ -25,7 +25,7 @@ export class CrudEndpoint extends Endpoint {
     path: string,
     options?: AxiosRequestConfig,
   ): Promise<R> {
-    return this.query<T, R>(path, 'get', options)
+    return this.request<T, R>(path, 'get', options)
   }
 
   /**
@@ -38,7 +38,7 @@ export class CrudEndpoint extends Endpoint {
     path: string,
     options?: AxiosRequestConfig,
   ): Promise<R> {
-    return this.query<T, R>(path, 'patch', options)
+    return this.request<T, R>(path, 'patch', options)
   }
 
   /**
@@ -51,7 +51,7 @@ export class CrudEndpoint extends Endpoint {
     path: string,
     options?: AxiosRequestConfig,
   ): Promise<R> {
-    return this.query<T, R>(path, 'post', options)
+    return this.request<T, R>(path, 'post', options)
   }
 
   /**
@@ -64,6 +64,6 @@ export class CrudEndpoint extends Endpoint {
     path: string,
     options?: AxiosRequestConfig,
   ): Promise<R> {
-    return this.query<T, R>(path, 'put', options)
+    return this.request<T, R>(path, 'put', options)
   }
 }

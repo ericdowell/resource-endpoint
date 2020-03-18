@@ -16,7 +16,7 @@ describe('ApiEndpointMixin', (): void => {
     expect(endpoint.shouldStringify).toBe(true)
     const data = 'string'
     const stringify = jest.spyOn(qs, 'stringify').mockImplementation((): string => 'string')
-    expect(endpoint.queryOptions('url', 'get', { data })).toMatchSnapshot()
+    expect(endpoint.requestConfig('url', 'get', { data })).toMatchSnapshot()
     expect(stringify).toHaveBeenCalledTimes(0)
     stringify.mockRestore()
   })
@@ -28,21 +28,21 @@ describe('ApiEndpointMixin', (): void => {
     expect(endpoint.shouldStringify).toBe(false)
   })
 
-  it('calling preventStringify before queryOptions prevents call to qs.stringify', (): void => {
+  it('calling preventStringify before requestConfig prevents call to qs.stringify', (): void => {
     const endpoint = new TestEndpoint()
     endpoint.preventStringify()
     const stringify = jest.spyOn(qs, 'stringify').mockImplementation((): string => 'string')
     const data = { foo: 'bar' }
-    expect(endpoint.queryOptions('url', 'get', { data })).toMatchSnapshot()
+    expect(endpoint.requestConfig('url', 'get', { data })).toMatchSnapshot()
     expect(stringify).toHaveBeenCalledTimes(0)
     stringify.mockRestore()
   })
 
-  it('queryOptions calls qs.stringify if data is an object and not FormData', (): void => {
+  it('requestConfig calls qs.stringify if data is an object and not FormData', (): void => {
     const endpoint = new TestEndpoint()
     const stringify = jest.spyOn(qs, 'stringify').mockImplementation((): string => 'string')
     const data = { foo: 'bar' }
-    expect(endpoint.queryOptions('url', 'get', { data })).toMatchSnapshot()
+    expect(endpoint.requestConfig('url', 'get', { data })).toMatchSnapshot()
     expect(stringify).toHaveBeenCalledTimes(1)
     stringify.mockRestore()
   })
