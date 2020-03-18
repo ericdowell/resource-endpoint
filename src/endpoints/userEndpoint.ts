@@ -9,7 +9,6 @@ export class UserEndpoint extends CrudEndpoint {
    * @returns {Promise<any>}
    */
   show<T = any, R = AxiosResponse<T>>(userId: string | number, params?: AxiosRequestConfig): Promise<R> {
-    params = params || {}
     return this.get<T, R>(`/user/${userId}`, { params })
   }
 

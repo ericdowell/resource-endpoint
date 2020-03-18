@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserEndpoint the changePassword calls put parent method 1`] = `
+Array [
+  "/password/change",
+  Object {
+    "data": Object {
+      "current_password": "current",
+      "password": "password",
+      "password_confirmation": "password",
+    },
+  },
+]
+`;
+
+exports[`UserEndpoint the register calls post parent method 1`] = `
+Array [
+  "/register",
+  Object {
+    "data": Object {
+      "email": "email",
+      "email_confirmation": "email",
+      "password": "password",
+      "password_confirmation": "password",
+      "remember": true,
+    },
+  },
+]
+`;
+
+exports[`UserEndpoint the register calls post parent method 2`] = `
+Array [
+  "/register",
+  Object {
+    "data": Object {
+      "email": "email",
+      "email_confirmation": "email",
+      "name": "John",
+      "password": "password",
+      "password_confirmation": "password",
+      "remember": false,
+    },
+  },
+]
+`;
+
+exports[`UserEndpoint the requestPasswordReset calls post parent method 1`] = `
+Array [
+  "/password/email",
+  Object {
+    "data": Object {
+      "email": "email",
+    },
+  },
+]
+`;
+
+exports[`UserEndpoint the resendEmailVerification calls post parent method 1`] = `
+Array [
+  "/email/resend",
+]
+`;
+
+exports[`UserEndpoint the show calls get parent method 1`] = `
+Array [
+  "/user/123",
+  Object {
+    "params": Object {
+      "include": Array [
+        "name",
+      ],
+    },
+  },
+]
+`;
+
+exports[`UserEndpoint the update calls put parent method 1`] = `
+Array [
+  "/user/4321",
+  Object {
+    "data": Object {
+      "email": "email",
+      "name": "John",
+    },
+  },
+]
+`;

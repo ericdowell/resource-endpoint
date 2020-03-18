@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`errors/messages getErrors returns error object based on input 1`] = `undefined`;
+
+exports[`errors/messages getErrors returns error object based on input 2`] = `Object {}`;
+
+exports[`errors/messages getFallbackMessage returns message based on input 1`] = `"An unexpected error has occurred. Please try again."`;
+
+exports[`errors/messages getFallbackMessage returns message based on input 2`] = `"default message"`;
+
+exports[`errors/messages getFallbackMessage returns message based on input 3`] = `"message"`;
+
+exports[`errors/messages getMessage returns string based on input 1`] = `"default message"`;
+
+exports[`errors/messages getMessage returns string based on input 2`] = `
+Array [
+  "testing errors",
+]
+`;
+
+exports[`errors/messages getStatus returns status code based on input 1`] = `500`;
+
+exports[`errors/messages getStatus returns status code based on input 2`] = `404`;
+
+exports[`errors/messages hasMessage returns boolean based on input 1`] = `false`;
+
+exports[`errors/messages hasMessage returns boolean based on input 2`] = `true`;
