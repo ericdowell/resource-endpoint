@@ -257,6 +257,11 @@ export class Endpoint {
     this.console().log(format, ...output)
   }
 
+  /**
+   *
+   * @param {AxiosError|Error} error
+   * @throws {Error}
+   */
   handleError(error: AxiosError | Error): never {
     throw error
   }
