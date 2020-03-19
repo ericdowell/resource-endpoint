@@ -17,24 +17,17 @@ export class Endpoint {
 
   /**
    *
-   * @type {AxiosRequestConfig}
-   * @protected
-   */
-  _config: AxiosRequestConfig = {}
-
-  /**
-   *
    * @returns {AxiosRequestConfig}
    */
   get config(): AxiosRequestConfig {
-    return this._config
+    return {}
   }
 
   /**
    *
    * @returns {this}
    */
-  enableDebug(): this {
+  debug(): this {
     this._debug = true
     return this
   }
@@ -43,38 +36,8 @@ export class Endpoint {
    *
    * @returns {boolean}
    */
-  isDebugEnabled(): boolean {
+  shouldDebug(): boolean {
     return this._debug
-  }
-
-  /**
-   *
-   * @param {object} headers
-   * @returns {this}
-   */
-  setHeaders(headers: { [key: string]: any }): this {
-    this._config.headers = headers
-    return this
-  }
-
-  /**
-   *
-   * @param {string} key
-   * @param {*} value
-   * @returns {this}
-   */
-  setHeader(key: string, value: any): this {
-    this._config.headers = this._config.headers ?? {}
-    this._config.headers[key] = value
-    return this
-  }
-
-  /**
-   *
-   * @returns {object|undefined}
-   */
-  get headers(): { [key: string]: any } | undefined {
-    return this.config.headers
   }
 
   /**
@@ -150,7 +113,7 @@ export class Endpoint {
   ): AxiosRequestConfig {
     const config: AxiosRequestConfig = { ...this.config, ...requestConfig, ...{ url, method } }
     config.baseURL = config.baseURL ?? this.baseURL
-    config.headers = { ...this.headers, ...config.headers }
+    config.headers = { ...this.config.headers, ...config.headers }
     config.paramsSerializer = config.paramsSerializer ?? this.paramsSerializer
     return config
   }
@@ -171,25 +134,16 @@ export class Endpoint {
     const config = this.requestConfig(url, method, requestConfig)
     try {
       const response = await axios.request<T, R>(config)
-      if (this.isDebugEnabled()) {
+      if (this.shouldDebug()) {
         this.debugResponse(url, method, config, response)
       }
       return response
     } catch (error) {
-      if (this.isDebugEnabled()) {
+      if (this.shouldDebug()) {
         this.debugResponseError(url, method, config, error)
       }
       return Endpoint.handleRequestError(error, this)
     }
-  }
-
-  /**
-   *
-   * @param {object} response
-   * @returns {any}
-   */
-  static responseData<T = any>(response: AxiosResponse<T> | any): T {
-    return response?.data
   }
 
   /**
@@ -205,7 +159,7 @@ export class Endpoint {
     config: AxiosRequestConfig,
     response: R,
   ): void {
-    this.debug<R>(url, method, config, 'response', response)
+    this.log<R>(url, method, config, 'response', response)
   }
 
   /**
@@ -221,7 +175,7 @@ export class Endpoint {
     config: AxiosRequestConfig,
     error: T,
   ): void {
-    this.debug<T>(url, method, config, 'error', error)
+    this.log<T>(url, method, config, 'error', error)
   }
 
   /**
@@ -232,12 +186,12 @@ export class Endpoint {
    * @param {string=} label
    * @param {object=} data
    */
-  debug<T = any>(
+  protected log<T = any>(
     url: string,
     method: Method,
-    config?: AxiosRequestConfig,
-    label?: string,
-    data?: T,
+    config: AxiosRequestConfig,
+    label: string,
+    data: T,
   ): void {
     const output = [
       'color: #e55ea2;',
@@ -247,14 +201,10 @@ export class Endpoint {
       method,
       'color: black;',
       config,
+      label,
+      data,
     ]
-    let format = 'url: %c"%s"%c\nmethod: %c"%s"%c\nconfig:\n%o'
-    if (label && data) {
-      format += '\n%s:\n%o'
-      output.push(label)
-      output.push(data)
-    }
-    this.console().log(format, ...output)
+    this.console().log('url: %c"%s"%c\nmethod: %c"%s"%c\nconfig:\n%o\n%s:\n%o', ...output)
   }
 
   /**

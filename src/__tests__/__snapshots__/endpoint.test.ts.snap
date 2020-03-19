@@ -1,36 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Endpoint the requestConfig will return combine headers 1`] = `
-Object {
-  "baseURL": "http://localhost",
-  "headers": Object {
-    "Accept": "text/html",
-    "X-A": "baz",
-    "X-B": "bar",
-    "foo": "bar",
-  },
-  "method": "PUT",
-  "paramsSerializer": [Function],
-  "url": "final/path",
-}
-`;
-
 exports[`Endpoint the requestConfig will return default config 1`] = `
 Object {
   "baseURL": "http://localhost",
   "headers": Object {},
   "method": "get",
   "paramsSerializer": [Function],
-  "url": "final/path",
+  "url": "test/path",
 }
 `;
 
-exports[`Endpoint the requestConfig will return passed baseURL 1`] = `
+exports[`Endpoint the requestConfig will return passed baseURL and paramsSerializer 1`] = `
 Object {
   "baseURL": "https://example.com",
   "headers": Object {},
   "method": "PATCH",
   "paramsSerializer": [Function],
-  "url": "final/path",
+  "url": "test/path",
 }
 `;

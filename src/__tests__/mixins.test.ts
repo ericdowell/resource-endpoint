@@ -11,7 +11,6 @@ describe('ApiEndpointMixin', (): void => {
       Accept: 'application/json',
       'Content-Type': 'application/x-www-form-urlencoded',
     }
-    expect(endpoint.headers).toStrictEqual(headers)
     expect(endpoint.config).toStrictEqual({
       headers,
     })

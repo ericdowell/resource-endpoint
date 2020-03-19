@@ -9,15 +9,15 @@ jest.spyOn(global.console, 'log').mockImplementation(() => {})
 
 const createEndpoint = (debug = false): Endpoint => {
   const endpoint = new Endpoint()
-  return debug ? endpoint.enableDebug() : endpoint
+  return debug ? endpoint.debug() : endpoint
 }
 
 describe(Endpoint.name, (): void => {
-  it('calling enableDebug will make isDebugEnabled return true', () => {
+  it('calling debug will make shouldDebug return true', () => {
     const endpoint = new Endpoint()
-    expect(endpoint.isDebugEnabled()).toBe(false)
-    endpoint.enableDebug()
-    expect(endpoint.isDebugEnabled()).toBe(true)
+    expect(endpoint.shouldDebug()).toBe(false)
+    endpoint.debug()
+    expect(endpoint.shouldDebug()).toBe(true)
   })
 
   it('the origin is localhost', () => {
@@ -40,22 +40,8 @@ describe(Endpoint.name, (): void => {
     expect(new Endpoint().console()).toBe(window.console)
   })
 
-  it('the headers default is undefined', () => {
-    expect(new Endpoint().headers).toBeUndefined()
-  })
-
-  it('the setHeaders overrides headers values', () => {
-    const endpoint = new Endpoint().setHeaders({ Accept: 'application/json' })
-    expect(endpoint.headers).toStrictEqual({
-      Accept: 'application/json',
-    })
-  })
-
-  it('the setHeader updates single headers value', () => {
-    const endpoint = new Endpoint().setHeader('Accept', 'application/json')
-    expect(endpoint.headers).toStrictEqual({
-      Accept: 'application/json',
-    })
+  it('the config.headers default is undefined', () => {
+    expect(new Endpoint().config.headers).toBeUndefined()
   })
 
   it('the paramsSerializer will return function that calls qs.stringify', () => {
@@ -69,27 +55,13 @@ describe(Endpoint.name, (): void => {
   })
 
   it('the requestConfig will return default config', () => {
-    expect(new Endpoint().requestConfig('final/path', 'get')).toMatchSnapshot()
+    expect(new Endpoint().requestConfig('test/path', 'get')).toMatchSnapshot()
   })
 
-  it('the requestConfig will return passed baseURL', () => {
+  it('the requestConfig will return passed baseURL and paramsSerializer', () => {
     const endpoint = new Endpoint()
-    const config = { baseURL: 'https://example.com' }
-    expect(endpoint.requestConfig('final/path', 'PATCH', config)).toMatchSnapshot()
-  })
-
-  it('the requestConfig will return combine headers', () => {
-    const endpoint = new Endpoint()
-    endpoint.setHeaders({ Accept: 'application/json', 'X-A': 'baz' })
-    endpoint.setHeader('X-B', 'bar')
-    const config = { headers: { foo: 'bar', Accept: 'text/html' }, paramsSerializer: (): string => '' }
-    expect(endpoint.requestConfig('final/path', 'PUT', config)).toMatchSnapshot()
-  })
-
-  it('the responseData will return data key of object', () => {
-    const data = 'it'
-    expect(Endpoint.responseData(undefined)).toBeUndefined()
-    expect(Endpoint.responseData({ data })).toBe(data)
+    const config = { baseURL: 'https://example.com', paramsSerializer: endpoint.paramsSerializer }
+    expect(endpoint.requestConfig('test/path', 'PATCH', config)).toMatchSnapshot()
   })
 
   it.each([
@@ -122,21 +94,13 @@ describe(Endpoint.name, (): void => {
     axiosRequest.mockRestore()
   })
 
-  it('debugResponse and debugResponseError calls debug', (): void => {
-    const endpoint = new Endpoint()
-    const debug = jest.spyOn(endpoint, 'debug').mockImplementation((): any => true)
-    endpoint.debugResponse('url', 'get', {}, {})
-    endpoint.debugResponseError('url', 'get', {}, {})
-    expect(debug).toHaveBeenCalledTimes(2)
-  })
-
-  it('debug calls this.console', (): void => {
+  it('debugResponse and debugResponseError call log method and log calls this.console', (): void => {
     const endpoint = new Endpoint()
     const log = jest.fn()
     const console = jest.spyOn(endpoint, 'console').mockImplementation((): any => ({ log }))
-    expect(endpoint.debug('url', 'get'))
-    expect(endpoint.debug('url', 'get', {}, 'label', {}))
-    expect(console).toHaveBeenCalled()
+    endpoint.debugResponse('url', 'get', {}, {})
+    endpoint.debugResponseError('url', 'get', {}, {})
+    expect(console).toHaveBeenCalledTimes(2)
   })
 
   it('static method handleRequestError calls endpoint implementation of handleError', (): void => {

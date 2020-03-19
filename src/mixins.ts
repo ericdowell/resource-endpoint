@@ -10,24 +10,25 @@ export type Constructor<T> =
 export function ApiEndpointMixin<T extends Constructor<any>>(superClass: T) {
   return class extends superClass {
         /**
-         * Always set Content-Type to application/x-www-form-urlencoded, place in assign last.
-         *
-         * @type {{}}
-         * @protected
-         */
-        _config: AxiosRequestConfig = {
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-        }
-
-        /**
          *
          * @type {boolean}
          * @protected
          */
         _stringify = true
+
+        /**
+         * Always set Content-Type to application/x-www-form-urlencoded, place in assign last.
+         *
+         * @returns {AxiosRequestConfig}
+         */
+        get config(): AxiosRequestConfig {
+          return {
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+          }
+        }
 
         /**
          * Override to set as version, default to empty
