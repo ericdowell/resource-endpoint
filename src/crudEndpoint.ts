@@ -8,7 +8,7 @@ export class CrudEndpoint extends Endpoint {
    * @param {AxiosRequestConfig=} config
    * @returns {Promise<any>}
    */
-  delete<T = any, R = AxiosResponse<T>>(
+  async delete<T = any, R = AxiosResponse<T>>(
     path: string,
     config?: AxiosRequestConfig,
   ): Promise<R> {
@@ -21,7 +21,7 @@ export class CrudEndpoint extends Endpoint {
    * @param {AxiosRequestConfig=} config
    * @returns {Promise<any>}
    */
-  get<T = any, R = AxiosResponse<T>>(
+  async get<T = any, R = AxiosResponse<T>>(
     path: string,
     config?: AxiosRequestConfig,
   ): Promise<R> {
@@ -34,7 +34,7 @@ export class CrudEndpoint extends Endpoint {
    * @param {AxiosRequestConfig=} config
    * @returns {Promise<any>}
    */
-  patch<T = any, R = AxiosResponse<T>>(
+  async patch<T = any, R = AxiosResponse<T>>(
     path: string,
     config?: AxiosRequestConfig,
   ): Promise<R> {
@@ -47,7 +47,7 @@ export class CrudEndpoint extends Endpoint {
    * @param {AxiosRequestConfig=} config
    * @returns {Promise<any>}
    */
-  post<T = any, R = AxiosResponse<T>>(
+  async post<T = any, R = AxiosResponse<T>>(
     path: string,
     config?: AxiosRequestConfig,
   ): Promise<R> {
@@ -60,7 +60,7 @@ export class CrudEndpoint extends Endpoint {
    * @param {AxiosRequestConfig=} config
    * @returns {Promise<any>}
    */
-  put<T = any, R = AxiosResponse<T>>(
+  async put<T = any, R = AxiosResponse<T>>(
     path: string,
     config?: AxiosRequestConfig,
   ): Promise<R> {

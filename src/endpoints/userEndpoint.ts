@@ -8,7 +8,7 @@ export class UserEndpoint extends CrudEndpoint {
    * @param {AxiosRequestConfig=} params
    * @returns {Promise<any>}
    */
-  show<T = any, R = AxiosResponse<T>>(userId: string | number, params?: AxiosRequestConfig): Promise<R> {
+  async show<T = any, R = AxiosResponse<T>>(userId: string | number, params?: AxiosRequestConfig): Promise<R> {
     return this.get<T, R>(`/user/${userId}`, { params })
   }
 
@@ -18,7 +18,7 @@ export class UserEndpoint extends CrudEndpoint {
    * @param {any} data
    * @returns {Promise<any>}
    */
-  update<T = any, R = AxiosResponse<T>>(userId: string | number, data: any): Promise<R> {
+  async update<T = any, R = AxiosResponse<T>>(userId: string | number, data: any): Promise<R> {
     return this.put<T, R>(`/user/${userId}`, { data })
   }
 
@@ -32,7 +32,7 @@ export class UserEndpoint extends CrudEndpoint {
    * @param {boolean} remember
    * @returns {Promise<any>}
    */
-  register<T = any, R = AxiosResponse<T>>(
+  async register<T = any, R = AxiosResponse<T>>(
     email: string,
     emailConfirmation: string,
     password: any,
@@ -57,7 +57,7 @@ export class UserEndpoint extends CrudEndpoint {
    *
    * @returns {Promise<any>}
    */
-  resendEmailVerification<T = any, R = AxiosResponse<T>>(): Promise<R> {
+  async resendEmailVerification<T = any, R = AxiosResponse<T>>(): Promise<R> {
     return this.post<T, R>('/email/resend')
   }
 
@@ -66,7 +66,7 @@ export class UserEndpoint extends CrudEndpoint {
    * @param {string} email
    * @returns {Promise<any>}
    */
-  requestPasswordReset<T = any, R = AxiosResponse<T>>(email: string): Promise<R> {
+  async requestPasswordReset<T = any, R = AxiosResponse<T>>(email: string): Promise<R> {
     const data = {
       email,
     }
@@ -80,7 +80,7 @@ export class UserEndpoint extends CrudEndpoint {
    * @param {any} passwordConfirmation
    * @returns {Promise<any>}
    */
-  changePassword<T = any, R = AxiosResponse<T>>(
+  async changePassword<T = any, R = AxiosResponse<T>>(
     currentPassword: any,
     password: any,
     passwordConfirmation: any,

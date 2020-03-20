@@ -1,4 +1,4 @@
-export function BasicMock(config: any): Promise<any> {
+export async function BasicMock(config: any): Promise<any> {
   return new Promise((resolve, reject) => {
     if (config.errors) {
       const error = {

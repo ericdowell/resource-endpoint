@@ -19,6 +19,7 @@ module.exports = {
     'plugin:import/warnings',
   ],
   parserOptions: {
+    project: './tsconfig.json',
     sourceType: 'module',
     ecmaVersion: 2018,
   },
@@ -36,6 +37,7 @@ module.exports = {
     quotes: ["error", "single"],
     semi: 'off',
     'space-before-function-paren': ['error', 'never'],
+    '@typescript-eslint/promise-function-async': ['error'],
     '@typescript-eslint/semi': ['error', 'never']
   },
 }
