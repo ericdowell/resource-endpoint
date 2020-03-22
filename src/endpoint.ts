@@ -11,11 +11,14 @@ export class Endpoint {
   /**
    *
    * @type {boolean}
-   * @private
+   * @protected
    */
-  _debug = false
+  protected _debug = false
 
   /**
+   * Used in merging together AxiosRequestConfig values.
+   * These are considered fallback values that
+   * can be overridden by calling config.
    *
    * @returns {AxiosRequestConfig}
    */
@@ -24,6 +27,8 @@ export class Endpoint {
   }
 
   /**
+   * Can be used during chaining call to enable debugging response/error
+   * using console.log or specifically this.console().log().
    *
    * @returns {this}
    */
@@ -33,6 +38,7 @@ export class Endpoint {
   }
 
   /**
+   * Returns boolean value for debugging to console.log
    *
    * @returns {boolean}
    */
@@ -42,7 +48,7 @@ export class Endpoint {
 
   /**
    * This contains the protocol and domain, aka location.origin.
-   * e.g. https://example.com or https://localhost:3000
+   * e.g. https://example.com, https://localhost:3000, etc.
    *
    * @returns {string}
    */
@@ -52,7 +58,7 @@ export class Endpoint {
 
   /**
    * This is the middle of the url path, usually a group prefix.
-   * e.g. api/v1 or user/settings
+   * e.g. api/v1, user/settings, etc.
    *
    * @returns {string}
    */
@@ -80,7 +86,7 @@ export class Endpoint {
   }
 
   /**
-   * Used with axios library to set baseURL property.
+   * Used to set baseURL property in AxiosRequestConfig.
    *
    * @returns {string}
    */
@@ -99,12 +105,12 @@ export class Endpoint {
   }
 
   /**
-   * Returns object of request config.
+   * Returns AxiosRequestConfig passed to axios.request.
    *
    * @param {string} url
-   * @param {string} method
-   * @param {object=} requestConfig
-   * @returns {object}
+   * @param {Method} method
+   * @param {AxiosRequestConfig=} requestConfig
+   * @returns {AxiosRequestConfig}
    */
   requestConfig(
     url: string,
@@ -122,8 +128,8 @@ export class Endpoint {
    * General request method that is used by all HTTP calls.
    *
    * @param {string} url
-   * @param {string} method
-   * @param {object=} requestConfig
+   * @param {Method} method
+   * @param {AxiosRequestConfig=} requestConfig
    * @returns {Promise<any>}
    */
   async request<T = any, R = AxiosResponse<T>>(
@@ -157,9 +163,9 @@ export class Endpoint {
 
   /**
    *
-   * @param {Error} error
-   * @param {any} instance
-   * @returns {void|*}
+   * @param {AxiosError|Error} error
+   * @param {Endpoint} instance
+   * @returns {any}
    * @throw {Error}
    */
   static handleRequestError<T = any>(error: AxiosError<T> | Error, instance: Endpoint): any {
@@ -169,9 +175,9 @@ export class Endpoint {
   /**
    *
    * @param {string} url
-   * @param {string} method
-   * @param {object=} config
-   * @param {object} response
+   * @param {Method} method
+   * @param {AxiosRequestConfig} config
+   * @param {object|AxiosResponse} response
    */
   debugResponse<T = any, R = AxiosResponse<T>>(
     url: string,
@@ -185,8 +191,8 @@ export class Endpoint {
   /**
    *
    * @param {string} url
-   * @param {string} method
-   * @param {object=} config
+   * @param {Method} method
+   * @param {AxiosRequestConfig} config
    * @param {AxiosError} error
    */
   debugResponseError<T = any, R = AxiosError<T>>(
@@ -201,10 +207,10 @@ export class Endpoint {
   /**
    *
    * @param {string} url
-   * @param {string} method
-   * @param {object=} config
-   * @param {string=} label
-   * @param {object=} data
+   * @param {Method} method
+   * @param {AxiosRequestConfig} config
+   * @param {string} label
+   * @param {object|AxiosError|AxiosResponse} data
    */
   protected log<T = any>(
     url: string,
