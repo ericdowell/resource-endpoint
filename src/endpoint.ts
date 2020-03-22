@@ -4,7 +4,7 @@ import axios, {
   AxiosResponse,
   Method,
 } from 'axios'
-import qs from 'qs'
+import qs, { IStringifyOptions } from 'qs'
 import urljoin from 'url-join'
 
 export class Endpoint {
@@ -13,7 +13,7 @@ export class Endpoint {
    * @type {boolean}
    * @protected
    */
-  protected _debug = false
+  _debug = false
 
   /**
    * Used in merging together AxiosRequestConfig values.
@@ -95,12 +95,19 @@ export class Endpoint {
   }
 
   /**
+   * @returns {IStringifyOptions}
+   */
+  get stringifyOptions(): IStringifyOptions {
+    return { arrayFormat: 'brackets' }
+  }
+
+  /**
    *
    * @returns {Function}
    */
   get paramsSerializer(): (params: any) => string {
     return (params): string => {
-      return qs.stringify(params, { arrayFormat: 'brackets' })
+      return qs.stringify(params, this.stringifyOptions)
     }
   }
 
