@@ -7,12 +7,14 @@ module.exports = {
     'node': true,
   },
   plugins: [
-    '@typescript-eslint',
     'import',
+    'jest',
+    '@typescript-eslint',
   ],
   extends: [
     'standard',
     'eslint:recommended',
+    'plugin:jest/all',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:import/errors',
@@ -27,6 +29,13 @@ module.exports = {
     'linebreak-style': ['error', 'unix'],
     'import/first': 'error',
     'import/no-unresolved': ['error', {ignore: ['./','../']}],
+    'jest/lowercase-name': [
+      'error',
+      {
+        'ignore': ['describe']
+      }
+    ],
+    'jest/prefer-inline-snapshots': ['warn'],
     'no-eval': 'error',
     // Prettier replacements
     'arrow-parens': ["error", "always"],

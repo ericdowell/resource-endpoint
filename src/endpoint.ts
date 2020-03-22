@@ -129,21 +129,41 @@ export class Endpoint {
   async request<T = any, R = AxiosResponse<T>>(
     url: string,
     method: Method,
-    requestConfig?: AxiosRequestConfig | any,
+    requestConfig?: AxiosRequestConfig,
   ): Promise<R> {
     const config = this.requestConfig(url, method, requestConfig)
     try {
       const response = await axios.request<T, R>(config)
       if (this.shouldDebug()) {
-        this.debugResponse(url, method, config, response)
+        this.debugResponse<T, R>(url, method, config, response)
       }
       return response
     } catch (error) {
       if (this.shouldDebug()) {
-        this.debugResponseError(url, method, config, error)
+        this.debugResponseError<T>(url, method, config, error)
       }
-      return Endpoint.handleRequestError(error, this)
+      return Endpoint.handleRequestError<T>(error, this)
     }
+  }
+
+  /**
+   *
+   * @param {AxiosError|Error} error
+   * @throws {Error}
+   */
+  handleError<T = any>(error: AxiosError<T> | Error): never {
+    throw error
+  }
+
+  /**
+   *
+   * @param {Error} error
+   * @param {any} instance
+   * @returns {void|*}
+   * @throw {Error}
+   */
+  static handleRequestError<T = any>(error: AxiosError<T> | Error, instance: Endpoint): any {
+    return instance.handleError<T>(error)
   }
 
   /**
@@ -169,13 +189,13 @@ export class Endpoint {
    * @param {object=} config
    * @param {AxiosError} error
    */
-  debugResponseError<T = AxiosError>(
+  debugResponseError<T = any, R = AxiosError<T>>(
     url: string,
     method: Method,
     config: AxiosRequestConfig,
-    error: T,
+    error: R,
   ): void {
-    this.log<T>(url, method, config, 'error', error)
+    this.log<R>(url, method, config, 'error', error)
   }
 
   /**
@@ -205,28 +225,5 @@ export class Endpoint {
       data,
     ]
     this.console().log('url: %c"%s"%c\nmethod: %c"%s"%c\nconfig:\n%o\n%s:\n%o', ...output)
-  }
-
-  /**
-   *
-   * @param {AxiosError|Error} error
-   * @throws {Error}
-   */
-  handleError(error: AxiosError | Error): never {
-    throw error
-  }
-
-  /**
-   *
-   * @param {Error} error
-   * @param {any} endpointInstance
-   * @returns {void|*}
-   * @throw {Error}
-   */
-  static handleRequestError(
-    error: AxiosError | Error,
-    endpointInstance: Endpoint,
-  ): any {
-    return endpointInstance.handleError(error)
   }
 }

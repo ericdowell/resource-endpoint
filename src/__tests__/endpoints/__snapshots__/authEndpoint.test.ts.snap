@@ -1,18 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AuthEndpoint login method defaults to remember equal to true 1`] = `
-Array [
-  "/login",
-  Object {
-    "data": Object {
-      "email": "email",
-      "password": "password",
-      "remember": true,
-    },
-  },
-]
-`;
-
 exports[`AuthEndpoint the login calls post parent method 1`] = `
 Array [
   "/login",

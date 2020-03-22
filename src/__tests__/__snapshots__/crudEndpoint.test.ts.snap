@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CrudEndpoint the "delete" method calls request on parent 1`] = `
+Array [
+  "path",
+  "delete",
+  Object {
+    "url": "value",
+  },
+]
+`;
+
+exports[`CrudEndpoint the "get" method calls request on parent 1`] = `
+Array [
+  "path",
+  "get",
+  Object {
+    "url": "value",
+  },
+]
+`;
+
+exports[`CrudEndpoint the "patch" method calls request on parent 1`] = `
+Array [
+  "path",
+  "patch",
+  Object {
+    "url": "value",
+  },
+]
+`;
+
+exports[`CrudEndpoint the "post" method calls request on parent 1`] = `
+Array [
+  "path",
+  "post",
+  Object {
+    "url": "value",
+  },
+]
+`;
+
+exports[`CrudEndpoint the "put" method calls request on parent 1`] = `
+Array [
+  "path",
+  "put",
+  Object {
+    "url": "value",
+  },
+]
+`;

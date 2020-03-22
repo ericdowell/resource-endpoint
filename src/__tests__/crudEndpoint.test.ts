@@ -14,7 +14,7 @@ const callEndpoint = (instance: CrudEndpoint): {[key: string]: Function} => {
   }
 }
 
-describe(CrudEndpoint.name, (): void => {
+describe(`${CrudEndpoint.name}`, (): void => {
   it.each([
     ['delete'],
     ['get'],
@@ -22,15 +22,11 @@ describe(CrudEndpoint.name, (): void => {
     ['post'],
     ['put'],
   ])('the "%s" method calls request on parent', async(method): Promise<void> => {
+    expect.assertions(1)
     const instance = new CrudEndpoint()
     const request = jest.spyOn(instance, 'request').mockImplementation(async(): Promise<any> => true)
     await callEndpoint(instance)[method]('path', { url: 'value' })
-    expect(request.mock.calls[0]).toEqual([
-      'path',
-      method,
-      {
-        url: 'value',
-      },
-    ])
+    // eslint-disable-next-line jest/prefer-inline-snapshots
+    expect(request.mock.calls[0]).toMatchSnapshot()
   })
 })

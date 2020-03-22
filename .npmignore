@@ -2,8 +2,6 @@
 .circleci/
 
 coverage/
-.eslintignore
-.eslintrc.js
 
 jest.config.js
 lib/__tests__/

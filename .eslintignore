@@ -1,2 +1,6 @@
+coverage
+lib
 node_modules
 .next
+
+webpack.config.js

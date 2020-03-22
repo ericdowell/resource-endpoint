@@ -15,7 +15,7 @@ const callEndpoint = (instance: UserEndpoint): {[key: string]: Function} => {
   }
 }
 
-describe(UserEndpoint.name, (): void => {
+describe(`${UserEndpoint.name}`, (): void => {
   it.each([
     ['show', 'get', [123, { include: ['name'] }, false]],
     ['update', 'put', [4321, { name: 'John', email: 'email' }]],
@@ -25,12 +25,14 @@ describe(UserEndpoint.name, (): void => {
     ['requestPasswordReset', 'post', ['email']],
     ['changePassword', 'put', ['current', 'password', 'password']],
   ])('the %s calls %s parent method', async(method: string, calls, params): Promise<void> => {
+    expect.assertions(2)
     const endpoint = new UserEndpoint()
     // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     const methodCalled = jest.spyOn(endpoint, calls).mockImplementation((): any => true)
     await callEndpoint(endpoint)[method](...params)
     expect(methodCalled).toHaveBeenCalledTimes(1)
+    // eslint-disable-next-line jest/prefer-inline-snapshots
     expect(methodCalled.mock.calls[0]).toMatchSnapshot()
   })
 })
