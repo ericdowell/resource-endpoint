@@ -5,11 +5,27 @@ Array [
   "/password/change",
   Object {
     "data": Object {
-      "current_password": "current",
       "password": "password",
       "password_confirmation": "password",
     },
   },
+]
+`;
+
+exports[`UserEndpoint the confirmPassword calls post parent method 1`] = `
+Array [
+  "/password/confirm",
+  Object {
+    "data": Object {
+      "password": "password",
+    },
+  },
+]
+`;
+
+exports[`UserEndpoint the current calls get parent method 1`] = `
+Array [
+  "/user",
 ]
 `;
 

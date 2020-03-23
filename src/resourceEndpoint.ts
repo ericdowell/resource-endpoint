@@ -5,7 +5,7 @@ export class ResourceEndpoint extends CrudEndpoint {
   /**
    * Display a listing of the resource.
    *
-   * @param {object=} params
+   * @param {any=} params
    * @returns {Promise<any>}
    */
   async index<T = any, R = AxiosResponse<T>>(params?: any): Promise<R> {
@@ -16,7 +16,7 @@ export class ResourceEndpoint extends CrudEndpoint {
    * Store a newly created resource in storage.
    *
    * @param {object} data
-   * @param {object=} params
+   * @param {any=} params
    * @returns {Promise<any>}
    */
   async store<T = any, R = AxiosResponse<T>>(data: any, params?: any): Promise<R> {
@@ -26,8 +26,8 @@ export class ResourceEndpoint extends CrudEndpoint {
   /**
    * Display the specified resource.
    *
-   * @param {any} id
-   * @param {object=} params
+   * @param {string|number} id
+   * @param {any=} params
    * @returns {Promise<any>}
    */
   async show<T = any, R = AxiosResponse<T>>(
@@ -40,9 +40,9 @@ export class ResourceEndpoint extends CrudEndpoint {
   /**
    * Update the specified resource in storage.
    *
-   * @param {int} id
+   * @param {string|number} id
    * @param {object} data
-   * @param {object=} params
+   * @param {any=} params
    * @returns {Promise<any>}
    */
   async update<T = any, R = AxiosResponse<T>>(
@@ -58,7 +58,7 @@ export class ResourceEndpoint extends CrudEndpoint {
    *
    * @param {int|null|undefined} id
    * @param {object} data
-   * @param {object=} params
+   * @param {any=} params
    * @returns {Promise<any>}
    */
   async storeOrUpdate<T = any, R = AxiosResponse<T>>(
@@ -75,8 +75,8 @@ export class ResourceEndpoint extends CrudEndpoint {
   /**
    * Remove the specified resource from storage.
    *
-   * @param {int} id
-   * @param {object=} params
+   * @param {string|number} id
+   * @param {any=} params
    * @returns {Promise<any>}
    */
   async destroy<T = any, R = AxiosResponse<T>>(

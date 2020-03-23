@@ -6,24 +6,28 @@ jest.spyOn(axios, 'request').mockImplementation(BasicMock)
 
 const callEndpoint = (instance: UserEndpoint): {[key: string]: Function} => {
   return {
+    current: instance.current.bind(instance),
     show: instance.show.bind(instance),
     update: instance.update.bind(instance),
     register: instance.register.bind(instance),
     resendEmailVerification: instance.resendEmailVerification.bind(instance),
     requestPasswordReset: instance.requestPasswordReset.bind(instance),
     changePassword: instance.changePassword.bind(instance),
+    confirmPassword: instance.confirmPassword.bind(instance),
   }
 }
 
 describe(`${UserEndpoint.name}`, (): void => {
   it.each([
+    ['current', 'get', []],
     ['show', 'get', [123, { include: ['name'] }, false]],
     ['update', 'put', [4321, { name: 'John', email: 'email' }]],
     ['register', 'post', ['email', 'email', 'password', 'password']],
     ['register', 'post', ['email', 'email', 'password', 'password', { name: 'John' }, false]],
     ['resendEmailVerification', 'post', []],
     ['requestPasswordReset', 'post', ['email']],
-    ['changePassword', 'put', ['current', 'password', 'password']],
+    ['changePassword', 'put', ['password', 'password']],
+    ['confirmPassword', 'post', ['password']],
   ])('the %s calls %s parent method', async(method: string, calls, params): Promise<void> => {
     expect.assertions(2)
     const endpoint = new UserEndpoint()
