@@ -141,4 +141,14 @@ describe(`${Endpoint.name}`, (): void => {
     const error = new Error()
     expect((): void => Endpoint.handleRequestError(error, new Endpoint())).toThrow(error)
   })
+
+  it.each([
+    [{ data: { key: 'value' } }, false, { key: 'value' }],
+    [{ data: ['value'] }, true, ['value']],
+    [undefined, undefined, {}],
+    [undefined, true, []],
+  ])('static method safeResponseData returns data property', (response, isArray, expected): void => {
+    expect.assertions(1)
+    expect(Endpoint.safeResponseData(response as any, isArray)).toStrictEqual(expected)
+  })
 })

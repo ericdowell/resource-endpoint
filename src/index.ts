@@ -1,5 +1,3 @@
-// Api Mixin
-export { ApiEndpointMixin } from './mixins'
 // Base
 export { Endpoint } from './endpoint'
 export { CrudEndpoint } from './crudEndpoint'
@@ -15,3 +13,6 @@ export {
   hasMessage,
   getMessage,
 } from './errors/messages'
+// Mixins
+export { ApiEndpointMixin } from './mixins'
+export { HandleErrorMixin } from './mixins'

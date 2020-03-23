@@ -1,10 +1,7 @@
 import { AxiosRequestConfig, Method } from 'axios'
 import qs from 'qs'
+import { Constructor } from './index'
 import urljoin from 'url-join'
-
-export type Constructor<T> =
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-    new (...args: any[]) => T
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function ApiEndpointMixin<T extends Constructor<any>>(superClass: T) {

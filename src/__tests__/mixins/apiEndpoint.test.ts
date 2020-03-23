@@ -1,5 +1,5 @@
-import { Endpoint } from '../endpoint'
-import { ApiEndpointMixin } from '../mixins'
+import { Endpoint } from '../../endpoint'
+import { ApiEndpointMixin } from '../../mixins'
 import qs = require('qs')
 
 class TestEndpoint extends ApiEndpointMixin(Endpoint) {}

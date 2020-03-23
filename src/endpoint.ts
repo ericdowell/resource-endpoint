@@ -181,6 +181,19 @@ export class Endpoint {
 
   /**
    *
+   * @param {AxiosResponse} response
+   * @param {boolean} isArray
+   * @returns {any|{}}
+   */
+  static safeResponseData<T = { [key: string]: any} | any[]>(response: AxiosResponse<T>, isArray = false): T | {} | [] {
+    if (isArray) {
+      return (Array.isArray(response?.data) && response.data) || []
+    }
+    return (response?.data && typeof response.data === 'object' && response.data) || {}
+  }
+
+  /**
+   *
    * @param {string} url
    * @param {Method} method
    * @param {AxiosRequestConfig} config
