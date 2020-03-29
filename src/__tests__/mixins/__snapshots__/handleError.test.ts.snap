@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HandleErrorMixin handleError returns data key with errors 1`] = `
+Object {
+  "data": Object {
+    "errors": Object {
+      "key": Array [],
+    },
+  },
+}
+`;
+
+exports[`HandleErrorMixin handleError returns data key with errors 2`] = `
+Object {
+  "config": undefined,
+  "data": Object {
+    "errors": Object {
+      "fallback": "An unexpected error has occurred. Please try again.",
+    },
+  },
+  "headers": undefined,
+  "status": undefined,
+  "statusText": undefined,
+}
+`;

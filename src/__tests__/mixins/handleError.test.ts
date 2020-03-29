@@ -11,16 +11,10 @@ class TestEndpoint extends HandleErrorMixin(Endpoint) {}
 
 describe('HandleErrorMixin', (): void => {
   it.each([
-    [{ response: { data: { errors: { key: [] } } } }, { data: { errors: { key: [] } } }],
-    [undefined, {
-      data: {
-        errors: {
-          fallback: 'An unexpected error has occurred. Please try again.',
-        },
-      },
-    }],
-  ])('handleError returns data key with errors', async(error, expected): Promise<void> => {
-    const endpoint = new TestEndpoint()
-    expect(await endpoint.handleError(error)).toStrictEqual(expected)
+    [{ response: { data: { errors: { key: [] } } } }],
+    [undefined],
+  ])('handleError returns data key with errors', async(error): Promise<void> => {
+    // eslint-disable-next-line jest/prefer-inline-snapshots
+    expect(await new TestEndpoint().handleError(error)).toMatchSnapshot()
   })
 })
