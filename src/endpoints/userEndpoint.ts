@@ -82,12 +82,36 @@ export class UserEndpoint extends CrudEndpoint {
   }
 
   /**
+   * For where confirm password middleware is NOT enabled.
    *
+   * @param {any} currentPassword
    * @param {any} password
    * @param {any} passwordConfirmation
    * @returns {Promise<any>}
    */
   async changePassword<T = any, R = AxiosResponse<T>>(
+    currentPassword: any,
+    password: any,
+    passwordConfirmation: any,
+  ): Promise<R> {
+    const data = {
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      current_password: currentPassword,
+      password,
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      password_confirmation: passwordConfirmation,
+    }
+    return this.put<T, R>('/password/change', { data })
+  }
+
+  /**
+   * Use where confirm password middleware is enabled.
+   *
+   * @param {any} password
+   * @param {any} passwordConfirmation
+   * @returns {Promise<any>}
+   */
+  async updatePassword<T = any, R = AxiosResponse<T>>(
     password: any,
     passwordConfirmation: any,
   ): Promise<R> {

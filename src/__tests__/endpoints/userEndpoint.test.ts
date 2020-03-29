@@ -12,6 +12,7 @@ const callEndpoint = (instance: UserEndpoint): {[key: string]: Function} => {
     register: instance.register.bind(instance),
     resendEmailVerification: instance.resendEmailVerification.bind(instance),
     requestPasswordReset: instance.requestPasswordReset.bind(instance),
+    updatePassword: instance.updatePassword.bind(instance),
     changePassword: instance.changePassword.bind(instance),
     confirmPassword: instance.confirmPassword.bind(instance),
   }
@@ -26,7 +27,8 @@ describe(`${UserEndpoint.name}`, (): void => {
     ['register', 'post', ['email', 'email', 'password', 'password', { name: 'John' }, false]],
     ['resendEmailVerification', 'post', []],
     ['requestPasswordReset', 'post', ['email']],
-    ['changePassword', 'put', ['password', 'password']],
+    ['changePassword', 'put', ['current', 'password', 'password']],
+    ['updatePassword', 'put', ['password', 'password']],
     ['confirmPassword', 'post', ['password']],
   ])('the %s calls %s parent method', async(method: string, calls, params): Promise<void> => {
     expect.assertions(2)

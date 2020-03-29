@@ -5,6 +5,7 @@ Array [
   "/password/change",
   Object {
     "data": Object {
+      "current_password": "current",
       "password": "password",
       "password_confirmation": "password",
     },
@@ -97,6 +98,18 @@ Array [
     "data": Object {
       "email": "email",
       "name": "John",
+    },
+  },
+]
+`;
+
+exports[`UserEndpoint the updatePassword calls put parent method 1`] = `
+Array [
+  "/password/change",
+  Object {
+    "data": Object {
+      "password": "password",
+      "password_confirmation": "password",
     },
   },
 ]
