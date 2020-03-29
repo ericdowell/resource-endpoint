@@ -2,16 +2,6 @@
 
 exports[`HandleErrorMixin handleError returns data key with errors 1`] = `
 Object {
-  "data": Object {
-    "errors": Object {
-      "key": Array [],
-    },
-  },
-}
-`;
-
-exports[`HandleErrorMixin handleError returns data key with errors 2`] = `
-Object {
   "config": undefined,
   "data": Object {
     "errors": Object {
@@ -21,5 +11,43 @@ Object {
   "headers": undefined,
   "status": undefined,
   "statusText": undefined,
+}
+`;
+
+exports[`HandleErrorMixin handleError returns data key with errors 2`] = `
+Object {
+  "config": Object {},
+  "data": Object {
+    "errors": Object {
+      "fallback": "An unexpected error has occurred. Please try again.",
+    },
+  },
+  "headers": undefined,
+  "status": undefined,
+  "statusText": undefined,
+}
+`;
+
+exports[`HandleErrorMixin handleError returns data key with errors 3`] = `
+Object {
+  "data": Object {
+    "errors": Object {
+      "key": Array [],
+    },
+  },
+}
+`;
+
+exports[`HandleErrorMixin handleError returns data key with errors 4`] = `
+Object {
+  "config": Object {},
+  "data": Object {
+    "errors": Object {
+      "fallback": "An unexpected error has occurred. Please try again.",
+    },
+  },
+  "headers": Object {},
+  "status": 500,
+  "statusText": "foo",
 }
 `;

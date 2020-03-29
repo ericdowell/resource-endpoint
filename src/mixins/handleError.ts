@@ -6,6 +6,21 @@ import { Constructor } from './index'
 export function HandleErrorMixin<T extends Constructor<any>>(superClass: T) {
   return class extends superClass {
     /**
+     *
+     * @type {boolean}
+     */
+    _throwError = false
+
+    /**
+     *
+     * @returns {this}
+     */
+    get throwResponseError(): this {
+      this._throwError = true
+      return this
+    }
+
+    /**
      * @returns {string}
      */
     get fallbackErrorMessage(): string {
@@ -15,8 +30,12 @@ export function HandleErrorMixin<T extends Constructor<any>>(superClass: T) {
     /**
      *
      * @param {AxiosError|Error} error
+     * @throws {AxiosError|Error}
      */
     handleError<T = any>(error: AxiosError<T> | any): AxiosResponse<T | { errors: any }> {
+      if (this._throwError) {
+        throw error
+      }
       if (error?.response?.data?.errors) {
         return error.response
       }
