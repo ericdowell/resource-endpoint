@@ -1,6 +1,6 @@
 {
   "name": "resource-endpoint",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "license": "MIT",
   "description": "A simple wrapper for any Promise based HTTP client.",
   "author": "Eric Dowell <github@ericdowell.com> (https://ericdowell.com)",
