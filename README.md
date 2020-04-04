@@ -84,6 +84,53 @@ export class User extends HandleErrorMixin(ApiEndpointMixin(UserEndpoint)) {
     }
 }
 ```
+### Usage
+```js
+// js/index.js
+import { api } from './api'
+
+// Usage shown in async functions, likely placed in the component onSubmit for the form
+// Not created as helper function necessarily as shown below.
+
+const currentUser = async () => {
+    const response = await api.user.current()
+    const { user, errors } = api.safeResponseData(response)
+    return { errors, user }
+}
+
+const confirmPassword = async (values) => {
+    const response = await api.user.confirmPassword(values.password)
+    const { errors, intended } = api.safeResponseData(response)
+    return { errors, intended }
+}
+
+const logoutUser = async () => {
+    const response = await api.auth.logout()
+    const { errors } = api.safeResponseData(response)
+    return { errors }
+}
+
+const loginUser = async (email, password) => {
+    const response = await api.auth.login(email, password)
+    const { user, errors } = api.safeResponseData(response)
+    return { errors, user }
+}
+
+const registerUser = async (values) => {
+    const response = await api.auth
+        .register(
+            values.email,
+            values.email_confirmation,
+            values.password,
+            values.password_confirmation,
+            { name: values.name },
+        )
+    const { user, errors } = api.safeResponseData(response)
+    return { errors, user }
+}
+```
+
+### Using in React Login Component
 Then in your client app you can do the following:
 ```jsx
 // js/pages/Login.jsx
