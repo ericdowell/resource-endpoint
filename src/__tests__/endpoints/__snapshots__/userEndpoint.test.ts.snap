@@ -30,48 +30,6 @@ Array [
 ]
 `;
 
-exports[`UserEndpoint the register calls post parent method 1`] = `
-Array [
-  "/register",
-  Object {
-    "data": Object {
-      "email": "email",
-      "email_confirmation": "email",
-      "password": "password",
-      "password_confirmation": "password",
-      "remember": true,
-    },
-  },
-]
-`;
-
-exports[`UserEndpoint the register calls post parent method 2`] = `
-Array [
-  "/register",
-  Object {
-    "data": Object {
-      "email": "email",
-      "email_confirmation": "email",
-      "name": "John",
-      "password": "password",
-      "password_confirmation": "password",
-      "remember": false,
-    },
-  },
-]
-`;
-
-exports[`UserEndpoint the requestPasswordReset calls post parent method 1`] = `
-Array [
-  "/password/email",
-  Object {
-    "data": Object {
-      "email": "email",
-    },
-  },
-]
-`;
-
 exports[`UserEndpoint the resendEmailVerification calls post parent method 1`] = `
 Array [
   "/email/resend",

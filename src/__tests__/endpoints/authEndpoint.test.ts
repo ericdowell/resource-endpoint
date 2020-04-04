@@ -8,6 +8,8 @@ const callEndpoint = (instance: AuthEndpoint): { [key: string]: Function } => {
   return {
     login: instance.login.bind(instance),
     logout: instance.logout.bind(instance),
+    register: instance.register.bind(instance),
+    requestPasswordReset: instance.requestPasswordReset.bind(instance),
     resetPassword: instance.resetPassword.bind(instance),
   }
 }
@@ -38,6 +40,8 @@ describe(`${AuthEndpoint.name}`, (): void => {
   it.each([
     ['login', 'post', ['email', 'password', false]],
     ['logout', 'post', []],
+    ['register', 'post', ['email', 'email', 'password', 'password', { name: 'John' }, false]],
+    ['requestPasswordReset', 'post', ['email']],
     ['resetPassword', 'post', ['email', 'token', 'password', 'password']],
   ])(
     'the %s calls %s parent method',

@@ -29,6 +29,49 @@ export class AuthEndpoint extends CrudEndpoint {
   /**
    *
    * @param {string} email
+   * @param {string} emailConfirmation
+   * @param {any} password
+   * @param {any} passwordConfirmation
+   * @param {any} attributes
+   * @param {boolean} remember
+   * @returns {Promise<any>}
+   */
+  async register<T = any, R = AxiosResponse<T>>(
+    email: string,
+    emailConfirmation: string,
+    password: any,
+    passwordConfirmation: any,
+    attributes?: { [key: string]: any },
+    remember = true,
+  ): Promise<R> {
+    const data = {
+      email,
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      email_confirmation: emailConfirmation,
+      password,
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      password_confirmation: passwordConfirmation,
+      remember,
+      ...attributes,
+    }
+    return this.post<T, R>('/register', { data })
+  }
+
+  /**
+   *
+   * @param {string} email
+   * @returns {Promise<any>}
+   */
+  async requestPasswordReset<T = any, R = AxiosResponse<T>>(email: string): Promise<R> {
+    const data = {
+      email,
+    }
+    return this.post<T, R>('/password/email', { data })
+  }
+
+  /**
+   *
+   * @param {string} email
    * @param {string} token
    * @param {any} password
    * @param {any} passwordConfirmation

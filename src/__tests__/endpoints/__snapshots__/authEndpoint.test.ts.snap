@@ -19,6 +19,33 @@ Array [
 ]
 `;
 
+exports[`AuthEndpoint the register calls post parent method 1`] = `
+Array [
+  "/register",
+  Object {
+    "data": Object {
+      "email": "email",
+      "email_confirmation": "email",
+      "name": "John",
+      "password": "password",
+      "password_confirmation": "password",
+      "remember": false,
+    },
+  },
+]
+`;
+
+exports[`AuthEndpoint the requestPasswordReset calls post parent method 1`] = `
+Array [
+  "/password/email",
+  Object {
+    "data": Object {
+      "email": "email",
+    },
+  },
+]
+`;
+
 exports[`AuthEndpoint the resetPassword calls post parent method 1`] = `
 Array [
   "/password/reset",
