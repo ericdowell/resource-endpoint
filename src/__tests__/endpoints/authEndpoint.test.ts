@@ -37,6 +37,31 @@ describe(`${AuthEndpoint.name}`, (): void => {
     `)
   })
 
+  it('register methods sets attributes first so passed values are not overridden', async(): Promise<
+    void
+  > => {
+    expect.assertions(1)
+    const instance = new AuthEndpoint()
+    const post = jest
+      .spyOn(instance, 'post')
+      .mockImplementation(async(): Promise<any> => true)
+    const email = 'email'
+    const password = 'password'
+    const attributes = { email: 'fooBar', password: 'fooBar' }
+    await instance.register(email, email, password, password, attributes)
+    expect(post.mock.calls[0][1]).toMatchInlineSnapshot(`
+    Object {
+      "data": Object {
+        "email": "email",
+        "email_confirmation": "email",
+        "password": "password",
+        "password_confirmation": "password",
+        "remember": true,
+      },
+    }
+    `)
+  })
+
   it.each([
     ['login', 'post', ['email', 'password', false]],
     ['logout', 'post', []],
