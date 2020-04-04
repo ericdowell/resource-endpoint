@@ -45,6 +45,7 @@ export class AuthEndpoint extends CrudEndpoint {
     remember = true,
   ): Promise<R> {
     const data = {
+      ...attributes,
       email,
       // eslint-disable-next-line @typescript-eslint/camelcase
       email_confirmation: emailConfirmation,
@@ -52,7 +53,6 @@ export class AuthEndpoint extends CrudEndpoint {
       // eslint-disable-next-line @typescript-eslint/camelcase
       password_confirmation: passwordConfirmation,
       remember,
-      ...attributes,
     }
     return this.post<T, R>('/register', { data })
   }
