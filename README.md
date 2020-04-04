@@ -121,8 +121,7 @@ export const Login = () => {
         setValues(initialState)
         dispatch({ type: SET_USER, user })
     }
-    // ...
-    return (<form onSubmit={onSubmit})></form>
+    return <form onSubmit={onSubmit})></form>
 }
 ```
 
