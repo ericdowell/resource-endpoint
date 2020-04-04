@@ -87,7 +87,7 @@ export class User extends HandleErrorMixin(ApiEndpointMixin(UserEndpoint)) {
 Then in your client app you can do the following:
 ```jsx
 // js/pages/Login.jsx
-import React. { useState } from 'react'
+import React, { useState } from 'react'
 import { api } from '../api'
 
 export const Login = () => {
