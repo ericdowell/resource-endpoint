@@ -14,6 +14,7 @@ describe('HandleErrorMixin', (): void => {
     [undefined],
     [{ config: {}, response: { data: undefined } }],
     [{ response: { data: { errors: { key: [] } } } }],
+    [{ response: { config: {}, status: 500, statusText: 'foo', headers: {}, data: { message: 'hello foo bar' } } }],
     [{ response: { config: {}, status: 500, statusText: 'foo', headers: {}, data: {} } }],
   ])('handleError returns data key with errors', (error): void => {
     expect.assertions(1)

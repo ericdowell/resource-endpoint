@@ -43,6 +43,20 @@ Object {
   "config": Object {},
   "data": Object {
     "errors": Object {
+      "fallback": "hello foo bar",
+    },
+  },
+  "headers": Object {},
+  "status": 500,
+  "statusText": "foo",
+}
+`;
+
+exports[`HandleErrorMixin handleError returns data key with errors 5`] = `
+Object {
+  "config": Object {},
+  "data": Object {
+    "errors": Object {
       "fallback": "An unexpected error has occurred. Please try again.",
     },
   },

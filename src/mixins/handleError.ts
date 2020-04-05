@@ -36,8 +36,11 @@ export function HandleErrorMixin<T extends Constructor<any>>(superClass: T) {
       if (this._throwError) {
         throw error
       }
+      let message = this.fallbackErrorMessage
       if (error?.response?.data?.errors) {
         return error.response
+      } else if (typeof error?.response?.data?.message === 'string') {
+        message = error.response.data.message
       }
       return {
         headers: error?.response?.headers,
@@ -46,7 +49,7 @@ export function HandleErrorMixin<T extends Constructor<any>>(superClass: T) {
         statusText: error?.response?.statusText,
         data: {
           errors: {
-            fallback: this.fallbackErrorMessage,
+            fallback: message,
           },
         },
       }
