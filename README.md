@@ -137,7 +137,7 @@ Then in your client app you can do the following:
 import React, { useState } from 'react'
 import { api } from '../api'
 
-export const Login = () => {
+export const Login = ({ loginUser }) => {
     const initialState = {
         errors: {},
         email: '',
@@ -166,11 +166,8 @@ export const Login = () => {
             return
         }
         setValues(initialState)
-        dispatch({ type: SET_USER, user })
+        loginUser(user)
     }
-    return <form onSubmit={onSubmit})></form>
+    return <form onSubmit={onSubmit})>{/* input tags here */}</form>
 }
 ```
-
-## Todo
-- [ ] Add documentation?
