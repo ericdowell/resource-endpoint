@@ -100,8 +100,8 @@ const currentUser = async () => {
 
 const confirmPassword = async (values) => {
     const response = await api.user.confirmPassword(values.password)
-    const { errors, intended } = api.safeResponseData(response)
-    return { errors, intended }
+    const { errors, confirmedAt } = api.safeResponseData(response)
+    return { errors, confirmedAt }
 }
 
 const logoutUser = async () => {
