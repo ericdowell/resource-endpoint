@@ -1,9 +1,9 @@
-import { Endpoint } from '../endpoint'
+import axios, { AxiosRequestConfig, AxiosResponse, Method } from 'axios'
 import { Constructor } from './types'
-import { AxiosRequestConfig, AxiosResponse, Method } from 'axios'
+import { Endpoint } from '../endpoint'
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export function SessionCsrfTokenMixin<T extends Constructor<any>>(superClass: T) {
+export function SessionCsrfTokenMixin<C extends Constructor<any>>(superClass: C) {
   return class extends superClass {
     /**
      * Used to tell if a csrf cookie fix request is happening
@@ -14,6 +14,32 @@ export function SessionCsrfTokenMixin<T extends Constructor<any>>(superClass: T)
      * @protected
      */
     csrfCookieFix = false
+
+    /**
+     * Decides if current response is CSRF token mismatch error.
+     *
+     * @param {AxiosResponse<any>} response
+     * @returns {boolean}
+     */
+    isCsrfTokenMismatch<T = any>(response: AxiosResponse<T>): boolean {
+      const { message } = Endpoint.safeResponseData<T>(response)
+      return (
+        response.status === 419 &&
+          message === 'CSRF token mismatch.'
+      )
+    }
+
+    /**
+     * Requests new CSRF Cookie from common Laravel Sanctum endpoint.
+     * Override as needed.
+     *
+     * @returns {Promise<any>}
+     */
+    async requestCsrfCookie(): Promise<any> {
+      return axios.get('sanctum/csrf-cookie', {
+        baseURL: window.location.origin,
+      })
+    }
 
     /**
      * General request method that is used by all HTTP calls.
@@ -29,18 +55,13 @@ export function SessionCsrfTokenMixin<T extends Constructor<any>>(superClass: T)
       requestConfig?: AxiosRequestConfig,
     ): Promise<R> {
       const response = await super.request(url, method, requestConfig)
-      const { message } = Endpoint.safeResponseData<{ message?: string }>(response)
-      const isCsrfTokenMismatch = (
-        !this.csrfCookieFix &&
-        response.status === 419 &&
-        message === 'CSRF token mismatch.'
-      )
-      if (isCsrfTokenMismatch) {
+      if (!this.csrfCookieFix && this.isCsrfTokenMismatch<T>(response)) {
         this.csrfCookieFix = true
-        await this.get('sanctum/csrf-cookie', {
-          baseURL: window.location.origin,
-        })
-        // Retry once more to see if error goes away.
+        try {
+          await this.requestCsrfCookie()
+        } catch (error) {
+          return response
+        }
         return super.request(url, method, requestConfig)
       }
       return response
