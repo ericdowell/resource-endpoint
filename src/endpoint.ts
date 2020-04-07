@@ -183,9 +183,9 @@ export class Endpoint {
    *
    * @param {AxiosResponse} response
    * @param {boolean} isArray
-   * @returns {any|{}}
+   * @returns {any}
    */
-  static safeResponseData<T = { [key: string]: any} | any[]>(response: AxiosResponse<T>, isArray = false): T | {} | [] {
+  static safeResponseData<T = any>(response: AxiosResponse<T>, isArray = false): any {
     if (isArray) {
       return (Array.isArray(response?.data) && response.data) || []
     }

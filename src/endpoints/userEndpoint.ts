@@ -1,5 +1,5 @@
-import { CrudEndpoint } from '../crudEndpoint'
 import { AxiosResponse } from 'axios'
+import { CrudEndpoint } from '../crudEndpoint'
 
 export class UserEndpoint extends CrudEndpoint {
   /**

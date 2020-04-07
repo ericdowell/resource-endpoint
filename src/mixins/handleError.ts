@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import { AxiosError, AxiosResponse } from 'axios'
-import { Constructor } from './index'
+import { Constructor } from './types'
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function HandleErrorMixin<T extends Constructor<any>>(superClass: T) {
@@ -32,7 +32,7 @@ export function HandleErrorMixin<T extends Constructor<any>>(superClass: T) {
      * @param {AxiosError|Error} error
      * @throws {AxiosError|Error}
      */
-    handleError<T = any>(error: AxiosError<T> | any): AxiosResponse<T | { errors: any }> {
+    handleError<T = any>(error: AxiosError<T> | any): AxiosResponse<T | { message: string; errors: any }> {
       if (this._throwError) {
         throw error
       }
@@ -48,6 +48,7 @@ export function HandleErrorMixin<T extends Constructor<any>>(superClass: T) {
         status: error?.response?.status,
         statusText: error?.response?.statusText,
         data: {
+          message,
           errors: {
             fallback: message,
           },
