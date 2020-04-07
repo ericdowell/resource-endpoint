@@ -96,7 +96,7 @@ describe(`${Endpoint.name}`, (): void => {
 
   it.each([[true], [false]])(
     'the request will return response object',
-    async(debug): Promise<void> => {
+    async (debug): Promise<void> => {
       expect.assertions(2)
       const endpoint = createEndpoint(debug)
       const debugResponse = jest.spyOn(endpoint, 'debugResponse').mockImplementation((): any => true)
@@ -112,7 +112,7 @@ describe(`${Endpoint.name}`, (): void => {
 
   it.each([[true], [false]])(
     'the request will throw error axios.request throws',
-    async(debug): Promise<void> => {
+    async (debug): Promise<void> => {
       expect.assertions(2)
       const error = new Error('testing')
       const endpoint = createEndpoint(debug)

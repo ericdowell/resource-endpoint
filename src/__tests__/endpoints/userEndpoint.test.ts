@@ -25,7 +25,7 @@ describe(`${UserEndpoint.name}`, (): void => {
     ['changePassword', 'put', ['current', 'password', 'password']],
     ['updatePassword', 'put', ['password', 'password']],
     ['confirmPassword', 'post', ['password']],
-  ])('the %s calls %s parent method', async(method: string, calls, params): Promise<void> => {
+  ])('the %s calls %s parent method', async (method: string, calls, params): Promise<void> => {
     expect.assertions(2)
     const endpoint = new UserEndpoint()
     // eslint-disable-next-line @typescript-eslint/ban-ts-ignore

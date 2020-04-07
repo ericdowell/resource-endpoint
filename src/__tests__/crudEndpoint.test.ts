@@ -21,10 +21,10 @@ describe(`${CrudEndpoint.name}`, (): void => {
     ['patch'],
     ['post'],
     ['put'],
-  ])('the "%s" method calls request on parent', async(method): Promise<void> => {
+  ])('the "%s" method calls request on parent', async (method): Promise<void> => {
     expect.assertions(2)
     const instance = new CrudEndpoint()
-    const request = jest.spyOn(instance, 'request').mockImplementation(async(): Promise<any> => true)
+    const request = jest.spyOn(instance, 'request').mockImplementation(async (): Promise<any> => true)
     const url = 'path'
     const params = { filter: ['value'] }
     await callEndpoint(instance)[method](url, params)

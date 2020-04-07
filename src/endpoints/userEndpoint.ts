@@ -6,7 +6,7 @@ export class UserEndpoint extends CrudEndpoint {
    *
    * @returns {Promise<any>}
    */
-  async current<T = any, R = AxiosResponse<T>>(): Promise<R> {
+  async current<T = any, R = AxiosResponse<T>> (): Promise<R> {
     return this.get('/user')
   }
 
@@ -16,7 +16,7 @@ export class UserEndpoint extends CrudEndpoint {
    * @param {any=} params
    * @returns {Promise<any>}
    */
-  async show<T = any, R = AxiosResponse<T>>(userId: string | number, params?: any): Promise<R> {
+  async show<T = any, R = AxiosResponse<T>> (userId: string | number, params?: any): Promise<R> {
     return this.get<T, R>(`/user/${userId}`, { params })
   }
 
@@ -26,7 +26,7 @@ export class UserEndpoint extends CrudEndpoint {
    * @param {any} data
    * @returns {Promise<any>}
    */
-  async update<T = any, R = AxiosResponse<T>>(userId: string | number, data: any): Promise<R> {
+  async update<T = any, R = AxiosResponse<T>> (userId: string | number, data: any): Promise<R> {
     return this.put<T, R>(`/user/${userId}`, { data })
   }
 
@@ -34,7 +34,7 @@ export class UserEndpoint extends CrudEndpoint {
    *
    * @returns {Promise<any>}
    */
-  async resendEmailVerification<T = any, R = AxiosResponse<T>>(): Promise<R> {
+  async resendEmailVerification<T = any, R = AxiosResponse<T>> (): Promise<R> {
     return this.post<T, R>('/email/resend')
   }
 
@@ -46,7 +46,7 @@ export class UserEndpoint extends CrudEndpoint {
    * @param {any} passwordConfirmation
    * @returns {Promise<any>}
    */
-  async changePassword<T = any, R = AxiosResponse<T>>(
+  async changePassword<T = any, R = AxiosResponse<T>> (
     currentPassword: any,
     password: any,
     passwordConfirmation: any,
@@ -68,7 +68,7 @@ export class UserEndpoint extends CrudEndpoint {
    * @param {any} passwordConfirmation
    * @returns {Promise<any>}
    */
-  async updatePassword<T = any, R = AxiosResponse<T>>(
+  async updatePassword<T = any, R = AxiosResponse<T>> (
     password: any,
     passwordConfirmation: any,
   ): Promise<R> {
@@ -85,7 +85,7 @@ export class UserEndpoint extends CrudEndpoint {
    * @param {any} password
    * @returns {Promise<any>}
    */
-  async confirmPassword<T = any, R = AxiosResponse<T>>(password: string): Promise<R> {
+  async confirmPassword<T = any, R = AxiosResponse<T>> (password: string): Promise<R> {
     const data = { password }
     return this.post('/password/confirm', { data })
   }

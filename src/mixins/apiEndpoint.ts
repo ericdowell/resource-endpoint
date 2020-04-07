@@ -4,7 +4,7 @@ import { Constructor } from './types'
 import urljoin from 'url-join'
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export function ApiEndpointMixin<T extends Constructor<any>>(superClass: T) {
+export function ApiEndpointMixin<T extends Constructor<any>> (superClass: T) {
   return class extends superClass {
     /**
      *
@@ -18,7 +18,7 @@ export function ApiEndpointMixin<T extends Constructor<any>>(superClass: T) {
      *
      * @returns {AxiosRequestConfig}
      */
-    get config(): AxiosRequestConfig {
+    get config (): AxiosRequestConfig {
       return {
         ...super.config,
         headers: {
@@ -35,7 +35,7 @@ export function ApiEndpointMixin<T extends Constructor<any>>(superClass: T) {
      *
      * @returns {string}
      */
-    get apiVersion(): string {
+    get apiVersion (): string {
       return ''
     }
 
@@ -45,7 +45,7 @@ export function ApiEndpointMixin<T extends Constructor<any>>(superClass: T) {
      *
      * @returns {string}
      */
-    get path(): string {
+    get path (): string {
       return urljoin('api', this.apiVersion)
     }
 
@@ -53,7 +53,7 @@ export function ApiEndpointMixin<T extends Constructor<any>>(superClass: T) {
      *
      * @returns {this}
      */
-    preventStringify(): this {
+    preventStringify (): this {
       this._stringify = false
       return this
     }
@@ -61,7 +61,7 @@ export function ApiEndpointMixin<T extends Constructor<any>>(superClass: T) {
     /**
      * @returns {boolean}
      */
-    get shouldStringify(): boolean {
+    get shouldStringify (): boolean {
       return this._stringify
     }
 
@@ -72,7 +72,7 @@ export function ApiEndpointMixin<T extends Constructor<any>>(superClass: T) {
      * @param {object=} requestConfig
      * @returns {object}
      */
-    requestConfig(
+    requestConfig (
       url: string,
       method: Method,
       requestConfig?: AxiosRequestConfig,

@@ -24,7 +24,7 @@ describe(`${ResourceEndpoint.name}`, (): void => {
     ['store', 'post', [{ foo: 'bar' }, { filter: 'baz' }]],
     ['update', 'put', [1234, { foo: 'bar' }, { filter: 'baz' }]],
     ['destroy', 'delete', [1234, { filter: 'baz' }]],
-  ])('the %s calls %s', async(method: string, calls, params): Promise<void> => {
+  ])('the %s calls %s', async (method: string, calls, params): Promise<void> => {
     const endpoint = new ResourceEndpoint()
     // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore

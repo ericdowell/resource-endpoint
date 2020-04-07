@@ -10,7 +10,7 @@ jest.spyOn(global.console, 'log').mockImplementation(() => {})
 class TestEndpoint extends SessionCsrfCookieMixin(Endpoint) {}
 
 describe(`${SessionCsrfCookieMixin.name}`, (): void => {
-  it('allows normal response to return', async(): Promise<void> => {
+  it('allows normal response to return', async (): Promise<void> => {
     expect.assertions(2)
     expect(await new TestEndpoint().request('foo', 'put')).toBe(mockResponse)
     expect(axiosRequest).toHaveBeenCalledTimes(1)
@@ -22,11 +22,11 @@ describe(`${SessionCsrfCookieMixin.name}`, (): void => {
     expect(new TestEndpoint().isCsrfTokenMismatch(response as any)).toBe(true)
   })
 
-  it('requestCsrfCookie calls axios.get', async(): Promise<void> => {
+  it('requestCsrfCookie calls axios.get', async (): Promise<void> => {
     expect.assertions(2)
     const axiosGet = jest
       .spyOn(axios, 'get')
-      .mockImplementation(async(): Promise<any> => ({}))
+      .mockImplementation(async (): Promise<any> => ({}))
     await new TestEndpoint().requestCsrfCookie()
     expect(axiosGet).toHaveBeenCalledTimes(1)
     expect(axiosGet.mock.calls[0]).toMatchInlineSnapshot(`
@@ -39,7 +39,7 @@ describe(`${SessionCsrfCookieMixin.name}`, (): void => {
     `)
   })
 
-  it('isCsrfTokenMismatch returns true requestCsrfCookie is called successfully', async(): Promise<
+  it('isCsrfTokenMismatch returns true requestCsrfCookie is called successfully', async (): Promise<
     void
   > => {
     expect.assertions(4)
@@ -49,7 +49,7 @@ describe(`${SessionCsrfCookieMixin.name}`, (): void => {
       .mockImplementation((): boolean => true)
     const requestCsrfCookie = jest
       .spyOn(instance, 'requestCsrfCookie')
-      .mockImplementation(async(): Promise<any> => ({}))
+      .mockImplementation(async (): Promise<any> => ({}))
 
     expect(await instance.request('foo', 'put')).toBe(mockResponse)
     expect(axiosRequest).toHaveBeenCalledTimes(2)
@@ -57,7 +57,7 @@ describe(`${SessionCsrfCookieMixin.name}`, (): void => {
     expect(requestCsrfCookie).toHaveBeenCalledTimes(1)
   })
 
-  it('isCsrfTokenMismatch is true and requestCsrfCookie throw retry does not happen', async(): Promise<
+  it('isCsrfTokenMismatch is true and requestCsrfCookie throw retry does not happen', async (): Promise<
     void
   > => {
     expect.assertions(4)
@@ -68,7 +68,7 @@ describe(`${SessionCsrfCookieMixin.name}`, (): void => {
     const requestCsrfCookie = jest
       .spyOn(instance, 'requestCsrfCookie')
       .mockImplementation(
-        async(): Promise<never> => {
+        async (): Promise<never> => {
           throw new Error()
         },
       )

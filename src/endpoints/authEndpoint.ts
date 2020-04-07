@@ -9,7 +9,7 @@ export class AuthEndpoint extends CrudEndpoint {
    * @param {boolean} remember
    * @returns {Promise<any>}
    */
-  async login<T = any, R = AxiosResponse<T>>(email: string, password: any, remember = true): Promise<R> {
+  async login<T = any, R = AxiosResponse<T>> (email: string, password: any, remember = true): Promise<R> {
     const data = {
       email,
       password,
@@ -22,7 +22,7 @@ export class AuthEndpoint extends CrudEndpoint {
    *
    * @returns {Promise<any>}
    */
-  async logout<T = any, R = AxiosResponse<T>>(): Promise<R> {
+  async logout<T = any, R = AxiosResponse<T>> (): Promise<R> {
     return this.post<T, R>('/logout')
   }
 
@@ -36,7 +36,7 @@ export class AuthEndpoint extends CrudEndpoint {
    * @param {boolean} remember
    * @returns {Promise<any>}
    */
-  async register<T = any, R = AxiosResponse<T>>(
+  async register<T = any, R = AxiosResponse<T>> (
     email: string,
     emailConfirmation: string,
     password: any,
@@ -62,7 +62,7 @@ export class AuthEndpoint extends CrudEndpoint {
    * @param {string} email
    * @returns {Promise<any>}
    */
-  async requestPasswordReset<T = any, R = AxiosResponse<T>>(email: string): Promise<R> {
+  async requestPasswordReset<T = any, R = AxiosResponse<T>> (email: string): Promise<R> {
     const data = {
       email,
     }
@@ -77,7 +77,7 @@ export class AuthEndpoint extends CrudEndpoint {
    * @param {any} passwordConfirmation
    * @returns {Promise<any>}
    */
-  async resetPassword<T = any, R = AxiosResponse<T>>(
+  async resetPassword<T = any, R = AxiosResponse<T>> (
     email: string,
     token: string,
     password: any,

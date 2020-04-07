@@ -3,7 +3,7 @@ import { Constructor } from './types'
 import { Endpoint } from '../endpoint'
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export function SessionCsrfCookieMixin<C extends Constructor<any>>(superClass: C) {
+export function SessionCsrfCookieMixin<C extends Constructor<any>> (superClass: C) {
   return class extends superClass {
     /**
      * Used to tell if a csrf cookie fix request is happening
@@ -22,7 +22,7 @@ export function SessionCsrfCookieMixin<C extends Constructor<any>>(superClass: C
      * @param {AxiosResponse<any>} response
      * @returns {boolean}
      */
-    isCsrfTokenMismatch<T = any>(response: AxiosResponse<T>): boolean {
+    isCsrfTokenMismatch<T = any> (response: AxiosResponse<T>): boolean {
       const { message } = Endpoint.safeResponseData<T>(response)
       return (
         response.status === 419 &&
@@ -36,7 +36,7 @@ export function SessionCsrfCookieMixin<C extends Constructor<any>>(superClass: C
      *
      * @returns {Promise<any>}
      */
-    async requestCsrfCookie(): Promise<any> {
+    async requestCsrfCookie (): Promise<any> {
       return axios.get('sanctum/csrf-cookie', {
         baseURL: window.location.origin,
       })
@@ -50,7 +50,7 @@ export function SessionCsrfCookieMixin<C extends Constructor<any>>(superClass: C
      * @param {AxiosRequestConfig=} requestConfig
      * @returns {Promise<any>}
      */
-    async request<T = any, R = AxiosResponse<T>>(
+    async request<T = any, R = AxiosResponse<T>> (
       url: string,
       method: Method,
       requestConfig?: AxiosRequestConfig,

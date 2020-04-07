@@ -8,7 +8,7 @@ export class ResourceEndpoint extends CrudEndpoint {
    * @param {any=} params
    * @returns {Promise<any>}
    */
-  async index<T = any, R = AxiosResponse<T>>(params?: any): Promise<R> {
+  async index<T = any, R = AxiosResponse<T>> (params?: any): Promise<R> {
     return this.get<T, R>('/', { params })
   }
 
@@ -19,7 +19,7 @@ export class ResourceEndpoint extends CrudEndpoint {
    * @param {any=} params
    * @returns {Promise<any>}
    */
-  async store<T = any, R = AxiosResponse<T>>(data: any, params?: any): Promise<R> {
+  async store<T = any, R = AxiosResponse<T>> (data: any, params?: any): Promise<R> {
     return this.post<T, R>('/', { data, params })
   }
 
@@ -30,7 +30,7 @@ export class ResourceEndpoint extends CrudEndpoint {
    * @param {any=} params
    * @returns {Promise<any>}
    */
-  async show<T = any, R = AxiosResponse<T>>(
+  async show<T = any, R = AxiosResponse<T>> (
     id: string | number,
     params?: any,
   ): Promise<R> {
@@ -45,7 +45,7 @@ export class ResourceEndpoint extends CrudEndpoint {
    * @param {any=} params
    * @returns {Promise<any>}
    */
-  async update<T = any, R = AxiosResponse<T>>(
+  async update<T = any, R = AxiosResponse<T>> (
     id: string | number,
     data: any,
     params?: any,
@@ -61,7 +61,7 @@ export class ResourceEndpoint extends CrudEndpoint {
    * @param {any=} params
    * @returns {Promise<any>}
    */
-  async storeOrUpdate<T = any, R = AxiosResponse<T>>(
+  async storeOrUpdate<T = any, R = AxiosResponse<T>> (
     id: null | string | number,
     data: any,
     params?: any,
@@ -79,7 +79,7 @@ export class ResourceEndpoint extends CrudEndpoint {
    * @param {any=} params
    * @returns {Promise<any>}
    */
-  async destroy<T = any, R = AxiosResponse<T>>(
+  async destroy<T = any, R = AxiosResponse<T>> (
     id: string | number,
     params?: any,
   ): Promise<R> {

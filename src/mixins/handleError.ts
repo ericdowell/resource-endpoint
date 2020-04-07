@@ -3,7 +3,7 @@ import { AxiosError, AxiosResponse } from 'axios'
 import { Constructor } from './types'
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export function HandleErrorMixin<T extends Constructor<any>>(superClass: T) {
+export function HandleErrorMixin<T extends Constructor<any>> (superClass: T) {
   return class extends superClass {
     /**
      *
@@ -15,7 +15,7 @@ export function HandleErrorMixin<T extends Constructor<any>>(superClass: T) {
      *
      * @returns {this}
      */
-    get throwResponseError(): this {
+    get throwResponseError (): this {
       this._throwError = true
       return this
     }
@@ -23,7 +23,7 @@ export function HandleErrorMixin<T extends Constructor<any>>(superClass: T) {
     /**
      * @returns {string}
      */
-    get fallbackErrorMessage(): string {
+    get fallbackErrorMessage (): string {
       return 'An unexpected error has occurred. Please try again.'
     }
 
@@ -32,7 +32,7 @@ export function HandleErrorMixin<T extends Constructor<any>>(superClass: T) {
      * @param {AxiosError|Error} error
      * @throws {AxiosError|Error}
      */
-    handleError<T = any>(error: AxiosError<T> | any): AxiosResponse<T | { message: string; errors: any }> {
+    handleError<T = any> (error: AxiosError<T> | any): AxiosResponse<T | { message: string; errors: any }> {
       if (this._throwError) {
         throw error
       }

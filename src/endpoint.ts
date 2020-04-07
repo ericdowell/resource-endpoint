@@ -22,7 +22,7 @@ export class Endpoint {
    *
    * @returns {AxiosRequestConfig}
    */
-  get config(): AxiosRequestConfig {
+  get config (): AxiosRequestConfig {
     return {}
   }
 
@@ -32,7 +32,7 @@ export class Endpoint {
    *
    * @returns {this}
    */
-  debug(): this {
+  debug (): this {
     this._debug = true
     return this
   }
@@ -42,7 +42,7 @@ export class Endpoint {
    *
    * @returns {boolean}
    */
-  shouldDebug(): boolean {
+  shouldDebug (): boolean {
     return this._debug
   }
 
@@ -52,7 +52,7 @@ export class Endpoint {
    *
    * @returns {string}
    */
-  get origin(): string {
+  get origin (): string {
     return window.location.origin
   }
 
@@ -62,7 +62,7 @@ export class Endpoint {
    *
    * @returns {string}
    */
-  get path(): string {
+  get path (): string {
     return ''
   }
 
@@ -72,7 +72,7 @@ export class Endpoint {
    *
    * @returns {string}
    */
-  get endpoint(): string {
+  get endpoint (): string {
     return ''
   }
 
@@ -81,7 +81,7 @@ export class Endpoint {
    *
    * @returns {Console}
    */
-  console(): Console {
+  console (): Console {
     return window.console
   }
 
@@ -90,14 +90,14 @@ export class Endpoint {
    *
    * @returns {string}
    */
-  get baseURL(): string {
+  get baseURL (): string {
     return urljoin(this.origin, this.path, this.endpoint)
   }
 
   /**
    * @returns {IStringifyOptions}
    */
-  get stringifyOptions(): IStringifyOptions {
+  get stringifyOptions (): IStringifyOptions {
     return { arrayFormat: 'brackets' }
   }
 
@@ -105,7 +105,7 @@ export class Endpoint {
    *
    * @returns {Function}
    */
-  get paramsSerializer(): (params: any) => string {
+  get paramsSerializer (): (params: any) => string {
     return (params): string => {
       return qs.stringify(params, this.stringifyOptions)
     }
@@ -119,7 +119,7 @@ export class Endpoint {
    * @param {AxiosRequestConfig=} requestConfig
    * @returns {AxiosRequestConfig}
    */
-  requestConfig(
+  requestConfig (
     url: string,
     method: Method,
     requestConfig?: AxiosRequestConfig,
@@ -139,7 +139,7 @@ export class Endpoint {
    * @param {AxiosRequestConfig=} requestConfig
    * @returns {Promise<any>}
    */
-  async request<T = any, R = AxiosResponse<T>>(
+  async request<T = any, R = AxiosResponse<T>> (
     url: string,
     method: Method,
     requestConfig?: AxiosRequestConfig,
@@ -164,7 +164,7 @@ export class Endpoint {
    * @param {AxiosError|Error} error
    * @throws {Error}
    */
-  handleError<T = any>(error: AxiosError<T> | Error): never {
+  handleError<T = any> (error: AxiosError<T> | Error): never {
     throw error
   }
 
@@ -175,7 +175,7 @@ export class Endpoint {
    * @returns {any}
    * @throw {Error}
    */
-  static handleRequestError<T = any>(error: AxiosError<T> | Error, instance: Endpoint): any {
+  static handleRequestError<T = any> (error: AxiosError<T> | Error, instance: Endpoint): any {
     return instance.handleError<T>(error)
   }
 
@@ -185,7 +185,7 @@ export class Endpoint {
    * @param {boolean} isArray
    * @returns {any}
    */
-  static safeResponseData<T = any>(response: AxiosResponse<T>, isArray = false): any {
+  static safeResponseData<T = any> (response: AxiosResponse<T>, isArray = false): any {
     if (isArray) {
       return (Array.isArray(response?.data) && response.data) || []
     }
@@ -199,7 +199,7 @@ export class Endpoint {
    * @param {AxiosRequestConfig} config
    * @param {object|AxiosResponse} response
    */
-  debugResponse<T = any, R = AxiosResponse<T>>(
+  debugResponse<T = any, R = AxiosResponse<T>> (
     url: string,
     method: Method,
     config: AxiosRequestConfig,
@@ -215,7 +215,7 @@ export class Endpoint {
    * @param {AxiosRequestConfig} config
    * @param {AxiosError} error
    */
-  debugResponseError<T = any, R = AxiosError<T>>(
+  debugResponseError<T = any, R = AxiosError<T>> (
     url: string,
     method: Method,
     config: AxiosRequestConfig,
@@ -232,7 +232,7 @@ export class Endpoint {
    * @param {string} label
    * @param {object|AxiosError|AxiosResponse} data
    */
-  protected log<T = any>(
+  protected log<T = any> (
     url: string,
     method: Method,
     config: AxiosRequestConfig,

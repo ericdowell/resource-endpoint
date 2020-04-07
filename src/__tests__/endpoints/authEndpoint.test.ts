@@ -15,7 +15,7 @@ const callEndpoint = (instance: AuthEndpoint): { [key: string]: Function } => {
 }
 
 describe(`${AuthEndpoint.name}`, (): void => {
-  it('login method defaults to remember equal to true', async(): Promise<
+  it('login method defaults to remember equal to true', async (): Promise<
     void
   > => {
     expect.assertions(2)
@@ -37,14 +37,14 @@ describe(`${AuthEndpoint.name}`, (): void => {
     `)
   })
 
-  it('register methods sets attributes first so passed values are not overridden', async(): Promise<
+  it('register methods sets attributes first so passed values are not overridden', async (): Promise<
     void
   > => {
     expect.assertions(1)
     const instance = new AuthEndpoint()
     const post = jest
       .spyOn(instance, 'post')
-      .mockImplementation(async(): Promise<any> => true)
+      .mockImplementation(async (): Promise<any> => true)
     const email = 'email'
     const password = 'password'
     const attributes = { email: 'fooBar', password: 'fooBar' }
@@ -70,7 +70,7 @@ describe(`${AuthEndpoint.name}`, (): void => {
     ['resetPassword', 'post', ['email', 'token', 'password', 'password']],
   ])(
     'the %s calls %s parent method',
-    async(method: string, calls, params): Promise<void> => {
+    async (method: string, calls, params): Promise<void> => {
       expect.assertions(2)
       const endpoint = new AuthEndpoint()
       // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
