@@ -12,10 +12,7 @@ module.exports = {
     libraryTarget: 'umd',
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
-    alias: {
-      '~': path.resolve(__dirname, 'src'),
-    },
+    extensions: ['.tsx', '.ts', '.js']
   },
   module: {
     rules: [
