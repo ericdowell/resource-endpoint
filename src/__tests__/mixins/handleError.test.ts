@@ -9,7 +9,7 @@ jest.spyOn(global.console, 'log').mockImplementation(() => {})
 
 class TestEndpoint extends HandleErrorMixin(Endpoint) {}
 
-describe('HandleErrorMixin', (): void => {
+describe(`${HandleErrorMixin.name}`, (): void => {
   it.each([
     [undefined],
     [{ config: {}, response: { data: undefined } }],

@@ -1,20 +1,22 @@
+import { AxiosError } from 'axios'
+
+export const mockResponse = {
+  config: {},
+  data: { foo: 'bar' },
+}
+
 export async function BasicMock(config: any): Promise<any> {
-  return new Promise((resolve, reject) => {
-    if (config.errors) {
-      const error = {
-        config: {},
-        response: {
-          data: {
-            errors: config.errors,
-          },
-          status: config.status || 422,
-        },
-      }
-      return reject(error)
-    }
-    return resolve({
-      config: {},
-      data: { foo: 'bar' },
-    })
-  })
+  if (!config.errors) {
+    return mockResponse
+  }
+  const error = new Error() as AxiosError
+  error.config = {}
+  error.response = {
+    data: {
+      message: config.message,
+      errors: config.errors,
+    },
+    status: config.status || 422,
+  } as any
+  throw error
 }

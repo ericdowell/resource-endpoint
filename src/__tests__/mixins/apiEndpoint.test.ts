@@ -4,7 +4,7 @@ import qs = require('qs')
 
 class TestEndpoint extends ApiEndpointMixin(Endpoint) {}
 
-describe('ApiEndpointMixin', (): void => {
+describe(`${ApiEndpointMixin.name}`, (): void => {
   it('values are inherited by Endpoint', (): void => {
     expect.assertions(6)
     const endpoint = new TestEndpoint()

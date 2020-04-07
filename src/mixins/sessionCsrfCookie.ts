@@ -3,7 +3,7 @@ import { Constructor } from './types'
 import { Endpoint } from '../endpoint'
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export function SessionCsrfTokenMixin<C extends Constructor<any>>(superClass: C) {
+export function SessionCsrfCookieMixin<C extends Constructor<any>>(superClass: C) {
   return class extends superClass {
     /**
      * Used to tell if a csrf cookie fix request is happening
@@ -17,6 +17,7 @@ export function SessionCsrfTokenMixin<C extends Constructor<any>>(superClass: C)
 
     /**
      * Decides if current response is CSRF token mismatch error.
+     * Override method as needed.
      *
      * @param {AxiosResponse<any>} response
      * @returns {boolean}
@@ -31,7 +32,7 @@ export function SessionCsrfTokenMixin<C extends Constructor<any>>(superClass: C)
 
     /**
      * Requests new CSRF Cookie from common Laravel Sanctum endpoint.
-     * Override as needed.
+     * Override method as needed.
      *
      * @returns {Promise<any>}
      */
