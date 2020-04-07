@@ -117,14 +117,13 @@ const loginUser = async (email, password) => {
 }
 
 const registerUser = async (values) => {
-    const response = await api.auth
-        .register(
-            values.email,
-            values.email_confirmation,
-            values.password,
-            values.password_confirmation,
-            { name: values.name },
-        )
+    const response = await api.auth.register(
+        values.email,
+        values.email_confirmation,
+        values.password,
+        values.password_confirmation,
+        { name: values.name },
+    )
     const { user, errors } = api.safeResponseData(response)
     return { errors, user }
 }
