@@ -7,8 +7,8 @@ export function SessionCsrfCookieMixin<C extends Constructor<any>> (superClass: 
   return class extends superClass {
     /**
      * Used to tell if a csrf cookie fix request is happening
-     * otherwise we'd have an infinite loop. We only want
-     * to retry only once as well.
+     * otherwise we'd have an infinite loop. This also allows
+     * us to retry only once.
      *
      * @type {boolean}
      * @protected
@@ -16,7 +16,7 @@ export function SessionCsrfCookieMixin<C extends Constructor<any>> (superClass: 
     csrfCookieFix = false
 
     /**
-     * Decides if current response is CSRF token mismatch error.
+     * Decides if current response is a CSRF token mismatch error.
      * Override method as needed.
      *
      * @param {AxiosResponse<any>} response
