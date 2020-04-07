@@ -2,7 +2,7 @@
   "name": "resource-endpoint",
   "version": "1.4.2",
   "license": "MIT",
-  "description": "A simple wrapper for any Promise based HTTP client.",
+  "description": "A simple resource wrapper for Axios and collection of useful Mixins for building Laravel APIs.",
   "author": "Eric Dowell <github@ericdowell.com> (https://ericdowell.com)",
   "repository": {
     "type": "git",
