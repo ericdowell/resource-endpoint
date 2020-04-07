@@ -46,6 +46,11 @@
   "lint-staged": {
     "*.ts": "npm run lint:fix"
   },
+  "peerDependencies": {
+    "axios": "^0.19.0",
+    "qs": "^6.9.3",
+    "url-join": "^4.0.1"
+  },
   "devDependencies": {
     "@types/jest": "^25.2.1",
     "@types/node": "^13.11.0",
