@@ -1,4 +1,5 @@
 export * from './apiEndpoint'
+export * from './handleApi'
 export * from './handleError'
 export * from './sessionCsrfCookie'
 export * from './types'

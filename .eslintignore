@@ -3,4 +3,5 @@ lib
 node_modules
 .next
 
+jest.config.js
 webpack.config.js

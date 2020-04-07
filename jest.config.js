@@ -10,6 +10,14 @@ module.exports = {
   clearMocks: true,
   collectCoverage: true,
   coverageDirectory: 'coverage',
+  coverageThreshold: {
+    global: {
+      branches: 97,
+      functions: 97,
+      lines: 97,
+      statements: 97,
+    },
+  },
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
   ],
