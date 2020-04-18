@@ -1,15 +1,16 @@
 import { CrudEndpoint } from './crudEndpoint'
-import { AxiosResponse } from 'axios'
+import { AxiosResponse, CancelToken } from 'axios'
 
 export class ResourceEndpoint extends CrudEndpoint {
   /**
    * Display a listing of the resource.
    *
    * @param {any=} params
+   * @param {CancelToken=} cancelToken
    * @returns {Promise<any>}
    */
-  async index<T = any, R = AxiosResponse<T>> (params?: any): Promise<R> {
-    return this.get<T, R>('/', { params })
+  async index<T = any, R = AxiosResponse<T>> (params?: any, cancelToken?: CancelToken): Promise<R> {
+    return this.get<T, R>('/', { params, cancelToken })
   }
 
   /**
@@ -28,13 +29,15 @@ export class ResourceEndpoint extends CrudEndpoint {
    *
    * @param {string|number} id
    * @param {any=} params
+   * @param {CancelToken=} cancelToken
    * @returns {Promise<any>}
    */
   async show<T = any, R = AxiosResponse<T>> (
     id: string | number,
     params?: any,
+    cancelToken?: CancelToken,
   ): Promise<R> {
-    return this.get<T, R>(`/${id}`, { params })
+    return this.get<T, R>(`/${id}`, { params, cancelToken })
   }
 
   /**

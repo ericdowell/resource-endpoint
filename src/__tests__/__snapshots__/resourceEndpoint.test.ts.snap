@@ -15,6 +15,7 @@ exports[`ResourceEndpoint the index calls get 1`] = `
 Array [
   "/",
   Object {
+    "cancelToken": undefined,
     "params": Object {
       "filter": "bar",
     },
@@ -26,6 +27,7 @@ exports[`ResourceEndpoint the show calls get 1`] = `
 Array [
   "/[object Object]",
   Object {
+    "cancelToken": undefined,
     "params": undefined,
   },
 ]
