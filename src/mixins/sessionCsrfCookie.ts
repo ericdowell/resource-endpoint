@@ -38,7 +38,7 @@ export function SessionCsrfCookieMixin<C extends Constructor<any>> (superClass: 
      */
     async requestCsrfCookie (): Promise<any> {
       return axios.get('sanctum/csrf-cookie', {
-        baseURL: window.location.origin,
+        baseURL: this.origin,
       })
     }
 
