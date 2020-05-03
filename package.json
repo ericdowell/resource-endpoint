@@ -35,7 +35,7 @@
     "build:webpack": "cross-env NODE_ENV=production webpack -p",
     "lint": "tsc --noEmit && eslint src --ext .ts",
     "lint:fix": "npm run lint -- --fix --quiet",
-    "pretest": "tsc --noEmit",
+    "pretest": "npm run lint",
     "test": "jest"
   },
   "husky": {

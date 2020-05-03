@@ -46,6 +46,7 @@ module.exports = {
     quotes: ["error", "single"],
     semi: 'off',
     'space-before-function-paren': ['error', 'always'],
+    '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/promise-function-async': ['error'],
     '@typescript-eslint/semi': ['error', 'never']
   },
