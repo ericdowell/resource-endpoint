@@ -16,7 +16,7 @@ describe(`${HandleErrorMixin.name}`, (): void => {
     [{ response: { data: { errors: { key: [] } } } }],
     [{ response: { config: {}, status: 500, statusText: 'foo', headers: {}, data: { message: 'hello foo bar' } } }],
     [{ response: { config: {}, status: 500, statusText: 'foo', headers: {}, data: {} } }],
-  ])('handleError returns data key with errors', (error): void => {
+  ])('handleError returns data key with errors', (error: any): void => {
     expect.assertions(1)
     // eslint-disable-next-line jest/prefer-inline-snapshots
     expect(new TestEndpoint().handleError(error)).toMatchSnapshot()

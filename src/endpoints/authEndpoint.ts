@@ -5,10 +5,7 @@ export class AuthEndpoint extends CrudEndpoint {
   async login<T = any, R = AxiosResponse<T>> (
     values: { email: string; password: any; remember?: boolean },
   ): Promise<R> {
-    const data = {
-      remember: true,
-      ...values,
-    }
+    const data = { remember: true, ...values }
     return this.post<T, R>('/login', { data })
   }
 
@@ -26,23 +23,16 @@ export class AuthEndpoint extends CrudEndpoint {
       [key: string]: any;
     },
   ): Promise<R> {
-    const {
-      emailConfirmation,
-      passwordConfirmation,
-      remember = true,
-      ...inputs
-    } = values
-    return this.post<T, R>('/register', {
-      data:
-        {
-          ...inputs,
-          // eslint-disable-next-line @typescript-eslint/camelcase
-          email_confirmation: emailConfirmation,
-          // eslint-disable-next-line @typescript-eslint/camelcase
-          password_confirmation: passwordConfirmation,
-          remember,
-        },
-    })
+    const { emailConfirmation, passwordConfirmation, remember = true, ...inputs } = values
+    const data = {
+      ...inputs,
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      email_confirmation: emailConfirmation,
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      password_confirmation: passwordConfirmation,
+      remember,
+    }
+    return this.post<T, R>('/register', { data })
   }
 
   async requestPasswordReset<T = any, R = AxiosResponse<T>> (data: { email: string }): Promise<R> {
