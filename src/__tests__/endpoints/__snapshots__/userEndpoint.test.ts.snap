@@ -13,6 +13,19 @@ Array [
 ]
 `;
 
+exports[`UserEndpoint the changePassword calls put parent method 2`] = `
+Array [
+  "/password/change",
+  Object {
+    "data": Object {
+      "current_password": undefined,
+      "password": "password",
+      "password_confirmation": "password",
+    },
+  },
+]
+`;
+
 exports[`UserEndpoint the confirmPassword calls post parent method 1`] = `
 Array [
   "/password/confirm",
@@ -56,18 +69,6 @@ Array [
     "data": Object {
       "email": "email",
       "name": "John",
-    },
-  },
-]
-`;
-
-exports[`UserEndpoint the updatePassword calls put parent method 1`] = `
-Array [
-  "/password/change",
-  Object {
-    "data": Object {
-      "password": "password",
-      "password_confirmation": "password",
     },
   },
 ]

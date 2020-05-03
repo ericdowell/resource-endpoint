@@ -2,91 +2,59 @@ import { AxiosResponse } from 'axios'
 import { CrudEndpoint } from '../crudEndpoint'
 
 export class AuthEndpoint extends CrudEndpoint {
-  /**
-   *
-   * @param {string} email
-   * @param {any} password
-   * @param {boolean} remember
-   * @returns {Promise<any>}
-   */
-  async login<T = any, R = AxiosResponse<T>> (email: string, password: any, remember = true): Promise<R> {
+  async login<T = any, R = AxiosResponse<T>> (
+    values: { email: string; password: any; remember?: boolean },
+  ): Promise<R> {
     const data = {
-      email,
-      password,
-      remember,
+      remember: true,
+      ...values,
     }
     return this.post<T, R>('/login', { data })
   }
 
-  /**
-   *
-   * @returns {Promise<any>}
-   */
   async logout<T = any, R = AxiosResponse<T>> (): Promise<R> {
     return this.post<T, R>('/logout')
   }
 
-  /**
-   *
-   * @param {string} email
-   * @param {string} emailConfirmation
-   * @param {any} password
-   * @param {any} passwordConfirmation
-   * @param {any} attributes
-   * @param {boolean} remember
-   * @returns {Promise<any>}
-   */
   async register<T = any, R = AxiosResponse<T>> (
-    email: string,
-    emailConfirmation: string,
-    password: any,
-    passwordConfirmation: any,
-    attributes?: { [key: string]: any },
-    remember = true,
+    values: {
+      email: string;
+      emailConfirmation: string;
+      password: any;
+      passwordConfirmation: any;
+      remember?: boolean;
+      [key: string]: any;
+    },
   ): Promise<R> {
-    const data = {
-      ...attributes,
-      email,
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      email_confirmation: emailConfirmation,
-      password,
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      password_confirmation: passwordConfirmation,
-      remember,
-    }
-    return this.post<T, R>('/register', { data })
+    const {
+      emailConfirmation,
+      passwordConfirmation,
+      remember = true,
+      ...inputs
+    } = values
+    return this.post<T, R>('/register', {
+      data:
+        {
+          ...inputs,
+          // eslint-disable-next-line @typescript-eslint/camelcase
+          email_confirmation: emailConfirmation,
+          // eslint-disable-next-line @typescript-eslint/camelcase
+          password_confirmation: passwordConfirmation,
+          remember,
+        },
+    })
   }
 
-  /**
-   *
-   * @param {string} email
-   * @returns {Promise<any>}
-   */
-  async requestPasswordReset<T = any, R = AxiosResponse<T>> (email: string): Promise<R> {
-    const data = {
-      email,
-    }
+  async requestPasswordReset<T = any, R = AxiosResponse<T>> (data: { email: string }): Promise<R> {
     return this.post<T, R>('/password/email', { data })
   }
 
-  /**
-   *
-   * @param {string} email
-   * @param {string} token
-   * @param {any} password
-   * @param {any} passwordConfirmation
-   * @returns {Promise<any>}
-   */
   async resetPassword<T = any, R = AxiosResponse<T>> (
-    email: string,
-    token: string,
-    password: any,
-    passwordConfirmation: any,
+    values: { email: string; token: string; password: any; passwordConfirmation: any },
   ): Promise<R> {
+    const { passwordConfirmation, ...inputs } = values
     const data = {
-      email,
-      token,
-      password,
+      ...inputs,
       // eslint-disable-next-line @typescript-eslint/camelcase
       password_confirmation: passwordConfirmation,
     }

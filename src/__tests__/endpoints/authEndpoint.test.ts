@@ -13,6 +13,10 @@ const callEndpoint = (instance: AuthEndpoint): { [key: string]: Function } => {
     resetPassword: instance.resetPassword.bind(instance),
   }
 }
+const email = 'email'
+const emailConfirmation = email
+const password = 'password'
+const passwordConfirmation = password
 
 describe(`${AuthEndpoint.name}`, (): void => {
   it('login method defaults to remember equal to true', async (): Promise<
@@ -21,7 +25,7 @@ describe(`${AuthEndpoint.name}`, (): void => {
     expect.assertions(2)
     const endpoint = new AuthEndpoint()
     const post = jest.spyOn(endpoint, 'post').mockImplementation((): any => true)
-    await endpoint.login('email', 'password')
+    await endpoint.login({ email, password })
     expect(post).toHaveBeenCalledTimes(1)
     expect(post.mock.calls[0]).toMatchInlineSnapshot(`
       Array [
@@ -45,29 +49,26 @@ describe(`${AuthEndpoint.name}`, (): void => {
     const post = jest
       .spyOn(instance, 'post')
       .mockImplementation(async (): Promise<any> => true)
-    const email = 'email'
-    const password = 'password'
-    const attributes = { email: 'fooBar', password: 'fooBar' }
-    await instance.register(email, email, password, password, attributes)
+    await instance.register({ email, emailConfirmation, password, passwordConfirmation })
     expect(post.mock.calls[0][1]).toMatchInlineSnapshot(`
-    Object {
-      "data": Object {
-        "email": "email",
-        "email_confirmation": "email",
-        "password": "password",
-        "password_confirmation": "password",
-        "remember": true,
-      },
-    }
+      Object {
+        "data": Object {
+          "email": "email",
+          "email_confirmation": "email",
+          "password": "password",
+          "password_confirmation": "password",
+          "remember": true,
+        },
+      }
     `)
   })
 
   it.each([
-    ['login', 'post', ['email', 'password', false]],
+    ['login', 'post', [{ email, password, remember: false }]],
     ['logout', 'post', []],
-    ['register', 'post', ['email', 'email', 'password', 'password', { name: 'John' }, false]],
-    ['requestPasswordReset', 'post', ['email']],
-    ['resetPassword', 'post', ['email', 'token', 'password', 'password']],
+    ['register', 'post', [{ email, emailConfirmation, password, passwordConfirmation, name: 'John', remember: false }]],
+    ['requestPasswordReset', 'post', [{ email }]],
+    ['resetPassword', 'post', [{ email, token: 'token', password, passwordConfirmation }]],
   ])(
     'the %s calls %s parent method',
     async (method: string, calls, params): Promise<void> => {

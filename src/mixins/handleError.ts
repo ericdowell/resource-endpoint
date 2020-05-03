@@ -5,33 +5,18 @@ import { Constructor } from './types'
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function HandleErrorMixin<T extends Constructor<any>> (superClass: T) {
   return class extends superClass {
-    /**
-     *
-     * @type {boolean}
-     */
+    /** @protected */
     _throwError = false
 
-    /**
-     *
-     * @returns {this}
-     */
     get throwResponseError (): this {
       this._throwError = true
       return this
     }
 
-    /**
-     * @returns {string}
-     */
     get fallbackErrorMessage (): string {
       return 'An unexpected error has occurred. Please try again.'
     }
 
-    /**
-     *
-     * @param {AxiosError|Error} error
-     * @throws {AxiosError|Error}
-     */
     handleError<T = any> (error: AxiosError<T> | any): AxiosResponse<T | { message: string; errors: any }> {
       if (this._throwError) {
         throw error
