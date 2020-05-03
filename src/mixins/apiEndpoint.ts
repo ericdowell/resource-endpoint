@@ -1,4 +1,4 @@
-import { AxiosRequestConfig, Method } from 'axios'
+import { AxiosRequestConfig } from 'axios'
 import qs from 'qs'
 import { Constructor } from './types'
 import urljoin from 'url-join'
@@ -42,12 +42,8 @@ export function ApiEndpointMixin<T extends Constructor<any>> (superClass: T) {
       return this._stringify
     }
 
-    requestConfig (
-      url: string,
-      method: Method,
-      requestConfig?: AxiosRequestConfig,
-    ): AxiosRequestConfig {
-      const config: AxiosRequestConfig = super.requestConfig(url, method, requestConfig)
+    requestConfig (requestConfig: AxiosRequestConfig): AxiosRequestConfig {
+      const config: AxiosRequestConfig = super.requestConfig(requestConfig)
       if (!config.data || typeof config.data !== 'object') {
         return config
       }

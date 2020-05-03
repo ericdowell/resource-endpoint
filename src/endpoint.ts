@@ -2,7 +2,6 @@ import axios, {
   AxiosError,
   AxiosRequestConfig,
   AxiosResponse,
-  Method,
 } from 'axios'
 import qs, { IStringifyOptions } from 'qs'
 import urljoin from 'url-join'
@@ -69,12 +68,8 @@ export class Endpoint {
   }
 
   // Returns AxiosRequestConfig passed to axios.request.
-  requestConfig (
-    url: string,
-    method: Method,
-    requestConfig?: AxiosRequestConfig,
-  ): AxiosRequestConfig {
-    const config: AxiosRequestConfig = { ...this.config, ...requestConfig, ...{ url, method } }
+  requestConfig (requestConfig: AxiosRequestConfig): AxiosRequestConfig {
+    const config: AxiosRequestConfig = { ...this.config, ...requestConfig }
     config.baseURL = config.baseURL ?? this.baseURL
     config.headers = { ...this.config.headers, ...config.headers }
     config.paramsSerializer = config.paramsSerializer ?? this.paramsSerializer
@@ -82,22 +77,14 @@ export class Endpoint {
   }
 
   // General request method that is used by all HTTP calls.
-  async request<T = any, R = AxiosResponse<T>> (
-    url: string,
-    method: Method,
-    requestConfig?: AxiosRequestConfig,
-  ): Promise<R> {
-    const config = this.requestConfig(url, method, requestConfig)
+  async request<T = any, R = AxiosResponse<T>> (requestConfig: AxiosRequestConfig): Promise<R> {
+    const config = this.requestConfig(requestConfig)
     try {
       const response = await axios.request<T, R>(config)
-      if (this.shouldDebug()) {
-        this.debugResponse<T, R>(url, method, config, response)
-      }
+      this.logResponse<T, R>(config, response)
       return response
     } catch (error) {
-      if (this.shouldDebug()) {
-        this.debugResponseError<T>(url, method, config, error)
-      }
+      this.logResponseError<T>(config, error)
       return Endpoint.handleRequestError<T>(error, this)
     }
   }
@@ -117,37 +104,27 @@ export class Endpoint {
     return (response?.data && typeof response.data === 'object' && response.data) || {}
   }
 
-  debugResponse<T = any, R = AxiosResponse<T>> (
-    url: string,
-    method: Method,
-    config: AxiosRequestConfig,
-    response: R,
-  ): void {
-    this.log<R>(url, method, config, 'response', response)
+  logResponse<T = any, R = AxiosResponse<T>> (config: AxiosRequestConfig, response: R): void {
+    if (!this.shouldDebug()) {
+      return
+    }
+    this.consoleLog<R>(config, 'response', response)
   }
 
-  debugResponseError<T = any, R = AxiosError<T>> (
-    url: string,
-    method: Method,
-    config: AxiosRequestConfig,
-    error: R,
-  ): void {
-    this.log<R>(url, method, config, 'error', error)
+  logResponseError<T = any, R = AxiosError<T>> (config: AxiosRequestConfig, error: R): void {
+    if (!this.shouldDebug()) {
+      return
+    }
+    this.consoleLog<R>(config, 'error', error)
   }
 
-  protected log<T = any> (
-    url: string,
-    method: Method,
-    config: AxiosRequestConfig,
-    label: string,
-    data: T,
-  ): void {
+  protected consoleLog<T = any> (config: AxiosRequestConfig, label: string, data: T): void {
     const output = [
       'color: #e55ea2;',
-      url,
+      config.url,
       'color: black;',
       'color: #e55ea2;',
-      method,
+      config.method,
       'color: black;',
       config,
       label,

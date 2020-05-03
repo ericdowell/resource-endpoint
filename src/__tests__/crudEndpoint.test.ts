@@ -27,12 +27,14 @@ describe(`${CrudEndpoint.name}`, (): void => {
     const request = jest.spyOn(instance, 'request').mockImplementation(async (): Promise<any> => true)
     const url = 'path'
     const params = { filter: ['value'] }
-    await callEndpoint(instance)[method](url, params)
+    await callEndpoint(instance)[method](url, { params })
     expect(request).toHaveBeenCalledTimes(1)
     expect(request).toHaveBeenLastCalledWith(
-      url,
-      method,
-      params,
+      {
+        url,
+        method,
+        params,
+      },
     )
   })
 })

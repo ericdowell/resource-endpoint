@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosResponse, Method } from 'axios'
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { Constructor } from './types'
 import { Endpoint } from '../endpoint'
 
@@ -34,12 +34,8 @@ export function SessionCsrfCookieMixin<C extends Constructor<any>> (superClass: 
     }
 
     // General request method that is used by all HTTP calls.
-    async request<T = any, R = AxiosResponse<T>> (
-      url: string,
-      method: Method,
-      requestConfig?: AxiosRequestConfig,
-    ): Promise<R> {
-      const response = await super.request(url, method, requestConfig)
+    async request<T = any, R = AxiosResponse<T>> (requestConfig: AxiosRequestConfig): Promise<R> {
+      const response = await super.request(requestConfig)
       if (!this.csrfCookieFix && this.isCsrfTokenMismatch<T>(response)) {
         this.csrfCookieFix = true
         try {
@@ -47,7 +43,7 @@ export function SessionCsrfCookieMixin<C extends Constructor<any>> (superClass: 
         } catch (error) {
           return response
         }
-        return super.request(url, method, requestConfig)
+        return super.request(requestConfig)
       }
       return response
     }

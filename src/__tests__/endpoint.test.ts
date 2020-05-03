@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosRequestConfig } from 'axios'
 import { Endpoint } from '../index'
 import { BasicMock } from './mock/axios'
 import qs from 'qs'
@@ -6,6 +6,8 @@ import qs from 'qs'
 jest.spyOn(axios, 'request').mockImplementation(BasicMock)
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 jest.spyOn(global.console, 'log').mockImplementation(() => {})
+
+const testConfig: AxiosRequestConfig = { url: '123', method: 'get' }
 
 const createEndpoint = (debug = false): Endpoint => {
   const endpoint = new Endpoint()
@@ -63,7 +65,7 @@ describe(`${Endpoint.name}`, (): void => {
 
   it('the requestConfig will return default config', () => {
     expect.assertions(1)
-    expect(new Endpoint().requestConfig('test/path', 'get'))
+    expect(new Endpoint().requestConfig({ url: 'test/path', method: 'get' }))
       .toMatchInlineSnapshot(`
       Object {
         "baseURL": "http://localhost",
@@ -78,11 +80,13 @@ describe(`${Endpoint.name}`, (): void => {
   it('the requestConfig will return passed baseURL and paramsSerializer', () => {
     expect.assertions(1)
     const endpoint = new Endpoint()
-    const config = {
+    const config: AxiosRequestConfig = {
       baseURL: 'https://example.com',
+      method: 'PATCH',
       paramsSerializer: endpoint.paramsSerializer,
+      url: 'test/path',
     }
-    expect(endpoint.requestConfig('test/path', 'PATCH', config))
+    expect(endpoint.requestConfig(config))
       .toMatchInlineSnapshot(`
       Object {
         "baseURL": "https://example.com",
@@ -99,14 +103,16 @@ describe(`${Endpoint.name}`, (): void => {
     async (debug): Promise<void> => {
       expect.assertions(2)
       const endpoint = createEndpoint(debug)
-      const debugResponse = jest.spyOn(endpoint, 'debugResponse').mockImplementation((): any => true)
-      expect(await endpoint.request('123', 'get')).toStrictEqual({
+      const console = jest.spyOn(endpoint, 'console').mockImplementation((): any => ({
+        log: jest.fn(),
+      }))
+      expect(await endpoint.request(testConfig)).toStrictEqual({
         config: {},
         data: {
           foo: 'bar',
         },
       })
-      expect(debugResponse).toHaveBeenCalledTimes(debug ? 1 : 0)
+      expect(console).toHaveBeenCalledTimes(debug ? 1 : 0)
     },
   )
 
@@ -119,20 +125,23 @@ describe(`${Endpoint.name}`, (): void => {
       const axiosRequest = jest.spyOn(axios, 'request').mockImplementation((): never => {
         throw error
       })
-      const debugResponseError = jest.spyOn(endpoint, 'debugResponseError').mockImplementation((): any => true)
-      await expect(endpoint.request('123', 'get')).rejects.toBe(error)
-      expect(debugResponseError).toHaveBeenCalledTimes(debug ? 1 : 0)
+      const console = jest.spyOn(endpoint, 'console').mockImplementation((): any => ({
+        log: jest.fn(),
+      }))
+      await expect(endpoint.request(testConfig)).rejects.toBe(error)
+      expect(console).toHaveBeenCalledTimes(debug ? 1 : 0)
       axiosRequest.mockRestore()
     },
   )
 
-  it('debugResponse and debugResponseError call log method and log calls this.console', (): void => {
+  it('logResponse and logResponseError call log method and log calls this.console', (): void => {
     expect.assertions(1)
-    const endpoint = new Endpoint()
+    const endpoint = new Endpoint().debug()
     const log = jest.fn()
     const console = jest.spyOn(endpoint, 'console').mockImplementation((): any => ({ log }))
-    endpoint.debugResponse('url', 'get', {}, {})
-    endpoint.debugResponseError('url', 'get', {}, {})
+    const config: AxiosRequestConfig = { url: 'url', method: 'get' }
+    endpoint.logResponse(config, {})
+    endpoint.logResponseError(config, {})
     expect(console).toHaveBeenCalledTimes(2)
   })
 

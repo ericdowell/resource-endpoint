@@ -21,13 +21,12 @@ export class UserEndpoint extends CrudEndpoint {
   async changePassword<T = any, R = AxiosResponse<T>> (
     values: { currentPassword?: any; password: any; passwordConfirmation: any },
   ): Promise<R> {
-    const { currentPassword, passwordConfirmation, ...inputs } = values
     const data = {
-      ...inputs,
+      password: values.password,
       // eslint-disable-next-line @typescript-eslint/camelcase
-      current_password: currentPassword,
+      current_password: values.currentPassword,
       // eslint-disable-next-line @typescript-eslint/camelcase
-      password_confirmation: passwordConfirmation,
+      password_confirmation: values.passwordConfirmation,
     }
     return this.put<T, R>('/password/change', { data })
   }

@@ -12,7 +12,7 @@ class TestEndpoint extends SessionCsrfCookieMixin(Endpoint) {}
 describe(`${SessionCsrfCookieMixin.name}`, (): void => {
   it('allows normal response to return', async (): Promise<void> => {
     expect.assertions(2)
-    expect(await new TestEndpoint().request('foo', 'put')).toBe(mockResponse)
+    expect(await new TestEndpoint().request({ url: 'foo', method: 'put' })).toBe(mockResponse)
     expect(axiosRequest).toHaveBeenCalledTimes(1)
   })
 
@@ -51,7 +51,7 @@ describe(`${SessionCsrfCookieMixin.name}`, (): void => {
       .spyOn(instance, 'requestCsrfCookie')
       .mockImplementation(async (): Promise<any> => ({}))
 
-    expect(await instance.request('foo', 'put')).toBe(mockResponse)
+    expect(await instance.request({ url: 'foo', method: 'put' })).toBe(mockResponse)
     expect(axiosRequest).toHaveBeenCalledTimes(2)
     expect(isCsrfTokenMismatch).toHaveBeenCalledTimes(1)
     expect(requestCsrfCookie).toHaveBeenCalledTimes(1)
@@ -73,7 +73,7 @@ describe(`${SessionCsrfCookieMixin.name}`, (): void => {
         },
       )
 
-    expect(await instance.request('foo', 'put')).toBe(mockResponse)
+    expect(await instance.request({ url: 'foo', method: 'put' })).toBe(mockResponse)
     expect(axiosRequest).toHaveBeenCalledTimes(1)
     expect(isCsrfTokenMismatch).toHaveBeenCalledTimes(1)
     expect(requestCsrfCookie).toHaveBeenCalledTimes(1)
