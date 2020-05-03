@@ -34,7 +34,9 @@ export function HandleErrorMixin<T extends Constructor<any>> (superClass: T) {
         statusText: error?.response?.statusText ?? 'Internal Server Error',
         data: {
           message,
-          errors: {},
+          errors: {
+            fallback: message,
+          },
         },
       }
     }
