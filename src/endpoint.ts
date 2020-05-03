@@ -31,7 +31,7 @@ export class Endpoint {
   }
 
   // This contains the protocol and domain, aka location.origin.
-  // e.g. https://example.com, https://localhost:3000, etc.
+  // e.g. https://example.com, http://localhost:3000, etc.
   get origin (): string {
     return window.location.origin
   }

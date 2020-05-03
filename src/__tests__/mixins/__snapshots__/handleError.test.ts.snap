@@ -4,14 +4,12 @@ exports[`HandleErrorMixin handleError returns data key with errors 1`] = `
 Object {
   "config": undefined,
   "data": Object {
-    "errors": Object {
-      "fallback": "An unexpected error has occurred. Please try again.",
-    },
+    "errors": Object {},
     "message": "An unexpected error has occurred. Please try again.",
   },
   "headers": undefined,
-  "status": undefined,
-  "statusText": undefined,
+  "status": 500,
+  "statusText": "Internal Server Error",
 }
 `;
 
@@ -19,14 +17,12 @@ exports[`HandleErrorMixin handleError returns data key with errors 2`] = `
 Object {
   "config": Object {},
   "data": Object {
-    "errors": Object {
-      "fallback": "An unexpected error has occurred. Please try again.",
-    },
+    "errors": Object {},
     "message": "An unexpected error has occurred. Please try again.",
   },
   "headers": undefined,
-  "status": undefined,
-  "statusText": undefined,
+  "status": 500,
+  "statusText": "Internal Server Error",
 }
 `;
 
@@ -44,14 +40,12 @@ exports[`HandleErrorMixin handleError returns data key with errors 4`] = `
 Object {
   "config": Object {},
   "data": Object {
-    "errors": Object {
-      "fallback": "hello foo bar",
-    },
+    "errors": Object {},
     "message": "hello foo bar",
   },
   "headers": Object {},
-  "status": 500,
-  "statusText": "foo",
+  "status": 422,
+  "statusText": "Unprocessable Entity",
 }
 `;
 
@@ -59,13 +53,11 @@ exports[`HandleErrorMixin handleError returns data key with errors 5`] = `
 Object {
   "config": Object {},
   "data": Object {
-    "errors": Object {
-      "fallback": "An unexpected error has occurred. Please try again.",
-    },
+    "errors": Object {},
     "message": "An unexpected error has occurred. Please try again.",
   },
   "headers": Object {},
-  "status": 500,
-  "statusText": "foo",
+  "status": 400,
+  "statusText": "Bad Request",
 }
 `;
