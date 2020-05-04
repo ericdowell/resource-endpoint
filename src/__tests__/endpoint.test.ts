@@ -9,20 +9,7 @@ jest.spyOn(global.console, 'log').mockImplementation(() => {})
 
 const testConfig: AxiosRequestConfig = { url: '123', method: 'get' }
 
-const createEndpoint = (debug = false): Endpoint => {
-  const endpoint = new Endpoint()
-  return debug ? endpoint.debug() : endpoint
-}
-
 describe(`${Endpoint.name}`, (): void => {
-  it('calling debug will make shouldDebug return true', () => {
-    expect.assertions(2)
-    const endpoint = new Endpoint()
-    expect(endpoint.shouldDebug()).toBe(false)
-    endpoint.debug()
-    expect(endpoint.shouldDebug()).toBe(true)
-  })
-
   it('the origin is localhost', () => {
     expect.assertions(1)
     expect(new Endpoint().origin).toBe('http://localhost')
@@ -41,11 +28,6 @@ describe(`${Endpoint.name}`, (): void => {
   it('the baseURL is localhost', () => {
     expect.assertions(1)
     expect(new Endpoint().baseURL).toBe('http://localhost')
-  })
-
-  it('the console returns window.console', (): void => {
-    expect.assertions(1)
-    expect(new Endpoint().console()).toBe(window.console)
   })
 
   it('the config.headers default is undefined', () => {
@@ -96,51 +78,26 @@ describe(`${Endpoint.name}`, (): void => {
     `)
   })
 
-  it.each([[true], [false]])(
-    'the request will return response object',
-    async (debug): Promise<void> => {
-      expect.assertions(2)
-      const endpoint = createEndpoint(debug)
-      const console = jest.spyOn(endpoint, 'console').mockImplementation((): any => ({
-        log: jest.fn(),
-      }))
-      expect(await endpoint.request(testConfig)).toStrictEqual({
-        config: {},
-        data: {
-          foo: 'bar',
-        },
-      })
-      expect(console).toHaveBeenCalledTimes(debug ? 1 : 0)
-    },
-  )
-
-  it.each([[true], [false]])(
-    'the request will throw error axios.request throws',
-    async (debug): Promise<void> => {
-      expect.assertions(2)
-      const error = new Error('testing')
-      const endpoint = createEndpoint(debug)
-      const axiosRequest = jest.spyOn(axios, 'request').mockImplementation((): never => {
-        throw error
-      })
-      const console = jest.spyOn(endpoint, 'console').mockImplementation((): any => ({
-        log: jest.fn(),
-      }))
-      await expect(endpoint.request(testConfig)).rejects.toBe(error)
-      expect(console).toHaveBeenCalledTimes(debug ? 1 : 0)
-      axiosRequest.mockRestore()
-    },
-  )
-
-  it('logResponse and logResponseError call log method and log calls this.console', (): void => {
+  it('the request will return response object', async (): Promise<void> => {
     expect.assertions(1)
-    const endpoint = new Endpoint().debug()
-    const log = jest.fn()
-    const console = jest.spyOn(endpoint, 'console').mockImplementation((): any => ({ log }))
-    const config: AxiosRequestConfig = { url: 'url', method: 'get' }
-    endpoint.logResponse(config, {})
-    endpoint.logResponseError(config, {})
-    expect(console).toHaveBeenCalledTimes(2)
+    const endpoint = new Endpoint()
+    expect(await endpoint.request(testConfig)).toStrictEqual({
+      config: {},
+      data: {
+        foo: 'bar',
+      },
+    })
+  })
+
+  it('the request will throw error axios.request throws', async (): Promise<void> => {
+    expect.assertions(1)
+    const error = new Error('testing')
+    const endpoint = new Endpoint()
+    const axiosRequest = jest.spyOn(axios, 'request').mockImplementation((): never => {
+      throw error
+    })
+    await expect(endpoint.request(testConfig)).rejects.toBe(error)
+    axiosRequest.mockRestore()
   })
 
   it('static method handleRequestError calls endpoint implementation of handleError', (): void => {
