@@ -20,8 +20,7 @@ describe(`${ApiEndpointMixin.name}`, (): void => {
     expect(endpoint.shouldStringify).toBe(true)
     const data = 'string'
     const stringify = jest.spyOn(qs, 'stringify').mockImplementation((): string => 'string')
-    expect(endpoint.requestConfig({ url: 'url', method: 'get', data }))
-      .toMatchInlineSnapshot(`
+    expect(endpoint.requestConfig({ url: 'url', method: 'get', data })).toMatchInlineSnapshot(`
       Object {
         "baseURL": "http://localhost/api",
         "data": "string",
@@ -52,8 +51,7 @@ describe(`${ApiEndpointMixin.name}`, (): void => {
     endpoint.preventStringify()
     const stringify = jest.spyOn(qs, 'stringify').mockImplementation((): string => 'string')
     const data = { foo: 'bar' }
-    expect(endpoint.requestConfig({ url: 'url', method: 'get', data }))
-      .toMatchInlineSnapshot(`
+    expect(endpoint.requestConfig({ url: 'url', method: 'get', data })).toMatchInlineSnapshot(`
       Object {
         "baseURL": "http://localhost/api",
         "data": Object {
@@ -77,8 +75,7 @@ describe(`${ApiEndpointMixin.name}`, (): void => {
     const endpoint = new TestEndpoint()
     const stringify = jest.spyOn(qs, 'stringify').mockImplementation((): string => 'string')
     const data = { foo: 'bar' }
-    expect(endpoint.requestConfig({ url: 'url', method: 'get', data }))
-      .toMatchInlineSnapshot(`
+    expect(endpoint.requestConfig({ url: 'url', method: 'get', data })).toMatchInlineSnapshot(`
       Object {
         "baseURL": "http://localhost/api",
         "data": "string",

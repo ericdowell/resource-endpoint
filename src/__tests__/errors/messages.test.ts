@@ -11,23 +11,23 @@ describe('errors/messages', (): void => {
     expect(messages.getFallbackMessage(response, defaultMessage)).toMatchSnapshot()
   })
 
-  it.each([
-    [undefined],
-    [{ data: { errors: {} } }],
-  ])('getErrors returns error object based on input', (response): void => {
-    expect.assertions(1)
-    // eslint-disable-next-line jest/prefer-inline-snapshots
-    expect(messages.getErrors(response)).toMatchSnapshot()
-  })
+  it.each([[undefined], [{ data: { errors: {} } }]])(
+    'getErrors returns error object based on input',
+    (response): void => {
+      expect.assertions(1)
+      // eslint-disable-next-line jest/prefer-inline-snapshots
+      expect(messages.getErrors(response)).toMatchSnapshot()
+    },
+  )
 
-  it.each([
-    [undefined],
-    [{ status: 404 }],
-  ])('getStatus returns status code based on input', (response): void => {
-    expect.assertions(1)
-    // eslint-disable-next-line jest/prefer-inline-snapshots
-    expect(messages.getStatus(response)).toMatchSnapshot()
-  })
+  it.each([[undefined], [{ status: 404 }]])(
+    'getStatus returns status code based on input',
+    (response): void => {
+      expect.assertions(1)
+      // eslint-disable-next-line jest/prefer-inline-snapshots
+      expect(messages.getStatus(response)).toMatchSnapshot()
+    },
+  )
 
   it.each([
     ['test', undefined],

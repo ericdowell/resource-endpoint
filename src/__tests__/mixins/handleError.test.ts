@@ -9,7 +9,13 @@ jest.spyOn(global.console, 'log').mockImplementation(() => {})
 
 class TestEndpoint extends HandleErrorMixin(Endpoint) {}
 
-const response = { config: {}, status: 422, statusText: 'Unprocessable Entity', headers: {}, data: {} }
+const response = {
+  config: {},
+  status: 422,
+  statusText: 'Unprocessable Entity',
+  headers: {},
+  data: {},
+}
 
 describe(`${HandleErrorMixin.name}`, (): void => {
   it.each([

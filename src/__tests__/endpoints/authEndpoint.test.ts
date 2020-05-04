@@ -19,9 +19,7 @@ const password = 'password'
 const passwordConfirmation = password
 
 describe(`${AuthEndpoint.name}`, (): void => {
-  it('login method defaults to remember equal to true', async (): Promise<
-    void
-  > => {
+  it('login method defaults to remember equal to true', async (): Promise<void> => {
     expect.assertions(2)
     const endpoint = new AuthEndpoint()
     const post = jest.spyOn(endpoint, 'post').mockImplementation((): any => true)
@@ -46,9 +44,7 @@ describe(`${AuthEndpoint.name}`, (): void => {
   > => {
     expect.assertions(1)
     const instance = new AuthEndpoint()
-    const post = jest
-      .spyOn(instance, 'post')
-      .mockImplementation(async (): Promise<any> => true)
+    const post = jest.spyOn(instance, 'post').mockImplementation(async (): Promise<any> => true)
     await instance.register({ email, emailConfirmation, password, passwordConfirmation })
     expect(post.mock.calls[0][1]).toMatchInlineSnapshot(`
       Object {
@@ -66,7 +62,11 @@ describe(`${AuthEndpoint.name}`, (): void => {
   it.each([
     ['login', 'post', [{ email, password, remember: false }]],
     ['logout', 'post', []],
-    ['register', 'post', [{ email, emailConfirmation, password, passwordConfirmation, name: 'John', remember: false }]],
+    [
+      'register',
+      'post',
+      [{ email, emailConfirmation, password, passwordConfirmation, name: 'John', remember: false }],
+    ],
     ['requestPasswordReset', 'post', [{ email }]],
     ['resetPassword', 'post', [{ email, token: 'token', password, passwordConfirmation }]],
   ])(

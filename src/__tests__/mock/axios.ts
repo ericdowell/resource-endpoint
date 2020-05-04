@@ -5,7 +5,7 @@ export const mockResponse = {
   data: { foo: 'bar' },
 }
 
-export async function BasicMock (config: any): Promise<any> {
+export async function BasicMock(config: any): Promise<any> {
   if (!config.errors) {
     return mockResponse
   }

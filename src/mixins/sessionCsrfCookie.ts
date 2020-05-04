@@ -3,7 +3,7 @@ import { Constructor } from './types'
 import { Endpoint } from '../endpoint'
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export function SessionCsrfCookieMixin<C extends Constructor<any>> (superClass: C) {
+export function SessionCsrfCookieMixin<C extends Constructor<any>>(superClass: C) {
   return class extends superClass {
     /**
      * Used to tell if a csrf cookie fix request is happening.
@@ -17,24 +17,21 @@ export function SessionCsrfCookieMixin<C extends Constructor<any>> (superClass: 
 
     // Decides if current response is a CSRF token mismatch error.
     // Override method as needed.
-    isCsrfTokenMismatch<T = any> (response: AxiosResponse<T>): boolean {
+    isCsrfTokenMismatch<T = any>(response: AxiosResponse<T>): boolean {
       const { message } = Endpoint.safeResponseData<T>(response)
-      return (
-        response.status === 419 &&
-          message === 'CSRF token mismatch.'
-      )
+      return response.status === 419 && message === 'CSRF token mismatch.'
     }
 
     // Requests new CSRF Cookie from common Laravel Sanctum endpoint.
     // Override method as needed.
-    async requestCsrfCookie (): Promise<any> {
+    async requestCsrfCookie(): Promise<any> {
       return axios.get('sanctum/csrf-cookie', {
         baseURL: this.origin,
       })
     }
 
     // General request method that is used by all HTTP calls.
-    async request<T = any, R = AxiosResponse<T>> (requestConfig: AxiosRequestConfig): Promise<R> {
+    async request<T = any, R = AxiosResponse<T>>(requestConfig: AxiosRequestConfig): Promise<R> {
       const response = await super.request(requestConfig)
       if (!this.csrfCookieFix && this.isCsrfTokenMismatch<T>(response)) {
         this.csrfCookieFix = true

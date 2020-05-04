@@ -2,27 +2,27 @@ import { AxiosResponse } from 'axios'
 import { CrudEndpoint } from '../crudEndpoint'
 
 export class AuthEndpoint extends CrudEndpoint {
-  async login<T = any, R = AxiosResponse<T>> (
-    values: { email: string; password: any; remember?: boolean },
-  ): Promise<R> {
+  async login<T = any, R = AxiosResponse<T>>(values: {
+    email: string
+    password: any
+    remember?: boolean
+  }): Promise<R> {
     const data = { remember: true, ...values }
     return this.post<T, R>('/login', { data })
   }
 
-  async logout<T = any, R = AxiosResponse<T>> (): Promise<R> {
+  async logout<T = any, R = AxiosResponse<T>>(): Promise<R> {
     return this.post<T, R>('/logout')
   }
 
-  async register<T = any, R = AxiosResponse<T>> (
-    values: {
-      email: string;
-      emailConfirmation: string;
-      password: any;
-      passwordConfirmation: any;
-      remember?: boolean;
-      [key: string]: any;
-    },
-  ): Promise<R> {
+  async register<T = any, R = AxiosResponse<T>>(values: {
+    email: string
+    emailConfirmation: string
+    password: any
+    passwordConfirmation: any
+    remember?: boolean
+    [key: string]: any
+  }): Promise<R> {
     const { emailConfirmation, passwordConfirmation, remember = true, ...inputs } = values
     const data = {
       ...inputs,
@@ -35,13 +35,16 @@ export class AuthEndpoint extends CrudEndpoint {
     return this.post<T, R>('/register', { data })
   }
 
-  async requestPasswordReset<T = any, R = AxiosResponse<T>> (data: { email: string }): Promise<R> {
+  async requestPasswordReset<T = any, R = AxiosResponse<T>>(data: { email: string }): Promise<R> {
     return this.post<T, R>('/password/email', { data })
   }
 
-  async resetPassword<T = any, R = AxiosResponse<T>> (
-    values: { email: string; token: string; password: any; passwordConfirmation: any },
-  ): Promise<R> {
+  async resetPassword<T = any, R = AxiosResponse<T>>(values: {
+    email: string
+    token: string
+    password: any
+    passwordConfirmation: any
+  }): Promise<R> {
     const { passwordConfirmation, ...inputs } = values
     const data = {
       ...inputs,

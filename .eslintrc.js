@@ -9,6 +9,7 @@ module.exports = {
   plugins: [
     'import',
     'jest',
+    'prettier',
     '@typescript-eslint',
   ],
   extends: [
@@ -19,6 +20,8 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
+    'prettier/standard',
+    'plugin:prettier/recommended',
   ],
   parserOptions: {
     project: './tsconfig.json',
@@ -37,16 +40,16 @@ module.exports = {
     ],
     'jest/prefer-inline-snapshots': ['warn'],
     'no-eval': 'error',
-    // Prettier replacements
-    'arrow-parens': ["error", "always"],
-    'comma-dangle': ["error", "always-multiline"],
-    indent: ['error', 2],
-    'max-len': ['error', { "code": 120 }],
-    'object-curly-spacing': ["error", "always"],
-    quotes: ["error", "single"],
-    semi: 'off',
-    'no-shadow': 'error',
-    'space-before-function-paren': ['error', 'always'],
+    '@typescript-eslint/member-delimiter-style': ['error', {
+      "multiline": {
+        "delimiter": "none",
+        "requireLast": false,
+      },
+      "singleline": {
+        "delimiter": "semi",
+        "requireLast": false,
+      }
+    }],
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/promise-function-async': ['error'],
     '@typescript-eslint/semi': ['error', 'never']

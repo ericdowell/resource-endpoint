@@ -65,8 +65,7 @@ describe(`${Endpoint.name}`, (): void => {
 
   it('the requestConfig will return default config', () => {
     expect.assertions(1)
-    expect(new Endpoint().requestConfig({ url: 'test/path', method: 'get' }))
-      .toMatchInlineSnapshot(`
+    expect(new Endpoint().requestConfig({ url: 'test/path', method: 'get' })).toMatchInlineSnapshot(`
       Object {
         "baseURL": "http://localhost",
         "headers": Object {},
@@ -86,8 +85,7 @@ describe(`${Endpoint.name}`, (): void => {
       paramsSerializer: endpoint.paramsSerializer,
       url: 'test/path',
     }
-    expect(endpoint.requestConfig(config))
-      .toMatchInlineSnapshot(`
+    expect(endpoint.requestConfig(config)).toMatchInlineSnapshot(`
       Object {
         "baseURL": "https://example.com",
         "headers": Object {},

@@ -24,9 +24,7 @@ describe(`${SessionCsrfCookieMixin.name}`, (): void => {
 
   it('requestCsrfCookie calls axios.get', async (): Promise<void> => {
     expect.assertions(2)
-    const axiosGet = jest
-      .spyOn(axios, 'get')
-      .mockImplementation(async (): Promise<any> => ({}))
+    const axiosGet = jest.spyOn(axios, 'get').mockImplementation(async (): Promise<any> => ({}))
     await new TestEndpoint().requestCsrfCookie()
     expect(axiosGet).toHaveBeenCalledTimes(1)
     expect(axiosGet.mock.calls[0]).toMatchInlineSnapshot(`
@@ -39,9 +37,7 @@ describe(`${SessionCsrfCookieMixin.name}`, (): void => {
     `)
   })
 
-  it('isCsrfTokenMismatch returns true requestCsrfCookie is called successfully', async (): Promise<
-    void
-  > => {
+  it('isCsrfTokenMismatch returns true requestCsrfCookie is called successfully', async (): Promise<void> => {
     expect.assertions(4)
     const instance = new TestEndpoint()
     const isCsrfTokenMismatch = jest
@@ -65,13 +61,11 @@ describe(`${SessionCsrfCookieMixin.name}`, (): void => {
     const isCsrfTokenMismatch = jest
       .spyOn(instance, 'isCsrfTokenMismatch')
       .mockImplementation((): boolean => true)
-    const requestCsrfCookie = jest
-      .spyOn(instance, 'requestCsrfCookie')
-      .mockImplementation(
-        async (): Promise<never> => {
-          throw new Error()
-        },
-      )
+    const requestCsrfCookie = jest.spyOn(instance, 'requestCsrfCookie').mockImplementation(
+      async (): Promise<never> => {
+        throw new Error()
+      },
+    )
 
     expect(await instance.request({ url: 'foo', method: 'put' })).toBe(mockResponse)
     expect(axiosRequest).toHaveBeenCalledTimes(1)

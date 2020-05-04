@@ -6,7 +6,7 @@ jest.spyOn(axios, 'request').mockImplementation(BasicMock)
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 jest.spyOn(global.console, 'log').mockImplementation((): void => {})
 
-const callEndpoint = (instance: ResourceEndpoint): {[key: string]: Function} => {
+const callEndpoint = (instance: ResourceEndpoint): { [key: string]: Function } => {
   return {
     index: instance.index.bind(instance),
     store: instance.store.bind(instance),
@@ -24,21 +24,21 @@ describe(`${ResourceEndpoint.name}`, (): void => {
     ['store', 'post', [{ foo: 'bar' }, { filter: 'baz' }]],
     ['update', 'put', [1234, { foo: 'bar' }, { filter: 'baz' }]],
     ['destroy', 'delete', [1234, { filter: 'baz' }]],
-  ])('the %s calls %s', async (method: string, calls, params): Promise<void> => {
-    const endpoint = new ResourceEndpoint()
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore
-    const methodCalled = jest.spyOn(endpoint, calls).mockImplementation((): any => true)
-    await callEndpoint(endpoint)[method](...params)
-    expect(methodCalled).toHaveBeenCalledTimes(1)
-    // eslint-disable-next-line jest/prefer-inline-snapshots
-    expect(methodCalled.mock.calls[0]).toMatchSnapshot()
-  })
+  ])(
+    'the %s calls %s',
+    async (method: string, calls, params): Promise<void> => {
+      const endpoint = new ResourceEndpoint()
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // @ts-ignore
+      const methodCalled = jest.spyOn(endpoint, calls).mockImplementation((): any => true)
+      await callEndpoint(endpoint)[method](...params)
+      expect(methodCalled).toHaveBeenCalledTimes(1)
+      // eslint-disable-next-line jest/prefer-inline-snapshots
+      expect(methodCalled.mock.calls[0]).toMatchSnapshot()
+    },
+  )
 
-  it.each([
-    [null],
-    [123],
-  ])('the storeOrUpdate calls store or update id is %p', (id: any) => {
+  it.each([[null], [123]])('the storeOrUpdate calls store or update id is %p', (id: any) => {
     const endpoint = new ResourceEndpoint()
     const store = jest.spyOn(endpoint, 'store').mockImplementation((): any => true)
     const update = jest.spyOn(endpoint, 'update').mockImplementation((): any => true)

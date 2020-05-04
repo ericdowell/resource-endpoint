@@ -5,27 +5,27 @@ type ID = string | number
 
 export class ResourceEndpoint extends CrudEndpoint {
   // Display a listing of the resource.
-  async index<T = any, R = AxiosResponse<T>> (params?: any, cancelToken?: CancelToken): Promise<R> {
+  async index<T = any, R = AxiosResponse<T>>(params?: any, cancelToken?: CancelToken): Promise<R> {
     return this.get<T, R>('/', { params, cancelToken })
   }
 
   // Store a newly created resource in storage.
-  async store<T = any, R = AxiosResponse<T>> (data: any, params?: any): Promise<R> {
+  async store<T = any, R = AxiosResponse<T>>(data: any, params?: any): Promise<R> {
     return this.post<T, R>('/', { data, params })
   }
 
   // Display the specified resource.
-  async show<T = any, R = AxiosResponse<T>> (id: ID, params?: any, cancelToken?: CancelToken): Promise<R> {
+  async show<T = any, R = AxiosResponse<T>>(id: ID, params?: any, cancelToken?: CancelToken): Promise<R> {
     return this.get<T, R>(`/${id}`, { params, cancelToken })
   }
 
   // Update the specified resource in storage.
-  async update<T = any, R = AxiosResponse<T>> (id: ID, data: any, params?: any): Promise<R> {
+  async update<T = any, R = AxiosResponse<T>>(id: ID, data: any, params?: any): Promise<R> {
     return this.put<T, R>(`/${id}`, { data, params })
   }
 
   // Store or update specified resource in storage.
-  async storeOrUpdate<T = any, R = AxiosResponse<T>> (id: null | ID, data: any, params?: any): Promise<R> {
+  async storeOrUpdate<T = any, R = AxiosResponse<T>>(id: null | ID, data: any, params?: any): Promise<R> {
     if (!id) {
       return this.store<T, R>(data, params)
     }
@@ -33,7 +33,7 @@ export class ResourceEndpoint extends CrudEndpoint {
   }
 
   // Remove the specified resource from storage.
-  async destroy<T = any, R = AxiosResponse<T>> (id: ID, params?: any): Promise<R> {
+  async destroy<T = any, R = AxiosResponse<T>>(id: ID, params?: any): Promise<R> {
     return this.delete<T, R>(`/${id}`, { params })
   }
 }
