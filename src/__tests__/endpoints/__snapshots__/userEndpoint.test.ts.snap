@@ -2,7 +2,7 @@
 
 exports[`UserEndpoint the changePassword calls put parent method 1`] = `
 Array [
-  "/password/change",
+  "password/change",
   Object {
     "data": Object {
       "current_password": "current",
@@ -15,7 +15,7 @@ Array [
 
 exports[`UserEndpoint the changePassword calls put parent method 2`] = `
 Array [
-  "/password/change",
+  "password/change",
   Object {
     "data": Object {
       "current_password": undefined,
@@ -28,7 +28,7 @@ Array [
 
 exports[`UserEndpoint the confirmPassword calls post parent method 1`] = `
 Array [
-  "/password/confirm",
+  "password/confirm",
   Object {
     "data": Object {
       "password": "password",
@@ -39,19 +39,19 @@ Array [
 
 exports[`UserEndpoint the current calls get parent method 1`] = `
 Array [
-  "/user",
+  "user",
 ]
 `;
 
 exports[`UserEndpoint the resendEmailVerification calls post parent method 1`] = `
 Array [
-  "/email/resend",
+  "email/resend",
 ]
 `;
 
 exports[`UserEndpoint the show calls get parent method 1`] = `
 Array [
-  "/user/123",
+  "user/123",
   Object {
     "params": Object {
       "include": Array [
@@ -64,7 +64,7 @@ Array [
 
 exports[`UserEndpoint the update calls put parent method 1`] = `
 Array [
-  "/user/4321",
+  "user/4321",
   Object {
     "data": Object {
       "email": "email",

@@ -27,7 +27,7 @@ describe(`${AuthEndpoint.name}`, (): void => {
     expect(post).toHaveBeenCalledTimes(1)
     expect(post.mock.calls[0]).toMatchInlineSnapshot(`
       Array [
-        "/login",
+        "login",
         Object {
           "data": Object {
             "email": "email",

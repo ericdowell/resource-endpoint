@@ -7,12 +7,13 @@ export class AuthEndpoint extends CrudEndpoint {
     password: any
     remember?: boolean
   }): Promise<R> {
-    const data = { remember: true, ...values }
-    return this.post<T, R>('/login', { data })
+    const { remember = true } = values
+    const data = { remember, email: values.email, password: values.password }
+    return this.post<T, R>('login', { data })
   }
 
   async logout<T = any, R = AxiosResponse<T>>(): Promise<R> {
-    return this.post<T, R>('/logout')
+    return this.post<T, R>('logout')
   }
 
   async register<T = any, R = AxiosResponse<T>>(values: {
@@ -32,11 +33,11 @@ export class AuthEndpoint extends CrudEndpoint {
       password_confirmation: passwordConfirmation,
       remember,
     }
-    return this.post<T, R>('/register', { data })
+    return this.post<T, R>('register', { data })
   }
 
   async requestPasswordReset<T = any, R = AxiosResponse<T>>(data: { email: string }): Promise<R> {
-    return this.post<T, R>('/password/email', { data })
+    return this.post<T, R>('password/email', { data })
   }
 
   async resetPassword<T = any, R = AxiosResponse<T>>(values: {
@@ -45,12 +46,13 @@ export class AuthEndpoint extends CrudEndpoint {
     password: any
     passwordConfirmation: any
   }): Promise<R> {
-    const { passwordConfirmation, ...inputs } = values
     const data = {
-      ...inputs,
+      email: values.email,
+      token: values.token,
+      password: values.password,
       // eslint-disable-next-line @typescript-eslint/camelcase
-      password_confirmation: passwordConfirmation,
+      password_confirmation: values.passwordConfirmation,
     }
-    return this.post<T, R>('/password/reset', { data })
+    return this.post<T, R>('password/reset', { data })
   }
 }

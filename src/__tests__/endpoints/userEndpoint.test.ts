@@ -27,7 +27,7 @@ describe(`${UserEndpoint.name}`, (): void => {
     ['resendEmailVerification', 'post', []],
     ['changePassword', 'put', [{ currentPassword, password, passwordConfirmation }]],
     ['changePassword', 'put', [{ password, passwordConfirmation }]],
-    ['confirmPassword', 'post', [{ password }]],
+    ['confirmPassword', 'post', [password]],
   ])(
     'the %s calls %s parent method',
     async (method: string, calls, params): Promise<void> => {
