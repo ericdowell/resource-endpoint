@@ -67,7 +67,7 @@ describe(`${AuthEndpoint.name}`, (): void => {
       'post',
       [{ email, emailConfirmation, password, passwordConfirmation, name: 'John', remember: false }],
     ],
-    ['requestPasswordReset', 'post', [{ email }]],
+    ['requestPasswordReset', 'post', [email]],
     ['resetPassword', 'post', [{ email, token: 'token', password, passwordConfirmation }]],
   ])(
     'the %s calls %s parent method',

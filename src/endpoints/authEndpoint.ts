@@ -36,8 +36,8 @@ export class AuthEndpoint extends CrudEndpoint {
     return this.post<T, R>('register', { data })
   }
 
-  async requestPasswordReset<T = any, R = AxiosResponse<T>>(data: { email: string }): Promise<R> {
-    return this.post<T, R>('password/email', { data })
+  async requestPasswordReset<T = any, R = AxiosResponse<T>>(email: string): Promise<R> {
+    return this.post<T, R>('password/email', { data: { email } })
   }
 
   async resetPassword<T = any, R = AxiosResponse<T>>(values: {
