@@ -13,7 +13,7 @@ export function HandleErrorMixin<T extends Constructor<any>>(superClass: T) {
       return this
     }
 
-    get fallbackErrorMessage(): string {
+    get defaultErrorMessage(): string {
       return 'An unexpected error has occurred. Please try again.'
     }
 
@@ -21,7 +21,7 @@ export function HandleErrorMixin<T extends Constructor<any>>(superClass: T) {
       if (this._throwError) {
         throw error
       }
-      let message = this.fallbackErrorMessage
+      let message = this.defaultErrorMessage
       if (error?.response?.data?.errors) {
         return error.response
       } else if (typeof error?.response?.data?.message === 'string') {
@@ -35,7 +35,7 @@ export function HandleErrorMixin<T extends Constructor<any>>(superClass: T) {
         data: {
           message,
           errors: {
-            fallback: message,
+            message,
           },
         },
       }

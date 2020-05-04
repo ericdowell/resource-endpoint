@@ -5,7 +5,7 @@ Object {
   "config": undefined,
   "data": Object {
     "errors": Object {
-      "fallback": "An unexpected error has occurred. Please try again.",
+      "message": "An unexpected error has occurred. Please try again.",
     },
     "message": "An unexpected error has occurred. Please try again.",
   },
@@ -20,7 +20,7 @@ Object {
   "config": Object {},
   "data": Object {
     "errors": Object {
-      "fallback": "An unexpected error has occurred. Please try again.",
+      "message": "An unexpected error has occurred. Please try again.",
     },
     "message": "An unexpected error has occurred. Please try again.",
   },
@@ -45,7 +45,7 @@ Object {
   "config": Object {},
   "data": Object {
     "errors": Object {
-      "fallback": "hello foo bar",
+      "message": "hello foo bar",
     },
     "message": "hello foo bar",
   },
@@ -60,7 +60,7 @@ Object {
   "config": Object {},
   "data": Object {
     "errors": Object {
-      "fallback": "An unexpected error has occurred. Please try again.",
+      "message": "An unexpected error has occurred. Please try again.",
     },
     "message": "An unexpected error has occurred. Please try again.",
   },
