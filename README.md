@@ -111,19 +111,19 @@ const logoutUser = async () => {
 }
 
 const loginUser = async (email, password) => {
-    const response = await api.auth.login(email, password)
+    const response = await api.auth.login({ email, password })
     const { user, errors } = api.safeResponseData(response)
     return { errors, user }
 }
 
 const registerUser = async (values) => {
-    const response = await api.auth.register(
-        values.email,
-        values.email_confirmation,
-        values.password,
-        values.password_confirmation,
-        { name: values.name },
-    )
+    const response = await api.auth.register({
+        email: values.email,
+        emailConfirmation: values.emailConfirmation,
+        password: values.password,
+        passwordConfirmation: values.passwordConfirmation,
+        name: values.name,
+    })
     const { user, errors } = api.safeResponseData(response)
     return { errors, user }
 }
@@ -136,7 +136,7 @@ Then in your client app you can do the following:
 import React, { useState } from 'react'
 import { api } from '../api'
 
-export const Login = ({ loginUser }) => {
+export const Login = (props) => {
     const initialState = {
         errors: {},
         email: '',
@@ -146,10 +146,11 @@ export const Login = ({ loginUser }) => {
     const [values, setValues] = useState(initialState)
     const onSubmit = async (e) => {
         e.preventDefault()
-        const response = await api.auth.login(
-            values.email,
-            values.password,
-        )
+        const response = await api.auth.login({
+            email: values.email,
+            password: values.password,
+            remember: values.remember,
+        })
         const { user, errors } = api.safeResponseData(response)
         if (errors) {
             setValues({ ...values, errors })
@@ -158,15 +159,15 @@ export const Login = ({ loginUser }) => {
             setValues({
                 ...values,
                 errors: {
-                    fallback:
+                    message:
                         'Something went wrong. Please try again.',
                 },
             })
             return
         }
         setValues(initialState)
-        loginUser(user)
+        props.loginUser(user)
     }
-    return <form onSubmit={onSubmit})>{/* input tags here */}</form>
+    return <form onSubmit={onSubmit}>{/* input tags here */}</form>
 }
 ```
