@@ -46,11 +46,7 @@ export const api = new Api()
 ```
 ```js
 // js/api/endpoints/auth.js
-import {
-    AuthEndpoint,
-    ApiEndpointMixin,
-    HandleErrorMixin
-} from 'resource-endpoint'
+import { AuthEndpoint, ApiEndpointMixin, HandleErrorMixin } from 'resource-endpoint'
 
 export class Auth extends HandleErrorMixin(ApiEndpointMixin(AuthEndpoint)) {
     /**
@@ -66,11 +62,7 @@ export class Auth extends HandleErrorMixin(ApiEndpointMixin(AuthEndpoint)) {
 ```
 ```js
 // js/api/endpoints/user.js
-import {
-    ApiEndpointMixin,
-    UserEndpoint,
-    HandleErrorMixin
-} from 'resource-endpoint'
+import { ApiEndpointMixin, UserEndpoint, HandleErrorMixin } from 'resource-endpoint'
 
 export class User extends HandleErrorMixin(ApiEndpointMixin(UserEndpoint)) {
     /**
