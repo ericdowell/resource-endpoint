@@ -12,7 +12,7 @@ module.exports = {
     libraryTarget: 'umd',
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js']
+    extensions: ['.tsx', '.ts', '.jsx', '.js']
   },
   module: {
     rules: [
@@ -24,7 +24,7 @@ module.exports = {
       // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
       {
         enforce: 'pre',
-        test: /\.js$/,
+        test: /\.js(x?)$/,
         loader: 'source-map-loader',
       },
     ],
@@ -42,17 +42,17 @@ module.exports = {
       amd: 'prop-types',
       root: 'prop-types',
     },
-    react: {
-      commonjs: 'react',
-      commonjs2: 'react',
-      amd: 'react',
-      root: 'react',
-    },
     qs: {
       commonjs: 'qs',
       commonjs2: 'qs',
       amd: 'qs',
       root: 'qs',
+    },
+    react: {
+      commonjs: 'react',
+      commonjs2: 'react',
+      amd: 'react',
+      root: 'react',
     },
     'url-join': {
       commonjs: 'url-join',
