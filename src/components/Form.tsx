@@ -12,7 +12,6 @@ type Props = {
   onError?: (errors: any, onSubmit: (event: FormEvent) => Promise<void>) => void
   onSuccess?: (payload: any) => Promise<any>
   initialState?: Record<string, any>
-  rowClassName?: string
 }
 
 export function Form(props: Props): any {
@@ -40,11 +39,9 @@ export function Form(props: Props): any {
     }
   }
   return (
-    <div className={props.rowClassName}>
-      <form onSubmit={onSubmit} className={props.className}>
-        {props.children}
-      </form>
-    </div>
+    <form onSubmit={onSubmit} className={props.className}>
+      {props.children}
+    </form>
   )
 }
 
@@ -59,5 +56,4 @@ Form.propTypes = {
   onError: func,
   onSuccess: func,
   initialState: object,
-  rowClassName: string,
 }
