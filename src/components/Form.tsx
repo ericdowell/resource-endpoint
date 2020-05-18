@@ -1,21 +1,21 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { FormEvent, ReactChildren, ReactElement } from 'react'
+import React from 'react'
 import { func, node, object, string } from 'prop-types'
 import { Endpoint } from '../endpoint'
 
-type Props = {
-  children: ReactChildren
+export interface Props {
+  children: React.ReactNode | React.ReactNode[]
   makeRequest: (inputs: any) => Promise<any>
   values: Record<string, any>
-  setValues: (values: any) => void
+  setValues: React.Dispatch<React.SetStateAction<any>>
   className?: string
-  onError?: (errors: any, onSubmit: (event: FormEvent) => Promise<void>) => void
+  onError?: (errors: any, onSubmit: (event: React.FormEvent) => Promise<void>) => void
   onSuccess?: (payload: any) => Promise<any>
   initialState?: Record<string, any>
 }
 
-export function Form(props: Props): ReactElement<Props> {
-  const onSubmit = async (event: FormEvent): Promise<void> => {
+export function Form(props: Props): React.ReactElement<Props> {
+  const onSubmit = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault()
     props.setValues({ ...props.values, isLoading: true })
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

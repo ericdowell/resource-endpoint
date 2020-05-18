@@ -1,13 +1,11 @@
-import { Dispatch, ChangeEvent, SetStateAction, useState } from 'react'
-
-type Change = ChangeEvent<{ name: string; type: string; value: any; checked: boolean }>
+import React from 'react'
 
 export function useInputValues<S>(
   initialState: S | (() => S),
-): [(e: Change) => void, S, Dispatch<SetStateAction<S>>] {
-  const [values, setValues] = useState<S>(initialState)
+): [(e: React.ChangeEvent<HTMLInputElement>) => void, S, React.Dispatch<React.SetStateAction<S>>] {
+  const [values, setValues] = React.useState<S>(initialState)
   return [
-    function (event: Change): void {
+    function (event: React.ChangeEvent<HTMLInputElement>): void {
       setValues((values: any) => ({
         ...values,
         [event.target.name]: event.target.type === 'checkbox' ? event.target.checked : event.target.value,

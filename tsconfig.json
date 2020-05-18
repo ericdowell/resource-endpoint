@@ -19,16 +19,24 @@
     "baseUrl": "src",
     "types": [
       "@types/jest",
-      "@types/node"
+      "@types/node",
+      "@types/react-test-renderer"
     ],
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "react"
   },
   "include": [
-    "./src"
+    "./src",
+    ".eslintrc.js",
+    ".prettierrc.js",
+    "jest.config.js",
+    "webpack.config.js"
   ],
   "exclude": [
+    ".circleci",
+    "coverage",
+    "lib",
     "node_modules"
   ]
 }
