@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { CrudEndpoint } from '../index'
-import { BasicMock } from './mock/axios'
+import { CrudEndpoint } from '../../endpoints'
+import { BasicMock } from '../mock/axios'
 
 jest.spyOn(axios, 'request').mockImplementation(BasicMock)
 

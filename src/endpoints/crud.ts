@@ -1,4 +1,4 @@
-import { Endpoint } from './endpoint'
+import { Endpoint } from '../endpoint'
 import { AxiosRequestConfig, AxiosResponse } from 'axios'
 
 export class CrudEndpoint extends Endpoint {

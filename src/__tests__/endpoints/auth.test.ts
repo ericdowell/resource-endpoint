@@ -1,4 +1,4 @@
-import { AuthEndpoint } from '../..'
+import { AuthEndpoint } from '../../endpoints'
 import axios from 'axios'
 import { BasicMock } from '../mock/axios'
 

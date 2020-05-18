@@ -1,4 +1,4 @@
-import { CrudEndpoint } from './crudEndpoint'
+import { CrudEndpoint } from './crud'
 import { AxiosResponse, CancelToken } from 'axios'
 
 type ID = string | number

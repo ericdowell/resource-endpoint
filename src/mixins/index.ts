@@ -1,4 +1,4 @@
-export * from './apiEndpoint'
+export * from './api'
 export * from './auth'
 export * from './handleApi'
 export * from './handleError'

@@ -1,5 +1,5 @@
 /* istanbul ignore file */
-import { ApiEndpointMixin } from './apiEndpoint'
+import { ApiEndpointMixin } from './api'
 import { HandleErrorMixin } from './handleError'
 import { SessionCsrfCookieMixin } from './sessionCsrfCookie'
 import { Constructor } from './types'
