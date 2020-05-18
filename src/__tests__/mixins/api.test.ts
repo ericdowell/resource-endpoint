@@ -1,10 +1,10 @@
 import qs from 'qs'
 import { Endpoint } from '../../endpoint'
-import { ApiEndpointMixin } from '../../mixins'
+import { ApiMixin } from '../../mixins'
 
-class TestEndpoint extends ApiEndpointMixin(Endpoint) {}
+class TestEndpoint extends ApiMixin(Endpoint) {}
 
-describe(`${ApiEndpointMixin.name}`, (): void => {
+describe(`${ApiMixin.name}`, (): void => {
   it('values are inherited by Endpoint', (): void => {
     expect.assertions(6)
     const endpoint = new TestEndpoint()
