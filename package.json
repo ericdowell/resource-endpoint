@@ -46,7 +46,7 @@
     }
   },
   "lint-staged": {
-    "*.ts": "npm run lint:fix"
+    "*.ts?(x)": "npm run lint:fix"
   },
   "dependencies": {
     "axios": "^0.19.2",
