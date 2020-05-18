@@ -13,7 +13,7 @@ export interface Props {
   initialState?: Record<string, any>
 }
 
-export function Form(props: Props): React.ReactElement<Props> {
+export function RequestForm(props: Props): React.ReactElement<Props> {
   const onSubmit = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault()
     props.setValues({ ...props.values, isLoading: true })
@@ -44,9 +44,9 @@ export function Form(props: Props): React.ReactElement<Props> {
   )
 }
 
-Form.displayName = 'Form'
+RequestForm.displayName = 'Form'
 
-Form.propTypes = {
+RequestForm.propTypes = {
   children: node.isRequired,
   makeRequest: func.isRequired,
   values: object.isRequired,
