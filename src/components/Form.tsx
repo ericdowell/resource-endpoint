@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { FormEvent, ReactChildren } from 'react'
+import React, { FormEvent, ReactChildren, ReactElement } from 'react'
 import { func, node, object, string } from 'prop-types'
 import { Endpoint } from '../endpoint'
 
@@ -14,7 +14,7 @@ type Props = {
   initialState?: Record<string, any>
 }
 
-export function Form(props: Props): any {
+export function Form(props: Props): ReactElement<Props> {
   const onSubmit = async (event: FormEvent): Promise<void> => {
     event.preventDefault()
     props.setValues({ ...props.values, isLoading: true })
