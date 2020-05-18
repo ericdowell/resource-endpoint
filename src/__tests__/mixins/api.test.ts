@@ -1,6 +1,6 @@
+import qs from 'qs'
 import { Endpoint } from '../../endpoint'
 import { ApiEndpointMixin } from '../../mixins'
-import qs = require('qs')
 
 class TestEndpoint extends ApiEndpointMixin(Endpoint) {}
 
@@ -15,7 +15,7 @@ describe(`${ApiEndpointMixin.name}`, (): void => {
     expect(endpoint.config).toStrictEqual({
       headers,
     })
-    expect(endpoint.apiVersion).toBe('')
+    expect(endpoint.version).toBe('')
     expect(endpoint.path).toBe('api')
     expect(endpoint.shouldStringify).toBe(true)
     const data = 'string'

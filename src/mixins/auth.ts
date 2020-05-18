@@ -1,5 +1,5 @@
-import { Constructor } from './types'
 import { AxiosResponse } from 'axios'
+import { Constructor } from './types'
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function AuthMixin<T extends Constructor<any>>(superClass: T) {

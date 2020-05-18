@@ -6,10 +6,10 @@ import { Constructor } from './types'
 export function HandleErrorMixin<T extends Constructor<any>>(superClass: T) {
   return class extends superClass {
     /** @protected */
-    _throwError = false
+    shouldThrowError = false
 
     get throwResponseError(): this {
-      this._throwError = true
+      this.shouldThrowError = true
       return this
     }
 
@@ -18,7 +18,7 @@ export function HandleErrorMixin<T extends Constructor<any>>(superClass: T) {
     }
 
     handleError<T = any>(error: AxiosError<T> | any): AxiosResponse<T | { message?: string; errors: any }> {
-      if (this._throwError) {
+      if (this.shouldThrowError) {
         throw error
       }
       let message = this.defaultErrorMessage

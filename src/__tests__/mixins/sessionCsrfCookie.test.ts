@@ -1,6 +1,6 @@
+import axios from 'axios'
 import { SessionCsrfCookieMixin } from '../../mixins'
 import { Endpoint } from '../../endpoint'
-import axios from 'axios'
 import { BasicMock, mockResponse } from '../mock/axios'
 
 const axiosRequest = jest.spyOn(axios, 'request').mockImplementation(BasicMock)

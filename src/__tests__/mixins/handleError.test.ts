@@ -1,6 +1,6 @@
+import axios from 'axios'
 import { HandleErrorMixin } from '../../mixins'
 import { Endpoint } from '../../endpoint'
-import axios from 'axios'
 import { BasicMock } from '../mock/axios'
 
 jest.spyOn(axios, 'request').mockImplementation(BasicMock)
