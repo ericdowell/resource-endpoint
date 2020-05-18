@@ -1,9 +1,21 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { FormEvent } from 'react'
+import React, { FormEvent, ReactChildren } from 'react'
 import { func, node, object, string } from 'prop-types'
 import { Endpoint } from '../endpoint'
 
-export function Form(props: any): any {
+type Props = {
+  children: ReactChildren
+  makeRequest: (inputs: any) => Promise<any>
+  values: Record<string, any>
+  setValues: (values: any) => void
+  className?: string
+  onError?: (errors: any, onSubmit: (event: FormEvent) => Promise<void>) => void
+  onSuccess?: (payload: any) => Promise<any>
+  initialState?: Record<string, any>
+  rowClassName?: string
+}
+
+export function Form(props: Props): any {
   const onSubmit = async (event: FormEvent): Promise<void> => {
     event.preventDefault()
     props.setValues({ ...props.values, isLoading: true })
@@ -34,11 +46,6 @@ export function Form(props: any): any {
       </form>
     </div>
   )
-}
-
-Form.defaultProps = {
-  className: 'bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4',
-  rowClassName: 'w-full max-w-xs',
 }
 
 Form.displayName = 'Form'
