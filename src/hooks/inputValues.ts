@@ -8,12 +8,11 @@ export function useInputValues<S>(
   const [values, setValues] = useState<S>(initialState)
   return [
     function (event: Change): void {
-      const key = event.target.name
-      // TODO: Handle <select><option>
-      const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value
       setValues((values: any) => ({
         ...values,
-        [key]: value,
+        // TODO: Test handling <select><option></option></select>
+        // TODO: Test handling <input type="radio" />
+        [event.target.name]: event.target.type === 'checkbox' ? event.target.checked : event.target.value,
       }))
     },
     values,
