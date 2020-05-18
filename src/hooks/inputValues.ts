@@ -5,7 +5,7 @@ type Change = ChangeEvent<{ name: string; type: string; value: any; checked: boo
 export function useInputValues<S>(
   initialState: S | (() => S),
 ): [(e: Change) => void, S, Dispatch<SetStateAction<S>>] {
-  const [values, setValues] = useState(initialState)
+  const [values, setValues] = useState<S>(initialState)
   return [
     function (event: Change): void {
       const key = event.target.name
