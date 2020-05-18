@@ -2,10 +2,10 @@ import React from 'react'
 import { func, node, object, string } from 'prop-types'
 import { Endpoint } from '../endpoint'
 
-export interface Props {
+export interface RequestFormProps {
   children: React.ReactNode | React.ReactNode[]
   makeRequest: (inputs: any) => Promise<any>
-  values: Record<string, any>
+  values: any
   setValues: React.Dispatch<React.SetStateAction<any>>
   className?: string
   onError?: (errors: any, onSubmit: (event: React.FormEvent) => Promise<void>) => void
@@ -13,7 +13,7 @@ export interface Props {
   initialState?: Record<string, any>
 }
 
-export function RequestForm(props: Props): React.ReactElement<Props> {
+export function RequestForm(props: RequestFormProps): React.ReactElement<RequestFormProps> {
   const onSubmit = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault()
     props.setValues({ ...props.values, isLoading: true })
