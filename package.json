@@ -29,11 +29,13 @@
   "main": "lib/resource-endpoint.js",
   "types": "lib/",
   "scripts": {
-    "prebuild": "npm run lint -- --quiet && rm -fr lib && echo '> removed lib folder'",
+    "prebuild": "npm run clean && npm run lint -- --quiet",
     "build": "npm run build:ts && npm run build:webpack",
     "build:ts": "cross-env NODE_ENV=production tsc",
     "build:webpack": "cross-env NODE_ENV=production webpack -p",
-    "lint": "tsc --noEmit && eslint src --ext .ts",
+    "clean": "rm -fr lib && echo '> removed lib folder'",
+    "prelint": "tsc --noEmit",
+    "lint": "eslint src --ext .ts",
     "lint:fix": "npm run lint -- --fix --quiet",
     "pretest": "npm run lint",
     "test": "jest"
