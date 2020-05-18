@@ -10,8 +10,6 @@ export function useInputValues<S>(
     function (event: Change): void {
       setValues((values: any) => ({
         ...values,
-        // TODO: Test handling <select><option></option></select>
-        // TODO: Test handling <input type="radio" />
         [event.target.name]: event.target.type === 'checkbox' ? event.target.checked : event.target.value,
       }))
     },
