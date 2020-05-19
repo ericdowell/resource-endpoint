@@ -2,6 +2,7 @@ import React from 'react'
 import { useFormChange } from '../../hooks'
 import { RequestFormProps, RequestForm } from '../../components'
 import { act, fireEvent, render } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
 interface FormState {
   contact: string
@@ -31,13 +32,13 @@ function TestRequestForm(
     email: 'email@example.com',
     remember: false,
     state: 'MN',
-    username: 'Dr FooBar',
+    username: 'Dr. FooBar',
   })
   return (
     <RequestForm makeRequest={props.makeRequest} values={values} setValues={setValues}>
       {props.children}
-      <Username onChange={onChange} value={values.username} />
       <Email onChange={onChange} value={values.email} />
+      <Username onChange={onChange} value={values.username} />
       {Object.entries({ phone: 'Phone', email: 'Email', mail: 'Mail' }).map(([value, display], key) => (
         <React.Fragment key={key}>
           <input
@@ -74,7 +75,7 @@ function TestRequestForm(
 describe('useFormChange', (): void => {
   it('fireEvent.click(submit) calls default setValues functions', async (): Promise<void> => {
     expect.assertions(2)
-    const makeRequest = jest.fn().mockResolvedValue({})
+    const makeRequest = jest.fn().mockResolvedValue({ data: {} })
     const rendered = render(
       <TestRequestForm makeRequest={makeRequest}>
         <h1>Title</h1>
@@ -82,12 +83,14 @@ describe('useFormChange', (): void => {
     )
     await act(
       async (): Promise<void> => {
-        const email = await rendered.findByTestId('email')
-        fireEvent.change(email, { target: { name: 'email', value: 'test@example.net' } })
-        const username = await rendered.findByTestId('username')
-        fireEvent.change(username, { target: { name: 'username', value: 'Mr. Dirt' } })
         const contactPhone = await rendered.findByTestId('contact-phone')
         fireEvent.click(contactPhone)
+        const email = await rendered.findByTestId('email')
+        await userEvent.clear(email)
+        await userEvent.type(email, 'test@example.net')
+        const username = await rendered.findByTestId('username')
+        await userEvent.clear(username)
+        await userEvent.type(username, 'Mr. Dirt')
         const state = await rendered.findByTestId('state')
         fireEvent.change(state, { target: { name: 'state', value: 'IL' } })
         const remember = await rendered.findByTestId('remember')
