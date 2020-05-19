@@ -37,6 +37,7 @@ function TestRequestForm(
   return (
     <RequestForm makeRequest={props.makeRequest} values={values} setValues={setValues}>
       {props.children}
+      {/* TODO: Fix odd warning uncontrolled/controlled BS for first input. Something with timing is what I'm thinking */}
       <Email onChange={onChange} value={values.email} />
       <Username onChange={onChange} value={values.username} />
       {Object.entries({ phone: 'Phone', email: 'Email', mail: 'Mail' }).map(([value, display], key) => (
