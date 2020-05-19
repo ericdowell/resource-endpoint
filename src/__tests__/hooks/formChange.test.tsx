@@ -6,10 +6,22 @@ import { act, fireEvent, render } from '@testing-library/react'
 interface FormState {
   contact: string
   email: string
-  name: string
   remember: boolean
   state: string
+  username: string
 }
+
+function Username(props: any): React.ReactElement {
+  return (
+    <input type="text" onChange={props.onChange} value={props.value} name="username" data-testid="username" />
+  )
+}
+Username.displayName = 'Username'
+
+function Email(props: any): React.ReactElement {
+  return <input type="email" onChange={props.onChange} value={props.value} name="email" data-testid="email" />
+}
+Email.displayName = 'Email'
 
 function TestRequestForm(
   props: Pick<RequestFormProps, 'children' | 'makeRequest'>,
@@ -17,15 +29,15 @@ function TestRequestForm(
   const [onChange, values, setValues] = useFormChange<FormState>({
     contact: 'email',
     email: 'email@example.com',
-    name: 'John bar',
     remember: false,
     state: 'MN',
+    username: 'Dr FooBar',
   })
   return (
     <RequestForm makeRequest={props.makeRequest} values={values} setValues={setValues}>
       {props.children}
-      <input type="text" onChange={onChange} value={values.name} name="name" data-testid="name" />
-      <input type="email" onChange={onChange} value={values.email} name="email" data-testid="email" />
+      <Username onChange={onChange} value={values.username} />
+      <Email onChange={onChange} value={values.email} />
       {Object.entries({ phone: 'Phone', email: 'Email', mail: 'Mail' }).map(([value, display], key) => (
         <React.Fragment key={key}>
           <input
@@ -72,8 +84,8 @@ describe('useFormChange', (): void => {
       async (): Promise<void> => {
         const email = await rendered.findByTestId('email')
         fireEvent.change(email, { target: { name: 'email', value: 'test@example.net' } })
-        const name = await rendered.findByTestId('name')
-        fireEvent.change(name, { target: { name: 'name', value: 'Joe Dirt' } })
+        const username = await rendered.findByTestId('username')
+        fireEvent.change(username, { target: { name: 'username', value: 'Mr. Dirt' } })
         const contactPhone = await rendered.findByTestId('contact-phone')
         fireEvent.click(contactPhone)
         const state = await rendered.findByTestId('state')
@@ -90,9 +102,9 @@ describe('useFormChange', (): void => {
         Object {
           "contact": "phone",
           "email": "test@example.net",
-          "name": "Joe Dirt",
           "remember": true,
           "state": "IL",
+          "username": "Mr. Dirt",
         },
       ]
     `)
