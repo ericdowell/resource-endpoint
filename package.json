@@ -35,7 +35,7 @@
     "build:webpack": "cross-env NODE_ENV=production webpack -p",
     "clean": "rm -fr lib && echo '> removed lib folder'",
     "prelint": "tsc --noEmit",
-    "lint": "eslint src --ext .ts",
+    "lint": "eslint src --ext .ts --ext .tsx",
     "lint:fix": "npm run lint -- --fix --quiet",
     "pretest": "npm run lint",
     "test": "jest"
@@ -46,7 +46,7 @@
     }
   },
   "lint-staged": {
-    "*.ts": "npm run lint:fix"
+    "*.ts?(x)": "npm run lint:fix"
   },
   "dependencies": {
     "axios": "^0.19.2",
@@ -54,9 +54,15 @@
     "url-join": "^4.0.1"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.7.0",
+    "@testing-library/react": "^10.0.4",
+    "@testing-library/user-event": "^10.3.1",
     "@types/jest": "^25.2.2",
     "@types/node": "^14.0.1",
+    "@types/prop-types": "^15.7.3",
     "@types/qs": "^6.9.2",
+    "@types/react": "^16.9.35",
+    "@types/react-test-renderer": "^16.9.2",
     "@types/url-join": "^4.0.0",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
@@ -69,11 +75,17 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.1.3",
     "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-react-hooks": "^4.0.2",
     "eslint-plugin-standard": "^4.0.1",
     "husky": "^4.2.5",
     "jest": "^26.0.1",
     "lint-staged": "^10.2.2",
     "prettier": "^2.0.5",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-test-renderer": "^16.13.1",
     "ts-jest": "^26.0.0",
     "ts-loader": "^7.0.4",
     "typescript": "^3.9.2",
