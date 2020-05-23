@@ -4,7 +4,7 @@ import { BasicMock } from '../mock/axios'
 
 jest.spyOn(axios, 'request').mockImplementation(BasicMock)
 
-const callEndpoint = (instance: AuthEndpoint): { [key: string]: Function } => {
+const callEndpoint = (instance: AuthEndpoint): { [key: string]: any } => {
   return {
     login: instance.login.bind(instance),
     logout: instance.logout.bind(instance),
@@ -74,8 +74,6 @@ describe(`${AuthEndpoint.name}`, (): void => {
     async (method: string, calls, params): Promise<void> => {
       expect.assertions(2)
       const endpoint = new AuthEndpoint()
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-      // @ts-ignore
       const methodCalled = jest.spyOn(endpoint, calls).mockImplementation((): any => true)
       await callEndpoint(endpoint)[method](...params)
       expect(methodCalled).toHaveBeenCalledTimes(1)

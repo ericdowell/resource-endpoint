@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios'
 import { Constructor } from './types'
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function AuthMixin<T extends Constructor<any>>(superClass: T) {
   return class extends superClass {
     async login<T = any, R = AxiosResponse<T>>(values: {

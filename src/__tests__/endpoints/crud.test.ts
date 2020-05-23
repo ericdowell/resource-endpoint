@@ -4,7 +4,7 @@ import { BasicMock } from '../mock/axios'
 
 jest.spyOn(axios, 'request').mockImplementation(BasicMock)
 
-const callEndpoint = (instance: CrudEndpoint): { [key: string]: Function } => {
+const callEndpoint = (instance: CrudEndpoint): { [key: string]: any } => {
   return {
     delete: instance.delete.bind(instance),
     get: instance.get.bind(instance),

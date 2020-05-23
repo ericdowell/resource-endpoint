@@ -6,7 +6,7 @@ jest.spyOn(axios, 'request').mockImplementation(BasicMock)
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 jest.spyOn(global.console, 'log').mockImplementation((): void => {})
 
-const callEndpoint = (instance: ResourceEndpoint): { [key: string]: Function } => {
+const callEndpoint = (instance: ResourceEndpoint): { [key: string]: any } => {
   return {
     index: instance.index.bind(instance),
     store: instance.store.bind(instance),
@@ -28,7 +28,7 @@ describe(`${ResourceEndpoint.name}`, (): void => {
     'the %s calls %s',
     async (method: string, calls, params): Promise<void> => {
       const endpoint = new ResourceEndpoint()
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       const methodCalled = jest.spyOn(endpoint, calls).mockImplementation((): any => true)
       await callEndpoint(endpoint)[method](...params)
