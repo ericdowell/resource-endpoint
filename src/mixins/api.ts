@@ -3,7 +3,7 @@ import qs from 'qs'
 import urljoin from 'url-join'
 import { Constructor } from './types'
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function ApiMixin<T extends Constructor<any>>(superClass: T) {
   return class extends superClass {
     /** @protected */

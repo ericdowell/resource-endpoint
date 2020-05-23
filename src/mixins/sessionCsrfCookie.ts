@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { Constructor } from './types'
 import { Endpoint } from '../endpoint'
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function SessionCsrfCookieMixin<C extends Constructor<any>>(superClass: C) {
   return class extends superClass {
     /**
