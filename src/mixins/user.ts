@@ -27,9 +27,7 @@ export function UserMixin<T extends Constructor<any>>(superClass: T) {
     }): Promise<R> {
       const data = {
         password: values.password,
-        // eslint-disable-next-line @typescript-eslint/camelcase
         current_password: values.currentPassword,
-        // eslint-disable-next-line @typescript-eslint/camelcase
         password_confirmation: values.passwordConfirmation,
       }
       return this.put('password/change', { data })

@@ -29,9 +29,7 @@ export function AuthMixin<T extends Constructor<any>>(superClass: T) {
       const { emailConfirmation, passwordConfirmation, remember = true, ...inputs } = values
       const data = {
         ...inputs,
-        // eslint-disable-next-line @typescript-eslint/camelcase
         email_confirmation: emailConfirmation,
-        // eslint-disable-next-line @typescript-eslint/camelcase
         password_confirmation: passwordConfirmation,
         remember,
       }
@@ -52,7 +50,6 @@ export function AuthMixin<T extends Constructor<any>>(superClass: T) {
         email: values.email,
         token: values.token,
         password: values.password,
-        // eslint-disable-next-line @typescript-eslint/camelcase
         password_confirmation: values.passwordConfirmation,
       }
       return this.post('password/reset', { data })
