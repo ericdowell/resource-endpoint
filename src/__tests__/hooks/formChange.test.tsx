@@ -1,80 +1,10 @@
 import React from 'react'
-import { useFormChange } from '../../hooks'
-import { RequestFormProps, RequestForm } from '../../components'
 import { act, fireEvent, render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-
-interface FormState {
-  contact: string
-  email: string
-  remember: boolean
-  state: string
-  username: string
-}
-
-function Username(props: any): React.ReactElement {
-  return (
-    <input type="text" onChange={props.onChange} value={props.value} name="username" data-testid="username" />
-  )
-}
-Username.displayName = 'Username'
-
-function Email(props: any): React.ReactElement {
-  return <input type="email" onChange={props.onChange} value={props.value} name="email" data-testid="email" />
-}
-Email.displayName = 'Email'
-
-function TestRequestForm(
-  props: Pick<RequestFormProps, 'children' | 'makeRequest'>,
-): React.ReactElement<RequestFormProps> {
-  const [onChange, values, setValues] = useFormChange<FormState>({
-    contact: 'email',
-    email: 'email@example.com',
-    remember: false,
-    state: 'MN',
-    username: 'Dr. FooBar',
-  })
-  return (
-    <RequestForm makeRequest={props.makeRequest} values={values} setValues={setValues}>
-      {props.children}
-      {/* TODO: Fix odd warning uncontrolled/controlled BS for first input. Something with timing is what I'm thinking */}
-      <Email onChange={onChange} value={values.email} />
-      <Username onChange={onChange} value={values.username} />
-      {Object.entries({ phone: 'Phone', email: 'Email', mail: 'Mail' }).map(([value, display], key) => (
-        <React.Fragment key={key}>
-          <input
-            key={key}
-            type="radio"
-            checked={values.contact === value}
-            onChange={onChange}
-            value={value}
-            name="contact"
-            data-testid={`contact-${value}`}
-          />
-          {display}
-        </React.Fragment>
-      ))}
-      <select name="state" defaultValue="MN" data-testid="state" onChange={onChange}>
-        {Object.entries({ WI: 'Wisconsin', MN: 'Minnesota', IL: 'Illinois' }).map(([value, display], key) => (
-          <option key={key} value={value}>
-            {display}
-          </option>
-        ))}
-      </select>
-      <input
-        type="checkbox"
-        onChange={onChange}
-        data-testid="remember"
-        name="remember"
-        checked={values.remember}
-      />
-      <input type="submit" data-testid="submit" />
-    </RequestForm>
-  )
-}
+import { TestRequestForm } from './TestRequestForm'
 
 describe('useFormChange', (): void => {
-  it('fireEvent.click(submit) calls default setValues functions', async (): Promise<void> => {
+  it('useFormChange onChange correctly updates values', async (): Promise<void> => {
     expect.assertions(2)
     const makeRequest = jest.fn().mockResolvedValue({ data: {} })
     const rendered = render(
@@ -104,6 +34,7 @@ describe('useFormChange', (): void => {
     expect(makeRequest.mock.calls[0]).toMatchInlineSnapshot(`
       Array [
         Object {
+          "_token": "asdfa;lvwpoeinvdsafkasldfas",
           "contact": "phone",
           "email": "test@example.net",
           "remember": true,
