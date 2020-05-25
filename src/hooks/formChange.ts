@@ -1,13 +1,15 @@
 import React from 'react'
 
-type Change = React.ChangeEvent<HTMLInputElement & HTMLSelectElement>
+export type FormChangeEvent = React.ChangeEvent<
+  HTMLFieldSetElement & HTMLInputElement & HTMLSelectElement & HTMLTextAreaElement
+>
 
 export function useFormChange<S>(
   initialState: S | (() => S),
-): [(e: Change) => void, S, React.Dispatch<React.SetStateAction<S>>] {
+): [(event: FormChangeEvent) => void, S, React.Dispatch<React.SetStateAction<S>>] {
   const [values, setValues] = React.useState<S>(initialState)
   return [
-    function (event: Change): void {
+    function (event: FormChangeEvent): void {
       const name = event.target.name
       const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value
       setValues((values: any) => ({
