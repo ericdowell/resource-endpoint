@@ -46,9 +46,9 @@ export const api = new Api()
 ```
 ```js
 // js/api/endpoints/auth.js
-import { AuthEndpoint, ApiEndpointMixin, HandleErrorMixin } from 'resource-endpoint'
+import { AuthEndpoint, ApiMixin, HandleErrorMixin } from 'resource-endpoint'
 
-export class Auth extends HandleErrorMixin(ApiEndpointMixin(AuthEndpoint)) {
+export class Auth extends HandleErrorMixin(ApiMixin(AuthEndpoint)) {
     /**
      * Override to set as version, default to empty
      * e.g. v1, v3, v5 and so on.
@@ -62,9 +62,9 @@ export class Auth extends HandleErrorMixin(ApiEndpointMixin(AuthEndpoint)) {
 ```
 ```js
 // js/api/endpoints/user.js
-import { ApiEndpointMixin, UserEndpoint, HandleErrorMixin } from 'resource-endpoint'
+import { ApiMixin, UserEndpoint, HandleErrorMixin } from 'resource-endpoint'
 
-export class User extends HandleErrorMixin(ApiEndpointMixin(UserEndpoint)) {
+export class User extends HandleErrorMixin(ApiMixin(UserEndpoint)) {
     /**
      * Override to set as version, default to empty
      * e.g. v1, v3, v5 and so on.
