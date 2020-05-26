@@ -1,6 +1,6 @@
 {
   "name": "resource-endpoint",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "license": "MIT",
   "description": "A simple resource wrapper for Axios and collection of useful Mixins for building Laravel APIs.",
   "author": "Eric Dowell <github@ericdowell.com> (https://ericdowell.com)",
