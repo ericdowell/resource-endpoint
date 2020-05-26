@@ -55,7 +55,7 @@ export class Auth extends HandleErrorMixin(ApiMixin(AuthEndpoint)) {
      *
      * @returns {string}
      */
-    get apiVersion() {
+    get version() {
         return 'v1'
     }
 }
@@ -71,7 +71,7 @@ export class User extends HandleErrorMixin(ApiMixin(UserEndpoint)) {
      *
      * @returns {string}
      */
-    get apiVersion() {
+    get version() {
         return 'v1'
     }
 }
@@ -125,7 +125,8 @@ const registerUser = async (values) => {
 Then in your client app you can do the following:
 ```jsx
 // js/pages/Login.jsx
-import React, { useState } from 'react'
+import React from 'react'
+import { useFormChange } from 'resource-endpoint'
 import { api } from '../api'
 
 export const Login = (props) => {
@@ -135,7 +136,7 @@ export const Login = (props) => {
         password: '',
         remember: false,
     }
-    const [values, setValues] = useState(initialState)
+    const [onChange, values, setValues] = useFormChange(initialState)
     const onSubmit = async (e) => {
         e.preventDefault()
         const response = await api.auth.login({
@@ -160,6 +161,14 @@ export const Login = (props) => {
         setValues(initialState)
         props.loginUser(user)
     }
-    return <form onSubmit={onSubmit}>{/* input tags here */}</form>
+    return (
+        <form onSubmit={onSubmit}>
+            {/* TODO: Error handling, display error messages */}
+            <input type="email" name="email" value={values.email} onChange={onChange} />
+            <input type="password" name="password" value={values.password} onChange={onChange} />
+            <input type="checkbox" name="remember" checked={values.remmeber} onChange={onChange} />
+            <input type="submit" value="Login" />
+        </form>
+    )
 }
 ```
