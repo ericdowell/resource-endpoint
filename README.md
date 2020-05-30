@@ -190,7 +190,7 @@ export const Login = (props) => {
     }
     const [onChange, values, setValues] = useFormChange(initialState)
     const makeRequest = (inputs) => api.auth.login(inputs)
-    cont onSuccess = ({ user }) => {
+    const onSuccess = ({ user }) => {
         if (!user) {
             setValues({
                 ...values,
@@ -209,7 +209,7 @@ export const Login = (props) => {
             {/* TODO: Error handling, display error messages */}
             <input type="email" name="email" value={values.email} onChange={onChange} />
             <input type="password" name="password" value={values.password} onChange={onChange} />
-            <input type="checkbox" name="remember" checked={values.remmeber} onChange={onChange} />
+            <input type="checkbox" name="remember" checked={values.remember} onChange={onChange} />
             <input type="submit" value="Login" />
         </form>
     )
