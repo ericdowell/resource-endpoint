@@ -1,56 +1,59 @@
-import React, { createContext, useReducer } from 'react'
+import React from 'react'
 import { node } from 'prop-types'
+// Internal
+import { StateActionCases, StateProviderHelpers, StateProviderProps } from './types'
+import { applyReducerState } from './helpers'
 
-type Cases = { [actionType: string]: (action: any) => any }
-type ProviderHelper = { [helper: string]: (...args: any[]) => any }
-
-export const applyState = (state: any, key: any, action: any): any => ({
-  ...state,
-  [key]: action[key],
-})
-
-export function useStateProvider<S>(
-  initialState: S,
-  actions: any,
-  cases: Cases,
-  helpers?: ProviderHelper[],
+export function generateStateProvider<S, R extends React.Reducer<any, any>>(
+  Context: React.Context<S>,
+  Reducer: [React.ReducerState<R>, React.Dispatch<React.ReducerAction<R>>],
+  helpers?: StateProviderHelpers,
 ): any {
-  const Context = createContext<S>(initialState)
-  const { Provider } = Context
-
-  function StateProvider(props: any): any {
-    const [state, dispatch] = useReducer((state: any, action: any) => {
-      if (!Object.values(actions).includes(action.type)) {
-        throw new Error(`Unknown action: "${action.type}"`)
-      }
-      if (typeof cases[action.type] !== 'function') {
-        return applyState(state, action.type, action)
-      }
-      return cases[action.type](action)
-    }, initialState)
-    const update = (type: any, payload: any): void => dispatch({ type, [type]: payload })
-
+  function StateProvider(props: StateProviderProps): any {
+    const Provider = Context.Provider as React.Provider<S & any>
     return (
       <Provider
-        // TODO: Setup correct return type here.
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
         value={{
-          update,
-          setUser: (user: any): void => update(actions.SET_USER, user),
           ...helpers,
-          state,
-          dispatch,
+          state: Reducer[0],
+          dispatch: Reducer[1],
         }}
       >
         {props.children}
       </Provider>
     )
   }
-
   StateProvider.propTypes = {
     children: node.isRequired,
   }
+  return StateProvider
+}
 
-  return { Context, StateProvider }
+export function useStateProvider<S>(
+  initialState: S,
+  actions: Record<string, any>,
+  cases?: StateActionCases,
+  helpers?: StateProviderHelpers,
+): any {
+  const Context = React.createContext<S>(initialState)
+
+  const Reducer = React.useReducer((state: any, action: any): any => {
+    if (!Object.values(actions).includes(action.type)) {
+      throw new Error(`Unknown action: "${action.type}"`)
+    }
+    if (typeof cases?.[action.type] !== 'function') {
+      return applyReducerState(state, action.type, action)
+    }
+    return cases[action.type](action)
+  }, initialState)
+
+  const StateProvider = generateStateProvider<S, any>(Context, Reducer, {
+    ...helpers,
+    update: (type: any, payload: any): void => {
+      // dispatch
+      Reducer[1]({ type, [type]: payload })
+    },
+  })
+
+  return { Context, Reducer, StateProvider }
 }

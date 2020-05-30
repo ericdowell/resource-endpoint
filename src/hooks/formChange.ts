@@ -1,8 +1,5 @@
 import React from 'react'
-
-export type FormChangeEvent = React.ChangeEvent<
-  HTMLFieldSetElement & HTMLInputElement & HTMLSelectElement & HTMLTextAreaElement
->
+import { FormChangeEvent } from './types'
 
 export function useFormChange<S>(
   initialState: S | (() => S),
