@@ -6,7 +6,7 @@
 A simple resource wrapper for Axios and collection of useful Mixins for building Laravel APIs.
 
 ## Examples
-Using a singleton pattern with a base `Api` class:
+Using a singleton/factory pattern with a base `Api` class:
 ```js
 // js/api/index.js
 import { Auth } from './endpoints/auth'
