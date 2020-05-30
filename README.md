@@ -200,7 +200,7 @@ export const Login = (props) => {
         props.loginUser(user)
     }
     return (
-        <RequestForm makeRequest={makeRequest} onSuccess={onSuccess}>
+        <RequestForm makeRequest={makeRequest} onSuccess={onSuccess} setValues={setValues} values={values}>
             {/* TODO: Error handling, display error messages */}
             <input type="email" name="email" value={values.email} onChange={onChange} />
             <input type="password" name="password" value={values.password} onChange={onChange} />
