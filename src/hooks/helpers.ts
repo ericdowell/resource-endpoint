@@ -1,5 +1,9 @@
-// TODO: Add correct types to parameters
-export const applyReducerState = (state: any, key: any, action: any): any => ({
-  ...state,
+import { StateAction } from './types'
+
+export const applyStateByKey = <S>(prevState: S, action: StateAction, key: string): S => ({
+  ...prevState,
   [key]: action[key],
 })
+
+export const applyReducerState = <S>(prevState: S, action: StateAction): S =>
+  applyStateByKey(prevState, action, action.type)
