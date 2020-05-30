@@ -85,38 +85,33 @@ import { api } from './api'
 // Not created as helper function necessarily as shown below.
 
 const currentUser = async () => {
-    const response = await api.user.current()
-    const { user, errors } = api.safeResponseData(response)
+    const { user, errors } = api.safeResponseData(await api.user.current())
     return { errors, user }
 }
 
 const confirmPassword = async (values) => {
-    const response = await api.user.confirmPassword(values.password)
-    const { errors, confirmedAt } = api.safeResponseData(response)
+    const { errors, confirmedAt } = api.safeResponseData(await api.user.confirmPassword(values.password))
     return { errors, confirmedAt }
 }
 
 const logoutUser = async () => {
-    const response = await api.auth.logout()
-    const { errors } = api.safeResponseData(response)
+    const { errors } = api.safeResponseData(await api.auth.logout())
     return { errors }
 }
 
 const loginUser = async (email, password) => {
-    const response = await api.auth.login({ email, password })
-    const { user, errors } = api.safeResponseData(response)
+    const { user, errors } = api.safeResponseData(await api.auth.login({ email, password }))
     return { errors, user }
 }
 
 const registerUser = async (values) => {
-    const response = await api.auth.register({
+    const { user, errors } = api.safeResponseData(await api.auth.register({
         email: values.email,
         emailConfirmation: values.emailConfirmation,
         password: values.password,
         passwordConfirmation: values.passwordConfirmation,
         name: values.name,
-    })
-    const { user, errors } = api.safeResponseData(response)
+    }))
     return { errors, user }
 }
 ```
@@ -166,7 +161,7 @@ export const Login = (props) => {
             {/* TODO: Error handling, display error messages */}
             <input type="email" name="email" value={values.email} onChange={onChange} />
             <input type="password" name="password" value={values.password} onChange={onChange} />
-            <input type="checkbox" name="remember" checked={values.remmeber} onChange={onChange} />
+            <input type="checkbox" name="remember" checked={values.remember} onChange={onChange} />
             <input type="submit" value="Login" />
         </form>
     )
