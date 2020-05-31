@@ -38,9 +38,7 @@ export class Endpoint {
   }
 
   get paramsSerializer(): (params: any) => string {
-    return (params): string => {
-      return qs.stringify(params, this.stringifyOptions)
-    }
+    return (params): string => qs.stringify(params, this.stringifyOptions)
   }
 
   // Returns AxiosRequestConfig passed to axios.request.
