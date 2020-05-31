@@ -11,12 +11,15 @@ export function createStateProvider<S, R extends React.Reducer<any, any>>(
     actionCases?: StateActionCases<S>
     createProviderHelpers?: (dispatch: React.Dispatch<React.ReducerAction<R>>) => StateProviderHelpers
   },
-): [React.Context<S>, (props: StateProviderProps) => React.ReactElement] {
+): [React.Context<S>, (props: StateProviderProps) => React.ReactElement<React.ProviderProps<any>>] {
   const Context = React.createContext<S>(initialState)
 
-  // TODO: See if it's possible to have return type including React.Provider instead of React.ReactElement,
-  //       ReactElement just seem incorrect, but it works in this case for the needs of this.
-  function StateProvider(props: StateProviderProps): React.ReactElement {
+  type ProviderProps = {
+    state: React.ReducerState<R> | S
+    dispatch: React.Dispatch<React.ReducerAction<R>>
+  } & Record<string, any>
+
+  function StateProvider(props: StateProviderProps): React.ReactElement<React.ProviderProps<ProviderProps>> {
     const [state, dispatch] = React.useReducer((prevState: S, action: StateAction): any => {
       if (!Object.values(actions).includes(action.type)) {
         throw new Error(`Unknown action: "${action.type}"`)
@@ -27,12 +30,7 @@ export function createStateProvider<S, R extends React.Reducer<any, any>>(
       return options.actionCases[action.type](prevState, action)
     }, initialState)
 
-    const Provider = Context.Provider as React.Provider<
-      { state: React.ReducerState<R> | S; dispatch: React.Dispatch<React.ReducerAction<R>> } & Record<
-        string,
-        any
-      >
-    >
+    const Provider = Context.Provider as React.Provider<ProviderProps>
     return (
       <Provider
         value={{
