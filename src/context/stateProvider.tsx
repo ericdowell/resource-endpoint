@@ -12,7 +12,7 @@ export function createStateProvider<S, R extends React.Reducer<any, any>>(option
 }): [
   React.Context<{
     dispatch: React.Dispatch<React.ReducerAction<R>>
-    helpers: StateProviderHelpers
+    helpers: any
     state: S
   }>,
   (
@@ -20,14 +20,14 @@ export function createStateProvider<S, R extends React.Reducer<any, any>>(option
   ) => React.ReactElement<
     React.ProviderProps<{
       dispatch: React.Dispatch<React.ReducerAction<R>>
-      helpers: StateProviderHelpers
+      helpers: any
       state: S
     }>
   >,
 ] {
   type ProviderProps = {
     dispatch: React.Dispatch<React.ReducerAction<R>>
-    helpers: StateProviderHelpers
+    helpers: any
     state: S
   }
   const Context = React.createContext<ProviderProps>({
