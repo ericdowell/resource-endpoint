@@ -31,6 +31,9 @@ export function createStateProvider<S, R extends React.Reducer<any, any>>(option
     helpers: any
     state: S
   }
+  if (!options.reducer && !options.actions) {
+    throw new Error("The 'reducer' or 'actions' option must be provided, one of them needs to be passed.")
+  }
   const Context = React.createContext<ProviderProps>({
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     dispatch: (value: any): void => undefined, // Context.Provider will have correct Reducer dispatch function
@@ -39,9 +42,6 @@ export function createStateProvider<S, R extends React.Reducer<any, any>>(option
   })
 
   function StateProvider(props: StateProviderProps): React.ReactElement<React.ProviderProps<ProviderProps>> {
-    if (!options.reducer && !options.actions) {
-      throw new Error("The 'reducer' or 'actions' option must be provided, both can not be missing.")
-    }
     const reducer = options.reducer
       ? options.reducer
       : (prevState: S, action: StateAction): any => {
