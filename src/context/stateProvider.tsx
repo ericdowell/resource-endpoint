@@ -15,10 +15,7 @@ export function createStateProvider<S, R extends React.Reducer<any, any>>(
   actions: Record<string, string>,
   options?: {
     actionCases?: StateActionCases<S>
-    createProviderHelpers?: (
-      update: (type: any, payload: any) => void,
-      dispatch: React.Dispatch<React.ReducerAction<R>>,
-    ) => StateProviderHelpers
+    createProviderHelpers?: (dispatch: React.Dispatch<React.ReducerAction<R>>) => StateProviderHelpers
   },
 ): [React.Context<S>, StateProviderComponent<S>] {
   const Context = React.createContext<S>(initialState)
@@ -36,13 +33,11 @@ export function createStateProvider<S, R extends React.Reducer<any, any>>(
       }
       return options.actionCases[action.type](prevState, action)
     }, initialState)
-    const update = (type: any, payload: any): void => dispatch({ type, [type]: payload })
     return (
       <Provider
         value={{
-          update,
           ...((typeof options?.createProviderHelpers === 'function' &&
-            options.createProviderHelpers(update, dispatch)) ||
+            options.createProviderHelpers(dispatch)) ||
             {}),
           state,
           dispatch,
