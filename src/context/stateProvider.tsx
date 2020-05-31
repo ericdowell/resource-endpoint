@@ -1,6 +1,5 @@
 import React from 'react'
 import { node } from 'prop-types'
-// Internal
 import { StateAction, StateActionCases, StateProviderHelpers, StateProviderProps } from './types'
 import { applyReducerState } from './helpers'
 
