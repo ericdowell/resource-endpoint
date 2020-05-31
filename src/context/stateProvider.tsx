@@ -6,7 +6,7 @@ import { applyReducerState } from './helpers'
 
 export function createStateProvider<S, R extends React.Reducer<any, any>>(options: {
   initialState: S
-  actions: Record<string, string>
+  actions?: Record<string, string>
   reducer?: R
   actionCases?: StateActionCases<S>
   providerHelpers?: (dispatch: React.Dispatch<React.ReducerAction<R>>) => StateProviderHelpers
@@ -39,10 +39,13 @@ export function createStateProvider<S, R extends React.Reducer<any, any>>(option
   })
 
   function StateProvider(props: StateProviderProps): React.ReactElement<React.ProviderProps<ProviderProps>> {
+    if (!options.reducer && !options.actions) {
+      throw new Error("The 'reducer' or 'actions' option must be provided, both can not be missing.")
+    }
     const reducer = options.reducer
       ? options.reducer
       : (prevState: S, action: StateAction): any => {
-          if (!Object.values(options.actions).includes(action.type)) {
+          if (!Object.values(options.actions ?? {}).includes(action.type)) {
             throw new Error(`Unknown action: "${action.type}"`)
           }
           if (typeof options?.actionCases?.[action.type] !== 'function') {
