@@ -2,7 +2,7 @@ import React from 'react'
 import { AxiosRequestConfig } from 'axios'
 import { func, node, object, string } from 'prop-types'
 import { RequestForm, RequestFormProps } from './RequestForm'
-import { CrudEndpoint } from '../endpoints'
+import { AxiosCrudEndpoint, CrudEndpoint } from '../endpoints'
 
 export type EndpointFormConfig = Omit<AxiosRequestConfig, 'url' | 'method'>
 export type EndpointFormMethod = 'delete' | 'get' | 'patch' | 'post' | 'put'
@@ -11,12 +11,13 @@ export interface EndpointFormProps extends Omit<RequestFormProps, 'makeRequest'>
   action: string
   baseURL?: string
   config: (inputs: any, key: string, baseURL?: string) => EndpointFormConfig
+  createEndpoint: () => AxiosCrudEndpoint
   method: EndpointFormMethod
 }
 
 export function EndpointForm(props: EndpointFormProps): React.ReactElement {
   const makeRequest = async (inputs: any): Promise<any> => {
-    const endpoint = new CrudEndpoint()
+    const endpoint = props.createEndpoint()
     const method = props.method.toLowerCase()
     switch (method) {
       case 'delete':
@@ -53,6 +54,7 @@ EndpointForm.defaultProps = {
       Accept: 'application/json',
     },
   }),
+  createEndpoint: (): AxiosCrudEndpoint => new CrudEndpoint(),
 }
 
 EndpointForm.displayName = 'EndpointForm'
@@ -64,6 +66,7 @@ EndpointForm.propTypes = {
   baseURL: string,
   className: string,
   config: func,
+  createEndpoint: func,
   onError: func,
   onSuccess: func,
   initialState: object,
