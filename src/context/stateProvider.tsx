@@ -37,11 +37,10 @@ export function createStateProvider<S, R extends React.Reducer<any, any>>(option
   const knownActions = JSON.stringify(actionTypes)
   const Context = React.createContext<ProviderProps>({
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    dispatch: (value: any): void => undefined, // Context.Provider will have correct Reducer dispatch function
-    helpers: {}, // Context.Provider will have correct helper functions
-    state: options.initialState, // dispatch/state will be maintained by Reducer going forward
+    dispatch: (value: any): void => undefined, // StateProvider will have correct Reducer dispatch function
+    helpers: {}, // StateProvider will have correct helper functions
+    state: options.initialState, // dispatch/state will be maintained by Reducer provided in StateProvider going forward
   })
-
   function StateProvider(props: StateProviderProps): React.ReactElement<React.ProviderProps<ProviderProps>> {
     const reducer = options.reducer
       ? options.reducer

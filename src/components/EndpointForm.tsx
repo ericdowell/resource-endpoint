@@ -15,7 +15,7 @@ export interface EndpointFormProps extends Omit<RequestFormProps, 'makeRequest'>
   method: EndpointFormMethod
 }
 
-export function EndpointForm(props: EndpointFormProps): React.ReactElement {
+export function EndpointForm(props: EndpointFormProps): React.ReactElement<EndpointFormProps> {
   const makeRequest = async (inputs: any): Promise<any> => {
     switch (props.method) {
       case 'delete':
