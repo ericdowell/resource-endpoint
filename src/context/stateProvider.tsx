@@ -7,6 +7,7 @@ import { applyReducerState } from './helpers'
 export function createStateProvider<S, R extends React.Reducer<any, any>>(options: {
   initialState: S
   actions: Record<string, string>
+  reducer?: R
   actionCases?: StateActionCases<S>
   providerHelpers?: (dispatch: React.Dispatch<React.ReducerAction<R>>) => StateProviderHelpers
 }): [
@@ -38,15 +39,18 @@ export function createStateProvider<S, R extends React.Reducer<any, any>>(option
   })
 
   function StateProvider(props: StateProviderProps): React.ReactElement<React.ProviderProps<ProviderProps>> {
-    const [state, dispatch] = React.useReducer((prevState: S, action: StateAction): any => {
-      if (!Object.values(options.actions).includes(action.type)) {
-        throw new Error(`Unknown action: "${action.type}"`)
-      }
-      if (typeof options?.actionCases?.[action.type] !== 'function') {
-        return applyReducerState(prevState, action)
-      }
-      return options.actionCases[action.type](prevState, action)
-    }, options.initialState)
+    const reducer = options.reducer
+      ? options.reducer
+      : (prevState: S, action: StateAction): any => {
+          if (!Object.values(options.actions).includes(action.type)) {
+            throw new Error(`Unknown action: "${action.type}"`)
+          }
+          if (typeof options?.actionCases?.[action.type] !== 'function') {
+            return applyReducerState(prevState, action)
+          }
+          return options.actionCases[action.type](prevState, action)
+        }
+    const [state, dispatch] = React.useReducer(reducer, options.initialState)
     return (
       <Context.Provider
         value={{
