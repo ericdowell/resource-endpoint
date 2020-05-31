@@ -34,6 +34,8 @@ export function createStateProvider<S, R extends React.Reducer<any, any>>(option
   if (!options.reducer && !options.actions) {
     throw new Error("The 'reducer' or 'actions' option must be provided, one of them needs to be passed.")
   }
+  const actionTypes = Object.values(options.actions ?? {})
+  const knownActions = JSON.stringify(actionTypes)
   const Context = React.createContext<ProviderProps>({
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     dispatch: (value: any): void => undefined, // Context.Provider will have correct Reducer dispatch function
@@ -45,8 +47,8 @@ export function createStateProvider<S, R extends React.Reducer<any, any>>(option
     const reducer = options.reducer
       ? options.reducer
       : (prevState: S, action: StateAction): any => {
-          if (!Object.values(options.actions ?? {}).includes(action.type)) {
-            throw new Error(`Unknown action: "${action.type}"`)
+          if (!actionTypes.includes(action.type)) {
+            throw new Error(`Unknown action: "${action.type}", known actions: ${knownActions}`)
           }
           if (typeof options?.actionCases?.[action.type] !== 'function') {
             return applyReducerState(prevState, action)
