@@ -48,6 +48,7 @@ jobs:
             if [[ "${CIRCLE_TAG}" == *"beta"* ]]; then
               npm publish --tag beta
             elif [ "${CIRCLE_BRANCH}" == "master" ]; then
+              npm version prerelease --preid=beta
               npm publish --tag next
             else
               npm publish
