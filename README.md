@@ -206,7 +206,7 @@ export const Login = (props) => {
             <input type="password" name="password" value={values.password} onChange={onChange} />
             <input type="checkbox" name="remember" checked={values.remember} onChange={onChange} />
             <input type="submit" value="Login" />
-        </form>
+        </RequestForm>
     )
 }
 ```
