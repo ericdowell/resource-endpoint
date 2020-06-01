@@ -2,7 +2,7 @@ import React from 'react'
 import { AxiosRequestConfig } from 'axios'
 import { func, node, object, string } from 'prop-types'
 import { RequestForm, RequestFormProps } from './RequestForm'
-import { AxiosCrudEndpoint, CrudEndpoint } from '../endpoints'
+import { AxiosCrudEndpoint, FormEndpoint } from '../endpoints'
 
 export type EndpointFormConfig = Omit<AxiosRequestConfig, 'url' | 'method'>
 export type EndpointFormMethod = 'delete' | 'get' | 'patch' | 'post' | 'put'
@@ -47,12 +47,9 @@ EndpointForm.defaultProps = {
   config: (inputs: any, key: string, baseURL?: string): EndpointFormConfig => ({
     [key]: inputs,
     baseURL,
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Accept: 'application/json',
-    },
+    // headers set via FormMixin
   }),
-  createEndpoint: (): AxiosCrudEndpoint => new CrudEndpoint(),
+  createEndpoint: (): AxiosCrudEndpoint => new FormEndpoint(),
 }
 
 EndpointForm.displayName = 'EndpointForm'
