@@ -34,7 +34,7 @@ jobs:
       - persist_to_workspace:
           root: ~/repo
           paths: .
-  deploy:
+  publish:
     <<: *defaults
     steps:
       - attach_workspace:
@@ -47,23 +47,26 @@ jobs:
           command: |
             if [[ "${CIRCLE_TAG}" == *"beta"* ]]; then
               npm publish --tag beta
+            elif [ "${CIRCLE_BRANCH}" == "master" ]; then
+              npm publish --tag next
             else
               npm publish
             fi
 
 workflows:
   version: 2
-  test-deploy:
+  test-publish:
     jobs:
       - test:
           filters:
             tags:
               only: /^v.*/
-      - deploy:
+      - publish:
           requires:
             - test
           filters:
             tags:
               only: /^v.*/
             branches:
+              only: master
               ignore: /.*/
