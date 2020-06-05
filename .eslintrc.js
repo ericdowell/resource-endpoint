@@ -1,5 +1,6 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
+  reportUnusedDisableDirectives: true,
   env: {
     browser: true,
     commonjs: true,

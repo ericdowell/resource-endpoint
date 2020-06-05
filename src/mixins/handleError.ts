@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import { AxiosError, AxiosResponse } from 'axios'
 import { Constructor } from './types'
 
