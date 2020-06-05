@@ -25,6 +25,7 @@ module.exports = {
     ecmaVersion: 2018,
   },
   settings: {
+    'import/resolver': 'webpack',
     react: {
       version: 'detect',
     },
@@ -32,7 +33,7 @@ module.exports = {
   rules: {
     'linebreak-style': ['error', 'unix'],
     'import/first': 'error',
-    'import/no-unresolved': ['error', { ignore: ['./', '../'] }],
+    'import/no-unresolved': ['error'],
     'jest/lowercase-name': [
       'error',
       {
