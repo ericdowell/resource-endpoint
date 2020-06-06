@@ -1,8 +1,9 @@
 import React from 'react'
 import { AxiosRequestConfig } from 'axios'
 import { func, node, object, string } from 'prop-types'
-import { RequestForm, RequestFormProps } from './RequestForm'
+import { Constructor } from '../mixins'
 import { AxiosCrudEndpoint, FormEndpoint } from '../endpoints'
+import { RequestForm, RequestFormProps } from './RequestForm'
 
 export type EndpointFormConfig = Omit<AxiosRequestConfig, 'url' | 'method'>
 export type EndpointFormMethod = 'delete' | 'get' | 'patch' | 'post' | 'put'
@@ -11,20 +12,22 @@ export interface EndpointFormProps extends Omit<RequestFormProps, 'makeRequest'>
   url: string
   baseURL?: string
   config: (inputs: any, key: string, baseURL?: string) => EndpointFormConfig
-  createEndpoint: () => AxiosCrudEndpoint
+  createEndpoint: (EndpointClass: Constructor<AxiosCrudEndpoint>) => AxiosCrudEndpoint
+  endpointClass: Constructor<AxiosCrudEndpoint>
   method: EndpointFormMethod
 }
 
 export function EndpointForm(props: EndpointFormProps): React.ReactElement<EndpointFormProps> {
   const makeRequest = async (inputs: any): Promise<any> => {
+    const endpoint = props.createEndpoint(props.endpointClass)
     switch (props.method) {
       case 'delete':
       case 'get':
-        return props.createEndpoint()[props.method](props.url, props.config(inputs, 'params', props.baseURL))
+        return endpoint[props.method](props.url, props.config(inputs, 'params', props.baseURL))
       case 'patch':
       case 'post':
       case 'put':
-        return props.createEndpoint()[props.method](props.url, props.config(inputs, 'data', props.baseURL))
+        return endpoint[props.method](props.url, props.config(inputs, 'data', props.baseURL))
     }
   }
   return (
@@ -47,9 +50,10 @@ EndpointForm.defaultProps = {
   config: (inputs: any, key: string, baseURL?: string): EndpointFormConfig => ({
     [key]: inputs,
     baseURL,
-    // headers set via FormMixin
+    // headers set via FormMixin if using FormEndpoint
   }),
-  createEndpoint: (): AxiosCrudEndpoint => new FormEndpoint(),
+  createEndpoint: (EndpointClass: Constructor<AxiosCrudEndpoint>): AxiosCrudEndpoint => new EndpointClass(),
+  endpointClass: FormEndpoint,
 }
 
 EndpointForm.displayName = 'EndpointForm'
@@ -63,6 +67,7 @@ EndpointForm.propTypes = {
   className: string,
   config: func,
   createEndpoint: func,
+  endpointClass: func,
   initialState: object,
   onError: func,
   onSuccess: func,
