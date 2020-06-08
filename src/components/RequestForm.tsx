@@ -1,50 +1,32 @@
 import React from 'react'
 import { func, node, object, string } from 'prop-types'
-import { Endpoint } from '../endpoint'
+import { createOnSubmit, OnSubmitOptions } from '../helpers'
 
-export interface RequestFormProps {
-  children: React.ReactNode | React.ReactNode[]
-  makeRequest: (inputs: any) => Promise<any>
-  values: any
-  setValues: React.Dispatch<React.SetStateAction<any>>
+export interface RequestFormProps extends Omit<OnSubmitOptions, 'useState'> {
+  children: React.ReactNode
   className?: string
-  onError?: (errors: any, onSubmit: (event: React.FormEvent) => Promise<void>) => void
-  onSuccess?: (payload: any) => Promise<any>
-  initialState?: Record<string, any>
+  setValues: React.Dispatch<React.SetStateAction<any>>
+  values: any
 }
 
 export function RequestForm(props: RequestFormProps): React.ReactElement<RequestFormProps> {
-  const onSubmit = async (event: React.FormEvent): Promise<void> => {
-    event.preventDefault()
-    props.setValues({ ...props.values, isLoading: true })
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { errors, isLoading, ...inputs } = props.values
-    const data = Endpoint.safeResponseData(await props.makeRequest(inputs))
-    if (data.errors) {
-      props.setValues({
-        ...props.values,
-        errors: data.errors,
-        isLoading: false,
-      })
-      if (typeof props.onError !== 'function') {
-        return
-      }
-      return props.onError(data.errors, onSubmit)
-    }
-    if (typeof props.onSuccess === 'function') {
-      await props.onSuccess(data)
-    } else {
-      props.setValues({ ...props.initialState, isLoading: false })
-    }
-  }
   return (
-    <form onSubmit={onSubmit} className={props.className}>
+    <form
+      onSubmit={createOnSubmit({
+        initialState: props.initialState,
+        makeRequest: props.makeRequest,
+        onError: props.onError,
+        onSuccess: props.onSuccess,
+        useState: [props.values, props.setValues],
+      })}
+      className={props.className}
+    >
       {props.children}
     </form>
   )
 }
 
-RequestForm.displayName = 'Form'
+RequestForm.displayName = 'RequestForm'
 
 RequestForm.propTypes = {
   children: node.isRequired,

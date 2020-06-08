@@ -45,6 +45,8 @@ export function EndpointForm(props: EndpointFormProps): React.ReactElement<Endpo
   )
 }
 
+EndpointForm.displayName = 'EndpointForm'
+
 EndpointForm.defaultProps = {
   baseURL: window.location.origin,
   config: (inputs: any, key: string, baseURL?: string): EndpointFormConfig => ({
@@ -55,8 +57,6 @@ EndpointForm.defaultProps = {
   createEndpoint: (EndpointClass: Constructor<AxiosCrudEndpoint>): AxiosCrudEndpoint => new EndpointClass(),
   endpointClass: FormEndpoint,
 }
-
-EndpointForm.displayName = 'EndpointForm'
 
 EndpointForm.propTypes = {
   children: node.isRequired,
