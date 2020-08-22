@@ -16,6 +16,12 @@ export function HandleErrorMixin<T extends Constructor<any>>(superClass: T) {
       return 'An unexpected error has occurred. Please try again.'
     }
 
+    errorBlock(message: string): any {
+      return {
+        message,
+      }
+    }
+
     handleError<T = any>(error: AxiosError<T> | any): AxiosResponse<T | { message?: string; errors: any }> {
       if (this.shouldThrowError) {
         throw error
@@ -33,9 +39,7 @@ export function HandleErrorMixin<T extends Constructor<any>>(superClass: T) {
         statusText: error?.response?.statusText ?? 'Internal Server Error',
         data: {
           message,
-          errors: {
-            message,
-          },
+          errors: this.errorBlock(message),
         },
       }
     }
