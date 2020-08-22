@@ -16,7 +16,7 @@ export function HandleErrorMixin<T extends Constructor<any>>(superClass: T) {
       return 'An unexpected error has occurred. Please try again.'
     }
 
-    errorBlock(message: string): any {
+    errorsBlock(message: string): any {
       return {
         message,
       }
@@ -39,7 +39,7 @@ export function HandleErrorMixin<T extends Constructor<any>>(superClass: T) {
         statusText: error?.response?.statusText ?? 'Internal Server Error',
         data: {
           message,
-          errors: this.errorBlock(message),
+          errors: this.errorsBlock(message),
         },
       }
     }

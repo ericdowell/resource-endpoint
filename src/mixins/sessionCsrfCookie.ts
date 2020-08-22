@@ -22,10 +22,14 @@ export function SessionCsrfCookieMixin<C extends Constructor<any>>(superClass: C
       return response.status === 419 && message === 'CSRF token mismatch.'
     }
 
+    get csrfPath(): string {
+      return 'sanctum/csrf-cookie'
+    }
+
     // Requests new CSRF Cookie from common Laravel Sanctum endpoint.
     // Override method as needed.
     async requestCsrfCookie(): Promise<any> {
-      return axios.get('sanctum/csrf-cookie', {
+      return axios.get(this.csrfPath, {
         baseURL: this.origin,
       })
     }
