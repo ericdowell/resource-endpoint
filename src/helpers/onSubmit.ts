@@ -1,5 +1,5 @@
 import React from 'react'
-import { Endpoint } from '../endpoint'
+import { safeResponseData } from './safeResponseData'
 
 export interface OnSubmitOptions {
   makeRequest: (inputs: any) => Promise<any>
@@ -16,7 +16,7 @@ export function createOnSubmit(options: OnSubmitOptions): (event: React.FormEven
     setValues({ ...values, isLoading: true })
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { errors, isLoading, ...inputs } = values
-    const data = Endpoint.safeResponseData(await options.makeRequest(inputs))
+    const data = safeResponseData(await options.makeRequest(inputs))
     if (data.errors) {
       setValues({
         ...values,

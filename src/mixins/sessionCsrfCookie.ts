@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { Constructor } from './types'
-import { Endpoint } from '../endpoint'
+import { safeResponseData } from '../helpers'
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function SessionCsrfCookieMixin<C extends Constructor<any>>(superClass: C) {
@@ -18,7 +18,7 @@ export function SessionCsrfCookieMixin<C extends Constructor<any>>(superClass: C
     // Decides if current response is a CSRF token mismatch error.
     // Override method as needed.
     isCsrfTokenMismatch<T = any>(response: AxiosResponse<T>): boolean {
-      const { message } = Endpoint.safeResponseData<T>(response)
+      const { message } = safeResponseData<T | any>(response)
       return response.status === 419 && message === 'CSRF token mismatch.'
     }
 

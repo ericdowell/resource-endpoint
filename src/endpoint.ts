@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
+import { safeResponseData } from './helpers'
 import qs, { IStringifyOptions } from 'qs'
 import urljoin from 'url-join'
 
@@ -67,10 +68,7 @@ export class Endpoint {
     return instance.handleError<T>(error)
   }
 
-  static safeResponseData<T = any>(response: AxiosResponse<T>, isArray = false): any {
-    if (isArray) {
-      return (Array.isArray(response?.data) && response.data) || []
-    }
-    return (response?.data && typeof response.data === 'object' && response.data) || {}
+  static safeResponseData<T = any>(response: AxiosResponse<T>, isArray = false): T {
+    return safeResponseData<T>(response, isArray)
   }
 }
