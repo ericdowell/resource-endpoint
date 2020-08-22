@@ -3,6 +3,8 @@
 
 coverage/
 
+tsconfig.tsbuildinfo
+
 jest.config.js
 lib/__tests__/
 src/__tests__/

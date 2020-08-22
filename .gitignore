@@ -9,6 +9,9 @@ yarn.lock
 dist/
 lib/
 
+# Typescript
+tsconfig.tsbuildinfo
+
 # Logs
 logs
 *.log
