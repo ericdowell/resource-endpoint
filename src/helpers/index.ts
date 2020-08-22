@@ -1,4 +1,6 @@
+import { useQuery } from './useQuery'
 export * from './onSubmit'
 export * from './safeResponseData'
 export * from './types'
-export * from './useQuery'
+// Only export useQuery, makeRequest is for internal testing/usage
+export { useQuery }
