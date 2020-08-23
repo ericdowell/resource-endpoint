@@ -1,4 +1,4 @@
-import { RequestOptions, Request, RequestPayload } from '../types'
+import { RequestOptions, Request, RequestPayload } from './types'
 import { makePayload, makeRequest } from './index'
 
 export function submit<Data = any>(

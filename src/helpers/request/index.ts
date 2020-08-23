@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios'
 import { safeResponseData } from '../safeResponseData'
-import { RequestOptions, Request, RequestPayload } from '../types'
+import { RequestOptions, Request, RequestPayload } from './types'
 
 export const makePayload = <Data>(options?: RequestOptions): RequestPayload<Data> => {
   return {
@@ -11,7 +11,7 @@ export const makePayload = <Data>(options?: RequestOptions): RequestPayload<Data
   }
 }
 
-function processResponse<Data>(
+export function processResponse<Data>(
   response: AxiosResponse<Data>,
   payload: RequestPayload<Data>,
   options?: RequestOptions,
