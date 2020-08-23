@@ -19,7 +19,10 @@ export function makeRequest<R>(
       payload.data = data
       payload.loading = false
     })
-    .catch(options.catchError)
+    .catch((error) => {
+      options.catchError<R>(error, payload)
+      payload.loading = false
+    })
 }
 
 export function query<R>(
