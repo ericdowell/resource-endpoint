@@ -1,6 +1,6 @@
 import { safeResponseData } from '../../helpers'
 
-describe('safeResponseData', (): void => {
+describe('safeResponseData helper', (): void => {
   it.each([
     [{ data: { key: 'value' } }, false, { key: 'value' }],
     [{ data: ['value'] }, true, ['value']],

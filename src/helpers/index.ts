@@ -1,6 +1,7 @@
-import { query, submit } from './request'
 export * from './onSubmit'
-// Only export query & submit for public use, other exports are internal usage only
-export { query, submit }
+// Only export query & submit, ./request/index is for internal usage only
+// export * from './request'
+export * from './request/query'
+export * from './request/submit'
 export * from './safeResponseData'
 export * from './types'
