@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios'
 import { safeResponseData } from './safeResponseData'
 import { CatchError, QueryOptions, Request, RequestPayload } from './types'
 
-const DEFAULT_CATCH: CatchError = (error: Error): never => {
+export const DEFAULT_REQUEST_CATCH: CatchError = (error: Error): never => {
   throw error
 }
 
@@ -37,7 +37,7 @@ export function makeRequest<Data>(
 export function query<Data = any>(request: Request<Data>, options?: QueryOptions): RequestPayload<Data> {
   const payload = makePayload<Data>(options)
   makeRequest<Data>(payload, request, {
-    catchError: options?.catchError ?? DEFAULT_CATCH,
+    catchError: options?.catchError ?? DEFAULT_REQUEST_CATCH,
     isArray: options?.isArray ?? false,
   })
   return payload
@@ -52,7 +52,7 @@ export function submit<Data = any>(
     onSubmit: async function (): Promise<void> {
       this.loading = true
       await makeRequest<Data>(this, request, {
-        catchError: options?.catchError ?? DEFAULT_CATCH,
+        catchError: options?.catchError ?? DEFAULT_REQUEST_CATCH,
         isArray: options?.isArray ?? false,
       })
     },

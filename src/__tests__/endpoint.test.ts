@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios'
+import * as helper from '../helpers/safeResponseData'
 import { Endpoint } from '../index'
 import { BasicMock } from './mock/axios'
 import qs from 'qs'
@@ -106,13 +107,12 @@ describe(`${Endpoint.name}`, (): void => {
     expect((): void => Endpoint.handleRequestError(error, new Endpoint())).toThrow(error)
   })
 
-  it.each([
-    [{ data: { key: 'value' } }, false, { key: 'value' }],
-    [{ data: ['value'] }, true, ['value']],
-    [undefined, undefined, {}],
-    [undefined, true, []],
-  ])('static method safeResponseData returns data property', (response, isArray, expected): void => {
-    expect.assertions(1)
-    expect(Endpoint.safeResponseData(response as any, isArray)).toStrictEqual(expected)
+  it('static method safeResponseData calls safeResponseData helper function', (): void => {
+    expect.assertions(2)
+    const data = undefined
+    const safeResponseData = jest.spyOn(helper, 'safeResponseData').mockReturnValue(data)
+    expect(Endpoint.safeResponseData({} as any)).toBe(data)
+    expect(safeResponseData).toHaveBeenCalledTimes(1)
+    safeResponseData.mockRestore()
   })
 })
