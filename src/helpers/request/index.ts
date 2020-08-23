@@ -1,12 +1,8 @@
 import { AxiosResponse } from 'axios'
 import { safeResponseData } from '../safeResponseData'
-import { CatchError, QueryOptions, Request, RequestPayload } from '../types'
+import { RequestOptions, Request, RequestPayload } from '../types'
 
-export const DEFAULT_REQUEST_CATCH: CatchError = (error: Error): never => {
-  throw error
-}
-
-export const makePayload = <Data>(options?: QueryOptions): RequestPayload<Data> => {
+export const makePayload = <Data>(options?: RequestOptions): RequestPayload<Data> => {
   return {
     data: undefined,
     errors: undefined,
@@ -18,9 +14,9 @@ export const makePayload = <Data>(options?: QueryOptions): RequestPayload<Data> 
 function processResponse<Data>(
   response: AxiosResponse<Data>,
   payload: RequestPayload<Data>,
-  options: { isArray: boolean; catchError: CatchError },
+  options?: RequestOptions,
 ): void {
-  const { errors, message, ...data } = safeResponseData<Data | any>(response, options.isArray)
+  const { errors, message, ...data } = safeResponseData<Data | any>(response, options?.isArray ?? false)
   payload.errors = errors
   payload.message = message
   payload.data = data
@@ -30,12 +26,16 @@ function processResponse<Data>(
 export async function makeRequest<Data>(
   request: Request<Data>,
   payload: RequestPayload<Data>,
-  options: { isArray: boolean; catchError: CatchError },
+  options?: RequestOptions,
 ): Promise<void> {
   return request()
     .then((response: AxiosResponse<Data>) => processResponse(response, payload, options))
     .catch((error) => {
-      options.catchError(error, payload)
-      payload.loading = false
+      if (!options?.catchError) {
+        throw error
+      }
+      options.catchError(error, payload).then(() => {
+        payload.loading = false
+      })
     })
 }

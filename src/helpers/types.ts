@@ -1,10 +1,9 @@
 import { AxiosResponse } from 'axios'
 
-export type CatchError = <Data = any>(error: Error, payload: RequestPayload<Data>) => never | void
-export interface QueryOptions {
+export interface RequestOptions {
   initialLoading?: boolean
   isArray?: boolean
-  catchError?: CatchError
+  catchError?: <Data = any>(error: Error, payload: RequestPayload<Data>) => Promise<void>
 }
 export type Request<Data = any> = () => Promise<AxiosResponse<Data>>
 export interface RequestPayload<Data = any> {
