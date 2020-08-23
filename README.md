@@ -11,9 +11,6 @@ Using a singleton/factory pattern with a base `Api` class:
 // js/api/index.js
 import { Auth } from './endpoints/auth'
 import { User } from './endpoints/user'
-// eslint-disable-next-line no-unused-vars
-import { AxiosResponse } from 'axios'
-import { Endpoint } from 'resource-endpoint'
 
 class Api {
     /**
