@@ -24,7 +24,7 @@ export function makeRequest<R>(
 
 export function query<R>(
   request: Query<R>,
-  options: { isArray?: boolean; catchError?: CatchError },
+  options?: { isArray?: boolean; catchError?: CatchError },
 ): QueryPayload<R> {
   const payload: QueryPayload<R> = {
     loading: true,
@@ -33,8 +33,8 @@ export function query<R>(
     data: undefined,
   }
   makeRequest(payload, request, {
-    catchError: options.catchError ?? DEFAULT_CATCH,
-    isArray: options.isArray ?? false,
+    catchError: options?.catchError ?? DEFAULT_CATCH,
+    isArray: options?.isArray ?? false,
   })
   return payload
 }
