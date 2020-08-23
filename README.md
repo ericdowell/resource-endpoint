@@ -6,31 +6,7 @@
 A simple resource wrapper for Axios and collection of useful Mixins for building Laravel APIs.
 
 ## Examples
-Using a singleton/factory pattern with a base `Api` class:
-```js
-// js/api/index.js
-import { Auth } from './endpoints/auth'
-import { User } from './endpoints/user'
-
-class Api {
-    /**
-     *
-     * @returns {Auth}
-     */
-    get auth() {
-        return new Auth()
-    }
-
-    /**
-     * @returns {User}
-     */
-    get user() {
-        return new User()
-    }
-}
-
-export const api = new Api()
-```
+Here are two examples using the `AuthEndpoint` and `UserEndpoint` classes with several Mixin functions:
 ```js
 // js/api/endpoints/auth.js
 import { AuthEndpoint, ApiMixin, HandleErrorMixin } from 'resource-endpoint'
@@ -62,6 +38,31 @@ export class User extends HandleErrorMixin(ApiMixin(UserEndpoint)) {
         return 'v1'
     }
 }
+```
+You can use a singleton/factory pattern with a base `Api` class:
+```js
+// js/api/index.js
+import { Auth } from './endpoints/auth'
+import { User } from './endpoints/user'
+
+class Api {
+    /**
+     *
+     * @returns {Auth}
+     */
+    get auth() {
+        return new Auth()
+    }
+
+    /**
+     * @returns {User}
+     */
+    get user() {
+        return new User()
+    }
+}
+
+export const api = new Api()
 ```
 ### Usage
 ```js
