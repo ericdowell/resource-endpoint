@@ -1,5 +1,6 @@
 import { RequestOptions, Request, RequestPayload } from './types'
-import { makePayload, makeRequest } from './index'
+import { makeRequest } from './index'
+import { makePayload } from './payload'
 
 export function query<Data = any>(request: Request<Data>, options?: RequestOptions): RequestPayload<Data> {
   const payload = makePayload<Data>(options)
