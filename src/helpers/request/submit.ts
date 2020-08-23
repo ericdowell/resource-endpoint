@@ -1,11 +1,8 @@
-import { RequestOptions, Request, RequestPayload } from './types'
+import { RequestOptions, Request, SubmitPayload } from './types'
 import { makeRequest } from './index'
 import { makePayload } from './payload'
 
-export function submit<Data = any>(
-  request: Request<Data>,
-  options?: RequestOptions,
-): RequestPayload<Data> & { onSubmit: () => Promise<void> } {
+export function submit<Data = any>(request: Request<Data>, options?: RequestOptions): SubmitPayload<Data> {
   return {
     ...makePayload<Data>({ initialLoading: false, ...options }),
     onSubmit: async function (): Promise<void> {

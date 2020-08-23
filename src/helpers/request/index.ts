@@ -1,10 +1,10 @@
 import { AxiosResponse } from 'axios'
-import { RequestOptions, Request, RequestPayload } from './types'
+import { RequestOptions, Request, QueryPayload } from './types'
 import { processResponse } from './process'
 
 export async function makeRequest<Data>(
   request: Request<Data>,
-  payload: RequestPayload<Data>,
+  payload: QueryPayload<Data>,
   options?: RequestOptions,
 ): Promise<void> {
   return request()

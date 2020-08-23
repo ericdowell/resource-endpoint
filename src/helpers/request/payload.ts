@@ -1,6 +1,6 @@
-import { RequestOptions, RequestPayload } from './types'
+import { RequestOptions, QueryPayload } from './types'
 
-export const makePayload = <Data>(options?: RequestOptions): RequestPayload<Data> => {
+export const makePayload = <Data>(options?: RequestOptions): QueryPayload<Data> => {
   return {
     data: undefined,
     errors: undefined,

@@ -1,5 +1,5 @@
 import * as process from '../../../helpers/request/process'
-import { RequestPayload } from '../../../helpers'
+import { QueryPayload } from '../../../helpers'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const payloadHelper = require('../../../helpers/request/payload')
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -32,7 +32,7 @@ describe('request.makeRequest', (): void => {
     expect.assertions(5)
     const payload = payloadHelper.makePayload()
     const processResponse = jest.spyOn(process, 'processResponse').mockReturnValue(undefined)
-    const catchError = async (error: Error, catchPayload: RequestPayload): Promise<void> => {
+    const catchError = async (error: Error, catchPayload: QueryPayload): Promise<void> => {
       catchPayload.errors = [{ message: error.message }]
     }
     expect(payload.loading).toBe(true)

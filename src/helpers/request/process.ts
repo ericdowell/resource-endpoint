@@ -1,10 +1,10 @@
 import { AxiosResponse } from 'axios'
-import { RequestOptions, RequestPayload } from './types'
+import { RequestOptions, QueryPayload } from './types'
 import { safeResponseData } from '../safeResponseData'
 
 export function processResponse<Data>(
   response: AxiosResponse<Data>,
-  payload: RequestPayload<Data>,
+  payload: QueryPayload<Data>,
   options?: RequestOptions,
 ): void {
   const isArray = options?.isArray ?? false
