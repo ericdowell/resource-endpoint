@@ -68,6 +68,7 @@ export class Endpoint {
     return instance.handleError<T>(error)
   }
 
+  /** @deprecated since 2.2.0, use safeResponseData helper function directly instead */
   static safeResponseData<T = any>(response: AxiosResponse<T>, isArray = false): T {
     return safeResponseData<T>(response, isArray)
   }
