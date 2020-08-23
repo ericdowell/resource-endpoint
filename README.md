@@ -30,16 +30,6 @@ class Api {
     get user() {
         return new User()
     }
-
-    /**
-     *
-     * @param {AxiosResponse} response
-     * @param {boolean} isArray
-     * @returns {*}
-     */
-    safeResponseData(response, isArray = false) {
-        return Endpoint.safeResponseData(response, isArray)
-    }
 }
 
 export const api = new Api()
@@ -80,32 +70,33 @@ export class User extends HandleErrorMixin(ApiMixin(UserEndpoint)) {
 ```js
 // js/index.js
 import { api } from './api'
+import { safeResponseData } from 'resource-endpoint'
 
 // Usage shown in async functions, likely placed in the component onSubmit for the form
 // Not created as helper function necessarily as shown below.
 
 const currentUser = async () => {
-    const { user, errors } = api.safeResponseData(await api.user.current())
+    const { user, errors } = safeResponseData(await api.user.current())
     return { errors, user }
 }
 
 const confirmPassword = async (values) => {
-    const { errors, confirmedAt } = api.safeResponseData(await api.user.confirmPassword(values.password))
+    const { errors, confirmedAt } = safeResponseData(await api.user.confirmPassword(values.password))
     return { errors, confirmedAt }
 }
 
 const logoutUser = async () => {
-    const { errors } = api.safeResponseData(await api.auth.logout())
+    const { errors } = safeResponseData(await api.auth.logout())
     return { errors }
 }
 
 const loginUser = async (email, password) => {
-    const { user, errors } = api.safeResponseData(await api.auth.login({ email, password }))
+    const { user, errors } = safeResponseData(await api.auth.login({ email, password }))
     return { errors, user }
 }
 
 const registerUser = async (values) => {
-    const { user, errors } = api.safeResponseData(await api.auth.register({
+    const { user, errors } = safeResponseData(await api.auth.register({
         email: values.email,
         emailConfirmation: values.emailConfirmation,
         password: values.password,
@@ -121,7 +112,7 @@ Then in your client app you can do the following:
 ```jsx
 // js/pages/Login.jsx
 import React from 'react'
-import { useFormChange } from 'resource-endpoint'
+import { safeResponseData, useFormChange } from 'resource-endpoint'
 import { api } from '../api'
 
 export const Login = (props) => {
@@ -139,7 +130,7 @@ export const Login = (props) => {
             password: values.password,
             remember: values.remember,
         })
-        const { user, errors } = api.safeResponseData(response)
+        const { user, errors } = safeResponseData(response)
         if (errors) {
             setValues({ ...values, errors })
             return
