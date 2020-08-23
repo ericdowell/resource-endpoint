@@ -32,7 +32,7 @@ export function query<R>(
     errors: undefined,
     data: undefined,
   }
-  makeRequest(payload, request, {
+  makeRequest<R>(payload, request, {
     catchError: options?.catchError ?? DEFAULT_CATCH,
     isArray: options?.isArray ?? false,
   })
