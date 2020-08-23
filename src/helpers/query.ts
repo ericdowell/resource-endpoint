@@ -22,7 +22,7 @@ export function makeRequest<R>(
     .catch(options.catchError)
 }
 
-export function useQuery<R>(
+export function query<R>(
   request: Query<R>,
   options: { isArray?: boolean; catchError?: CatchError },
 ): QueryPayload<R> {
