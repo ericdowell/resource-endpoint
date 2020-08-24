@@ -3,7 +3,7 @@ const path = require('path')
 module.exports = {
   mode: process.env.NODE_ENV || 'production',
   entry: {
-    'resource-endpoint': path.resolve(__dirname, 'src/index.ts'),
+    'resource-endpoint': path.resolve(__dirname, 'src/resource-endpoint.ts'),
   },
   devtool: 'source-map',
   output: {

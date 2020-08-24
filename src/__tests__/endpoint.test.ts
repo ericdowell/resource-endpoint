@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import * as helper from '../helpers/safeResponseData'
-import { Endpoint } from '../index'
+import { Endpoint } from '../resource-endpoint'
 import { BasicMock } from './mock/axios'
 import qs from 'qs'
 

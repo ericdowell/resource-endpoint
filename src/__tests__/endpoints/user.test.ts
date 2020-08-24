@@ -1,5 +1,5 @@
-import { UserEndpoint } from '../..'
 import axios from 'axios'
+import { UserEndpoint } from '../../endpoints'
 import { BasicMock } from '../mock/axios'
 
 jest.spyOn(axios, 'request').mockImplementation(BasicMock)
