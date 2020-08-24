@@ -20,9 +20,8 @@ export function FormMixin<T extends Constructor<any>>(superClass: T) {
       }
     }
 
-    preventStringify(): this {
+    preventStringify(): void {
       this.shouldStringify = false
-      return this
     }
 
     requestConfig(requestConfig: AxiosRequestConfig): AxiosRequestConfig {

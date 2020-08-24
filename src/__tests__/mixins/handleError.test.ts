@@ -34,6 +34,8 @@ describe(`${HandleErrorMixin.name}`, (): void => {
     expect.assertions(1)
     const message = 'Something went wrong.'
     const error = new Error(message)
-    expect((): any => new TestEndpoint().throwResponseError.handleError(error)).toThrow(message)
+    const instance = new TestEndpoint()
+    instance.throwResponseError()
+    expect((): any => instance.handleError(error)).toThrow(message)
   })
 })

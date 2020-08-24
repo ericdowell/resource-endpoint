@@ -7,9 +7,8 @@ export function HandleErrorMixin<T extends Constructor<any>>(superClass: T) {
     /** @protected */
     shouldThrowError = false
 
-    get throwResponseError(): this {
+    throwResponseError(): void {
       this.shouldThrowError = true
-      return this
     }
 
     get defaultErrorMessage(): string {
