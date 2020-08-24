@@ -24,6 +24,7 @@
     "resource",
     "crud",
     "laravel",
+    "react",
     "axios"
   ],
   "main": "lib/resource-endpoint.js",
@@ -54,6 +55,8 @@
   "dependencies": {
     "axios": "^0.20.0",
     "qs": "^6.9.4",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "url-join": "^4.0.1"
   },
   "devDependencies": {
@@ -88,8 +91,6 @@
     "lint-staged": "^10.2.11",
     "prettier": "^2.0.5",
     "prop-types": "^15.7.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
     "react-test-renderer": "^16.13.1",
     "ts-jest": "^26.2.0",
     "ts-loader": "^8.0.2",
