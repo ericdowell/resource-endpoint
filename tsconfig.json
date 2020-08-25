@@ -20,12 +20,10 @@
     "baseUrl": "src",
     "types": [
       "@types/jest",
-      "@types/node",
-      "@types/react-test-renderer"
+      "@types/node"
     ],
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "jsx": "react"
+    "forceConsistentCasingInFileNames": true
   },
   "include": [
     "./src",

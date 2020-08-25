@@ -7,7 +7,7 @@ module.exports = {
     es6: true,
     node: true,
   },
-  plugins: ['import', 'jest', 'prettier', 'react', 'react-hooks', '@typescript-eslint'],
+  plugins: ['import', 'jest', 'prettier', '@typescript-eslint'],
   extends: [
     'standard',
     'eslint:recommended',
@@ -15,8 +15,6 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
-    'plugin:react/recommended',
-    'prettier/react',
     'prettier/standard',
     'plugin:prettier/recommended',
   ],
@@ -26,10 +24,7 @@ module.exports = {
     ecmaVersion: 2018,
   },
   settings: {
-    'import/resolver': 'webpack',
-    react: {
-      version: 'detect',
-    },
+    'import/resolver': 'webpack'
   },
   rules: {
     'linebreak-style': ['error', 'unix'],
@@ -43,11 +38,6 @@ module.exports = {
     ],
     'jest/prefer-inline-snapshots': ['warn'],
     'no-eval': 'error',
-    // react
-    'react/display-name': 'error',
-    'react/function-component-definition': [2, { namedComponents: 'function-declaration' }],
-    'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'warn',
     // typescript
     '@typescript-eslint/explicit-function-return-type': 'error',
     '@typescript-eslint/explicit-module-boundary-types': 'off',

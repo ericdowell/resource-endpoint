@@ -64,6 +64,7 @@ class Api {
 
 export const api = new Api()
 ```
+
 ### Usage
 ```js
 // js/index.js
@@ -102,100 +103,5 @@ const registerUser = async (values) => {
         name: values.name,
     }))
     return { errors, user }
-}
-```
-
-### Using in React Login Component
-Then in your client app you can do the following:
-```jsx
-// js/pages/Login.jsx
-import React from 'react'
-import { safeResponseData, useFormChange } from 'resource-endpoint'
-import { api } from '../api'
-
-export const Login = (props) => {
-    const initialState = {
-        errors: {},
-        email: '',
-        password: '',
-        remember: false,
-    }
-    const [onChange, values, setValues] = useFormChange(initialState)
-    const onSubmit = async (e) => {
-        e.preventDefault()
-        const response = await api.auth.login({
-            email: values.email,
-            password: values.password,
-            remember: values.remember,
-        })
-        const { user, errors } = safeResponseData(response)
-        if (errors) {
-            setValues({ ...values, errors })
-            return
-        } else if (!user) {
-            setValues({
-                ...values,
-                errors: {
-                    message:
-                        'Something went wrong. Please try again.',
-                },
-            })
-            return
-        }
-        setValues(initialState)
-        props.loginUser(user)
-    }
-    return (
-        <form onSubmit={onSubmit}>
-            {/* TODO: Error handling, display error messages */}
-            <input type="email" name="email" value={values.email} onChange={onChange} />
-            <input type="password" name="password" value={values.password} onChange={onChange} />
-            <input type="checkbox" name="remember" checked={values.remember} onChange={onChange} />
-            <input type="submit" value="Login" />
-        </form>
-    )
-}
-```
-
-### Using RequestForm in React Login Component
-Then in your client app you can do the following:
-```jsx
-// js/pages/Login.jsx
-import React from 'react'
-import { RequestForm, useFormChange } from 'resource-endpoint'
-import { api } from '../api'
-
-export const Login = (props) => {
-    const initialState = {
-        errors: {},
-        email: '',
-        password: '',
-        remember: false,
-    }
-    const [onChange, values, setValues] = useFormChange(initialState)
-    const makeRequest = (inputs) => api.auth.login(inputs)
-    const onSuccess = ({ user }) => {
-        if (!user) {
-            setValues({
-                ...values,
-                errors: {
-                    message:
-                        'Something went wrong. Please try again.',
-                },
-            })
-            return
-        }
-        setValues(initialState)
-        props.loginUser(user)
-    }
-    return (
-        <RequestForm makeRequest={makeRequest} onSuccess={onSuccess} setValues={setValues} values={values}>
-            {/* TODO: Error handling, display error messages */}
-            <input type="email" name="email" value={values.email} onChange={onChange} />
-            <input type="password" name="password" value={values.password} onChange={onChange} />
-            <input type="checkbox" name="remember" checked={values.remember} onChange={onChange} />
-            <input type="submit" value="Login" />
-        </RequestForm>
-    )
 }
 ```

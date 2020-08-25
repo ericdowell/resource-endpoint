@@ -36,23 +36,11 @@ module.exports = {
       amd: 'axios',
       root: 'axios',
     },
-    'prop-types': {
-      commonjs: 'prop-types',
-      commonjs2: 'prop-types',
-      amd: 'prop-types',
-      root: 'prop-types',
-    },
     qs: {
       commonjs: 'qs',
       commonjs2: 'qs',
       amd: 'qs',
       root: 'qs',
-    },
-    react: {
-      commonjs: 'react',
-      commonjs2: 'react',
-      amd: 'react',
-      root: 'react',
     },
     'url-join': {
       commonjs: 'url-join',
