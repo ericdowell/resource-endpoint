@@ -10,9 +10,10 @@ export type Request<Data = any> = () => Promise<RequestResponse<Data>>
 export interface RequestOptions {
   initialLoading?: boolean
   isArray?: boolean
+  next?: () => Promise<void>
   catchError?: <Data = any>(error: Error, payload: QueryPayload<Data>) => Promise<void>
 }
 export type RequestResponse<Data = any> = AxiosResponse<Data>
 export interface SubmitPayload<Data = any> extends QueryPayload<Data> {
-  onSubmit: () => Promise<void>
+  onSubmit: (event: { preventDefault(): void }) => Promise<void>
 }
