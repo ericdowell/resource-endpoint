@@ -1,4 +1,6 @@
-// Base
+// Config
+export * from './config'
+// Base Class
 export * from './endpoint'
 // Endpoints
 export * from './endpoints'
