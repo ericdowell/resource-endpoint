@@ -10,7 +10,7 @@
       "dom",
       "es5"
     ],
-    "incremental": true,
+    "incremental": false,
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
