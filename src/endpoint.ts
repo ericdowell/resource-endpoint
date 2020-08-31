@@ -1,4 +1,5 @@
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
+import { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
+import { config } from './config'
 import { safeResponseData } from './helpers'
 import qs, { IStringifyOptions } from 'qs'
 import urljoin from 'url-join'
@@ -14,7 +15,7 @@ export class Endpoint {
   // This contains the protocol and domain, aka location.origin.
   // e.g. https://example.com, http://localhost:3000, etc.
   get origin(): string {
-    return window.location.origin
+    return config.origin
   }
 
   // This is the middle of the url path, usually a group prefix.
@@ -54,7 +55,7 @@ export class Endpoint {
   // General request method that is used by all HTTP calls.
   async request<T = any, R = AxiosResponse<T>>(requestConfig: AxiosRequestConfig): Promise<R> {
     try {
-      return await axios.request<T, R>(this.requestConfig(requestConfig))
+      return await config.axios.request<T, R>(this.requestConfig(requestConfig))
     } catch (error) {
       return Endpoint.handleRequestError<T>(error, this)
     }

@@ -1,30 +1,40 @@
-import axios from 'axios'
-
-let apiPath = 'api'
-
-export const setApiPath = (path: string): void => {
-  apiPath = path
-}
-
-export const getApiPath = (): string => {
-  return apiPath
-}
+import axios, { AxiosStatic } from 'axios'
 
 class Config {
-  get baseURL(): string | undefined {
-    return axios.defaults.baseURL
-  }
-
-  set baseURL(baseURL: string | undefined) {
-    axios.defaults.baseURL = baseURL
-  }
+  protected _apiPath = 'api'
+  protected _axios = axios
+  protected _origin = window.location.origin
 
   get apiPath(): string {
-    return apiPath
+    return this._apiPath
   }
 
   set apiPath(path: string) {
-    setApiPath(path)
+    this._apiPath = path
+  }
+
+  get axios(): AxiosStatic {
+    return this._axios
+  }
+
+  set axios(axios: AxiosStatic) {
+    this._axios = axios
+  }
+
+  get baseURL(): string | undefined {
+    return this.axios.defaults.baseURL
+  }
+
+  set baseURL(baseURL: string | undefined) {
+    this._axios.defaults.baseURL = baseURL
+  }
+
+  get origin(): string {
+    return this._origin
+  }
+
+  set origin(origin: string) {
+    this._origin = origin
   }
 }
 
