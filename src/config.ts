@@ -36,6 +36,14 @@ class Config {
   set origin(origin: string) {
     this._origin = origin
   }
+
+  get withCredentials(): boolean | undefined {
+    return this._axios.defaults.withCredentials
+  }
+
+  set withCredentials(withCredentials: boolean | undefined) {
+    this._axios.defaults.withCredentials = withCredentials
+  }
 }
 
 export const config = new Config()
