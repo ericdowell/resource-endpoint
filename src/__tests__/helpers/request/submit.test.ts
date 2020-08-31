@@ -1,4 +1,4 @@
-import { submit } from '../../../helpers'
+import { unstableSubmit } from '../../../helpers'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const request = require('../../../helpers/request')
 
@@ -8,7 +8,7 @@ const next = jest.fn().mockResolvedValue(undefined)
 describe('submit helper', (): void => {
   it('returns default payload', (): void => {
     expect.assertions(1)
-    expect(submit(DEFAULT_REQUEST)).toMatchInlineSnapshot(`
+    expect(unstableSubmit(DEFAULT_REQUEST)).toMatchInlineSnapshot(`
       Object {
         "data": undefined,
         "errors": undefined,
@@ -24,7 +24,7 @@ describe('submit helper', (): void => {
     async (options): Promise<void> => {
       expect.assertions(5)
       const makeRequest = jest.spyOn(request, 'makeRequest').mockImplementation((): void => undefined)
-      const payload = submit(DEFAULT_REQUEST, options)
+      const payload = unstableSubmit(DEFAULT_REQUEST, options)
       expect(payload.loading).toBe(false)
       const preventDefault = jest.fn()
       await payload.onSubmit({ preventDefault })

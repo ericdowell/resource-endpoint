@@ -2,8 +2,11 @@ import { RequestOptions, Request, SubmitPayload } from './types'
 import { makeRequest } from './index'
 import { makePayload } from './payload'
 
-export function submit<Data = any>(request: Request<Data>, options?: RequestOptions): SubmitPayload<Data> {
-  return {
+export function unstableSubmit<Data = any>(
+  request: Request<Data>,
+  options?: RequestOptions,
+): SubmitPayload<Data> {
+  const payload = {
     ...makePayload<Data>({ initialLoading: false, ...options }),
     onSubmit: async function (event: { preventDefault(): void }): Promise<void> {
       typeof event.preventDefault === 'function' && event.preventDefault()
@@ -14,4 +17,6 @@ export function submit<Data = any>(request: Request<Data>, options?: RequestOpti
       }
     },
   }
+  payload.onSubmit = payload.onSubmit.bind(payload)
+  return payload
 }

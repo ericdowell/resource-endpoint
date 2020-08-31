@@ -1,4 +1,4 @@
-import { query } from '../../../helpers'
+import { unstableQuery } from '../../../helpers'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const request = require('../../../helpers/request')
 
@@ -8,7 +8,7 @@ describe('query helper', (): void => {
   it('returns default payload', (): void => {
     expect.assertions(2)
     const makeRequest = jest.spyOn(request, 'makeRequest').mockImplementation((): void => undefined)
-    expect(query(DEFAULT_REQUEST)).toMatchInlineSnapshot(`
+    expect(unstableQuery(DEFAULT_REQUEST)).toMatchInlineSnapshot(`
       Object {
         "data": undefined,
         "errors": undefined,
