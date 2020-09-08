@@ -1,6 +1,6 @@
 import axios, { AxiosStatic } from 'axios'
 
-class Config {
+export class Config {
   protected _apiPath = 'api'
   protected _axios = axios
   protected _origin = window.location.origin
