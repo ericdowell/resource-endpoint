@@ -10,3 +10,5 @@ export * from './errors/messages'
 export * from './helpers'
 // Mixins
 export * from './mixins'
+// Root Types
+export * from './types'
