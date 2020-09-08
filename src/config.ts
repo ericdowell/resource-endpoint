@@ -46,4 +46,10 @@ export class Config {
   }
 }
 
-export const config = new Config()
+let config = new Config()
+
+function setConfig(configuration: Config): void {
+  config = configuration
+}
+
+export { config, setConfig }
