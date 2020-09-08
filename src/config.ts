@@ -21,14 +21,6 @@ export class Config {
     this._axios = axios
   }
 
-  get baseURL(): string | undefined {
-    return this.axios.defaults.baseURL
-  }
-
-  set baseURL(baseURL: string | undefined) {
-    this._axios.defaults.baseURL = baseURL
-  }
-
   get origin(): string {
     return this._origin
   }
