@@ -53,9 +53,7 @@ describe(`${SessionCsrfCookieMixin.name}`, (): void => {
     expect(requestCsrfCookie).toHaveBeenCalledTimes(1)
   })
 
-  it('isCsrfTokenMismatch is true and requestCsrfCookie throw retry does not happen', async (): Promise<
-    void
-  > => {
+  it('isCsrfTokenMismatch is true and requestCsrfCookie throw retry does not happen', async (): Promise<void> => {
     expect.assertions(4)
     const instance = new TestEndpoint()
     const isCsrfTokenMismatch = jest

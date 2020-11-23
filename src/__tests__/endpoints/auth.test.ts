@@ -39,9 +39,7 @@ describe(`${AuthEndpoint.name}`, (): void => {
     `)
   })
 
-  it('register methods sets attributes first so passed values are not overridden', async (): Promise<
-    void
-  > => {
+  it('register methods sets attributes first so passed values are not overridden', async (): Promise<void> => {
     expect.assertions(1)
     const instance = new AuthEndpoint()
     const post = jest.spyOn(instance, 'post').mockImplementation(async (): Promise<any> => true)
