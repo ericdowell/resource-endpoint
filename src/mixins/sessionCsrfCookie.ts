@@ -1,6 +1,8 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
-import { Constructor } from './types'
+import { config } from '../config'
 import { safeResponseData } from '../helpers'
+import { Constructor } from './types'
+import urljoin from 'url-join'
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function SessionCsrfCookieMixin<C extends Constructor<any>>(superClass: C) {
@@ -23,7 +25,7 @@ export function SessionCsrfCookieMixin<C extends Constructor<any>>(superClass: C
     }
 
     get csrfPath(): string {
-      return 'sanctum/csrf-cookie'
+      return urljoin(config.apiPath, 'sanctum/csrf-cookie')
     }
 
     // Requests new CSRF Cookie from common Laravel Sanctum endpoint.

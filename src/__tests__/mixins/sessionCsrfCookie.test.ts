@@ -29,7 +29,7 @@ describe(`${SessionCsrfCookieMixin.name}`, (): void => {
     expect(axiosGet).toHaveBeenCalledTimes(1)
     expect(axiosGet.mock.calls[0]).toMatchInlineSnapshot(`
       Array [
-        "sanctum/csrf-cookie",
+        "api/sanctum/csrf-cookie",
         Object {
           "baseURL": "http://localhost",
         },
