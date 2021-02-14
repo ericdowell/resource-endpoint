@@ -1,6 +1,5 @@
 import urljoin from 'url-join'
 import { Constructor } from './types'
-import { config } from '../config'
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function ApiMixin<T extends Constructor<any>>(superClass: T) {
@@ -14,7 +13,7 @@ export function ApiMixin<T extends Constructor<any>>(superClass: T) {
     // This it the middle of the url path, usually a group prefix.
     // e.g. api/v1 or user/settings
     get path(): string {
-      return urljoin(config.apiPath, this.version)
+      return urljoin(super.path, this.version)
     }
   }
 }

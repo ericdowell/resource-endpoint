@@ -1,6 +1,4 @@
-// Config
-export * from './config'
-// Base Class
+// Endpoint Class
 export * from './endpoint'
 // Endpoints
 export * from './endpoints'
@@ -10,5 +8,5 @@ export * from './errors/messages'
 export * from './helpers'
 // Mixins
 export * from './mixins'
-// Root Types
-export * from './types'
+// Options
+export * from './options'

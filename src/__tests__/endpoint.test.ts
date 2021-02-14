@@ -1,12 +1,9 @@
 import axios, { AxiosRequestConfig } from 'axios'
-import * as helper from '../helpers/safeResponseData'
 import { Endpoint } from '../index'
 import { BasicMock } from './mock/axios'
 import qs from 'qs'
 
 jest.spyOn(axios, 'request').mockImplementation(BasicMock)
-// eslint-disable-next-line @typescript-eslint/no-empty-function
-jest.spyOn(global.console, 'log').mockImplementation(() => {})
 
 const testConfig: AxiosRequestConfig = { url: '123', method: 'get' }
 
@@ -21,9 +18,9 @@ describe(`${Endpoint.name}`, (): void => {
     expect(new Endpoint().path).toBe('')
   })
 
-  it('the endpoint is empty', () => {
+  it('the resource is empty', () => {
     expect.assertions(1)
-    expect(new Endpoint().endpoint).toBe('')
+    expect(new Endpoint().resource).toBe('')
   })
 
   it('the baseURL is localhost', () => {
@@ -99,20 +96,5 @@ describe(`${Endpoint.name}`, (): void => {
     })
     await expect(endpoint.request(testConfig)).rejects.toBe(error)
     axiosRequest.mockRestore()
-  })
-
-  it('static method handleRequestError calls endpoint implementation of handleError', (): void => {
-    expect.assertions(1)
-    const error = new Error()
-    expect((): void => Endpoint.handleRequestError(error, new Endpoint())).toThrow(error)
-  })
-
-  it('static method safeResponseData calls safeResponseData helper function', (): void => {
-    expect.assertions(2)
-    const data = undefined
-    const safeResponseData = jest.spyOn(helper, 'safeResponseData').mockReturnValue(data)
-    expect(Endpoint.safeResponseData({} as any)).toBe(data)
-    expect(safeResponseData).toHaveBeenCalledTimes(1)
-    safeResponseData.mockRestore()
   })
 })

@@ -2,6 +2,7 @@ import axios from 'axios'
 import { SessionCsrfCookieMixin } from '../../mixins'
 import { Endpoint } from '../../endpoint'
 import { BasicMock, mockResponse } from '../mock/axios'
+import { Options } from '../../options'
 
 const axiosRequest = jest.spyOn(axios, 'request').mockImplementation(BasicMock)
 // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -25,7 +26,7 @@ describe(`${SessionCsrfCookieMixin.name}`, (): void => {
   it('requestCsrfCookie calls axios.get', async (): Promise<void> => {
     expect.assertions(2)
     const axiosGet = jest.spyOn(axios, 'get').mockImplementation(async (): Promise<any> => ({}))
-    await new TestEndpoint().requestCsrfCookie()
+    await new TestEndpoint().setLocalOptions(new Options({ path: 'api' })).requestCsrfCookie()
     expect(axiosGet).toHaveBeenCalledTimes(1)
     expect(axiosGet.mock.calls[0]).toMatchInlineSnapshot(`
       Array [

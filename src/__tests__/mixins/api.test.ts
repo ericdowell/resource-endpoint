@@ -9,11 +9,11 @@ describe(`${ApiMixin.name}`, (): void => {
     const endpoint = new TestEndpoint()
     expect(endpoint.config).toStrictEqual({})
     expect(endpoint.version).toBe('')
-    expect(endpoint.path).toBe('api')
+    expect(endpoint.path).toBe('')
     expect(endpoint.requestConfig({ url: 'test/url', method: 'get', data: { foo: 'bar' } }))
       .toMatchInlineSnapshot(`
       Object {
-        "baseURL": "http://localhost/api",
+        "baseURL": "http://localhost",
         "data": Object {
           "foo": "bar",
         },
