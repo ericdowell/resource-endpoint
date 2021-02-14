@@ -1,4 +1,4 @@
-import { AxiosError, AxiosRequestConfig, AxiosResponse, AxiosStatic } from 'axios'
+import { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { Options, globalOptions } from './options'
 import qs, { IStringifyOptions } from 'qs'
 import urljoin from 'url-join'
@@ -15,10 +15,6 @@ export class Endpoint {
   // Optionally override options with this.localOptions via this.setLocalOptions
   get options(): Options {
     return this.localOptions ?? globalOptions
-  }
-
-  get axios(): AxiosStatic {
-    return this.options.axios
   }
 
   // Used in merging together AxiosRequestConfig values.
@@ -71,7 +67,7 @@ export class Endpoint {
   // General request method that is used by all HTTP calls.
   async request<T = any, R = AxiosResponse<T>>(requestConfig: AxiosRequestConfig): Promise<R> {
     try {
-      return await this.axios.request<T, R>(this.requestConfig(requestConfig))
+      return await this.options.axios.request<T, R>(this.requestConfig(requestConfig))
     } catch (error) {
       return this.handleError<T, R>(error)
     }

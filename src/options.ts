@@ -1,27 +1,32 @@
-import axios, { AxiosStatic } from 'axios'
+import axios, { AxiosInstance, AxiosStatic } from 'axios'
 
 export interface GlobalOptions {
-  axios?: AxiosStatic
+  axios?: AxiosStatic | AxiosInstance
   origin?: string
   path?: string
+  withCredentials?: boolean
 }
 
 export class Options {
   protected _path = ''
-  protected _axios = axios
+  protected _axios: AxiosStatic | AxiosInstance = axios
+  /* istanbul ignore next */
   protected _origin = (typeof window !== 'undefined' && window.location && window.location.origin) || ''
 
   constructor(options?: GlobalOptions) {
     this.axios = options?.axios ?? this.axios
     this.origin = options?.origin ?? this.origin
     this.path = options?.path ?? this.path
+    if (options?.withCredentials) {
+      this.withCredentials = options.withCredentials
+    }
   }
 
-  get axios(): AxiosStatic {
+  get axios(): AxiosStatic | AxiosInstance {
     return this._axios
   }
 
-  set axios(axios: AxiosStatic) {
+  set axios(axios: AxiosStatic | AxiosInstance) {
     this._axios = axios
   }
 
