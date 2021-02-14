@@ -10,6 +10,8 @@ module.exports = {
     path: path.resolve(__dirname, 'lib'),
     filename: '[name].js',
     libraryTarget: 'umd',
+    umdNamedDefine: true,
+    globalObject: `(typeof self !== 'undefined' ? self : this)`,
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.jsx', '.js']
