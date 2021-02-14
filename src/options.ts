@@ -17,7 +17,7 @@ export class Options {
     this.axios = options?.axios ?? this.axios
     this.origin = options?.origin ?? this.origin
     this.path = options?.path ?? this.path
-    if (options?.withCredentials) {
+    if (typeof options?.withCredentials === 'boolean') {
       this.withCredentials = options.withCredentials
     }
   }
