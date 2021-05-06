@@ -27,6 +27,7 @@ describe(`${ResourceEndpoint.name}`, (): void => {
   ])(
     'the %s calls %s',
     async (method: string, calls, params): Promise<void> => {
+      expect.assertions(2)
       const endpoint = new ResourceEndpoint()
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
@@ -39,6 +40,7 @@ describe(`${ResourceEndpoint.name}`, (): void => {
   )
 
   it.each([[null], [123]])('the storeOrUpdate calls store or update id is %p', (id: any) => {
+    expect.assertions(2)
     const endpoint = new ResourceEndpoint()
     const store = jest.spyOn(endpoint, 'store').mockImplementation((): any => true)
     const update = jest.spyOn(endpoint, 'update').mockImplementation((): any => true)
