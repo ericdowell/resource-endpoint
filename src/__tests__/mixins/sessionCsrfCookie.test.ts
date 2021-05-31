@@ -60,11 +60,11 @@ describe(`${SessionCsrfCookieMixin.name}`, (): void => {
     const isCsrfTokenMismatch = jest
       .spyOn(instance, 'isCsrfTokenMismatch')
       .mockImplementation((): boolean => true)
-    const requestCsrfCookie = jest.spyOn(instance, 'requestCsrfCookie').mockImplementation(
-      async (): Promise<never> => {
+    const requestCsrfCookie = jest
+      .spyOn(instance, 'requestCsrfCookie')
+      .mockImplementation(async (): Promise<never> => {
         throw new Error()
-      },
-    )
+      })
 
     expect(await instance.request({ url: 'foo', method: 'put' })).toBe(mockResponse)
     expect(axiosRequest).toHaveBeenCalledTimes(1)

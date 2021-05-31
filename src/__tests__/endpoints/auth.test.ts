@@ -67,16 +67,13 @@ describe(`${AuthEndpoint.name}`, (): void => {
     ],
     ['requestPasswordReset', 'post', [email]],
     ['resetPassword', 'post', [{ email, token: 'token', password, passwordConfirmation }]],
-  ])(
-    'the %s calls %s parent method',
-    async (method: string, calls, params): Promise<void> => {
-      expect.assertions(2)
-      const endpoint = new AuthEndpoint()
-      const methodCalled = jest.spyOn(endpoint, calls).mockImplementation((): any => true)
-      await callEndpoint(endpoint)[method](...params)
-      expect(methodCalled).toHaveBeenCalledTimes(1)
-      // eslint-disable-next-line jest/prefer-inline-snapshots
-      expect(methodCalled.mock.calls[0]).toMatchSnapshot()
-    },
-  )
+  ])('the %s calls %s parent method', async (method: string, calls, params): Promise<void> => {
+    expect.assertions(2)
+    const endpoint = new AuthEndpoint()
+    const methodCalled = jest.spyOn(endpoint, calls).mockImplementation((): any => true)
+    await callEndpoint(endpoint)[method](...params)
+    expect(methodCalled).toHaveBeenCalledTimes(1)
+    // eslint-disable-next-line jest/prefer-inline-snapshots
+    expect(methodCalled.mock.calls[0]).toMatchSnapshot()
+  })
 })

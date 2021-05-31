@@ -24,20 +24,17 @@ describe(`${ResourceEndpoint.name}`, (): void => {
     ['store', 'post', [{ foo: 'bar' }, { filter: 'baz' }]],
     ['update', 'put', [1234, { foo: 'bar' }, { filter: 'baz' }]],
     ['destroy', 'delete', [1234, { filter: 'baz' }]],
-  ])(
-    'the %s calls %s',
-    async (method: string, calls, params): Promise<void> => {
-      expect.assertions(2)
-      const endpoint = new ResourceEndpoint()
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      const methodCalled = jest.spyOn(endpoint, calls).mockImplementation((): any => true)
-      await callEndpoint(endpoint)[method](...params)
-      expect(methodCalled).toHaveBeenCalledTimes(1)
-      // eslint-disable-next-line jest/prefer-inline-snapshots
-      expect(methodCalled.mock.calls[0]).toMatchSnapshot()
-    },
-  )
+  ])('the %s calls %s', async (method: string, calls, params): Promise<void> => {
+    expect.assertions(2)
+    const endpoint = new ResourceEndpoint()
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const methodCalled = jest.spyOn(endpoint, calls).mockImplementation((): any => true)
+    await callEndpoint(endpoint)[method](...params)
+    expect(methodCalled).toHaveBeenCalledTimes(1)
+    // eslint-disable-next-line jest/prefer-inline-snapshots
+    expect(methodCalled.mock.calls[0]).toMatchSnapshot()
+  })
 
   it.each([[null], [123]])('the storeOrUpdate calls store or update id is %p', (id: any) => {
     expect.assertions(2)
