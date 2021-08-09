@@ -37,14 +37,10 @@
     "prelint": "tsc --noEmit",
     "lint": "eslint src --ext .ts --ext .tsx",
     "lint:fix": "npm run lint -- --fix --quiet",
+    "lint:staged": "lint-staged",
     "pretest": "npm run lint",
+    "prepare": "husky install",
     "test": "cross-env TS_JEST_DISABLE_VER_CHECKER=true jest"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "post-merge": "npm i"
-    }
   },
   "lint-staged": {
     "*.ts?(x)": "npm run lint:fix"
@@ -75,7 +71,7 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-standard": "^5.0.0",
-    "husky": "^4.3.8",
+    "husky": "^7.0.1",
     "jest": "^27.0.6",
     "lint-staged": "^11.1.2",
     "prettier": "^2.3.2",
