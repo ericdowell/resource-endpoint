@@ -79,7 +79,7 @@ describe(`${Endpoint.name}`, (): void => {
   it('the request will return response object', async (): Promise<void> => {
     expect.assertions(1)
     const endpoint = new Endpoint()
-    expect(await endpoint.request(testConfig)).toStrictEqual({
+    await expect(endpoint.request(testConfig)).resolves.toStrictEqual({
       config: {},
       data: {
         foo: 'bar',

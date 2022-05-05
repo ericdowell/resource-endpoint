@@ -73,7 +73,6 @@ describe(`${AuthEndpoint.name}`, (): void => {
     const methodCalled = jest.spyOn(endpoint, calls).mockImplementation((): any => true)
     await callEndpoint(endpoint)[method](...params)
     expect(methodCalled).toHaveBeenCalledTimes(1)
-    // eslint-disable-next-line jest/prefer-inline-snapshots
     expect(methodCalled.mock.calls[0]).toMatchSnapshot()
   })
 })
