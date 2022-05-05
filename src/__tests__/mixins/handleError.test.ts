@@ -26,7 +26,6 @@ describe(`${HandleErrorMixin.name}`, (): void => {
     [{ response: { ...response, status: 400, statusText: 'Bad Request' } }],
   ])('handleError returns data key with errors', (error: any): void => {
     expect.assertions(1)
-    // eslint-disable-next-line jest/prefer-inline-snapshots
     expect(new TestEndpoint().handleError(error)).toMatchSnapshot()
   })
 

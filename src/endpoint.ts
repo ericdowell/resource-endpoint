@@ -68,7 +68,7 @@ export class Endpoint {
   async request<T = any, R = AxiosResponse<T>>(requestConfig: AxiosRequestConfig): Promise<R> {
     try {
       return await this.options.axios.request<T, R>(this.requestConfig(requestConfig))
-    } catch (error) {
+    } catch (error: any) {
       return this.handleError<T, R>(error)
     }
   }

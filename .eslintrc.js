@@ -1,5 +1,20 @@
+const parser = '@typescript-eslint/parser'
+const parserOptions = {
+  project: './tsconfig.json',
+  sourceType: 'module',
+  ecmaVersion: 2018,
+}
+const plugins = ['import', 'prettier', '@typescript-eslint']
+const lintExtends = [
+  'standard',
+  'eslint:recommended',
+  'plugin:@typescript-eslint/recommended',
+  'plugin:import/errors',
+  'plugin:import/warnings',
+  'plugin:prettier/recommended',
+]
 module.exports = {
-  parser: '@typescript-eslint/parser',
+  parser,
   reportUnusedDisableDirectives: true,
   env: {
     browser: true,
@@ -7,35 +22,16 @@ module.exports = {
     es6: true,
     node: true,
   },
-  plugins: ['import', 'jest', 'prettier', '@typescript-eslint'],
-  extends: [
-    'standard',
-    'eslint:recommended',
-    'plugin:jest/all',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:import/errors',
-    'plugin:import/warnings',
-    'plugin:prettier/recommended',
-  ],
-  parserOptions: {
-    project: './tsconfig.json',
-    sourceType: 'module',
-    ecmaVersion: 2018,
-  },
+  plugins,
+  extends: lintExtends,
+  parserOptions,
   settings: {
-    'import/resolver': 'webpack'
+    'import/resolver': 'webpack',
   },
   rules: {
     'linebreak-style': ['error', 'unix'],
     'import/first': 'error',
     'import/no-unresolved': ['error'],
-    'jest/lowercase-name': [
-      'error',
-      {
-        ignore: ['describe'],
-      },
-    ],
-    'jest/prefer-inline-snapshots': ['warn'],
     'no-eval': 'error',
     // typescript
     '@typescript-eslint/explicit-function-return-type': 'error',
@@ -57,4 +53,21 @@ module.exports = {
     '@typescript-eslint/promise-function-async': ['error'],
     '@typescript-eslint/semi': ['error', 'never'],
   },
+  overrides: [
+    {
+      files: ['src/__tests__/**/*.ts?(x)'],
+      parser,
+      plugins: [...plugins, 'jest'],
+      parserOptions,
+      extends: ['plugin:jest/all'],
+      rules: {
+        'jest/prefer-lowercase-title': [
+          'error',
+          {
+            ignore: ['describe'],
+          },
+        ],
+      },
+    },
+  ],
 }

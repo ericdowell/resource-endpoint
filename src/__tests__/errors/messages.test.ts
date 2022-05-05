@@ -7,7 +7,6 @@ describe('errors/messages', (): void => {
     [{ data: { message: 'message' } }, undefined],
   ])('getFallbackMessage returns message based on input', (response, defaultMessage): void => {
     expect.assertions(1)
-    // eslint-disable-next-line jest/prefer-inline-snapshots
     expect(messages.getFallbackMessage(response, defaultMessage)).toMatchSnapshot()
   })
 
@@ -15,7 +14,6 @@ describe('errors/messages', (): void => {
     'getErrors returns error object based on input',
     (response): void => {
       expect.assertions(1)
-      // eslint-disable-next-line jest/prefer-inline-snapshots
       expect(messages.getErrors(response)).toMatchSnapshot()
     },
   )
@@ -24,7 +22,6 @@ describe('errors/messages', (): void => {
     'getStatus returns status code based on input',
     (response): void => {
       expect.assertions(1)
-      // eslint-disable-next-line jest/prefer-inline-snapshots
       expect(messages.getStatus(response)).toMatchSnapshot()
     },
   )
@@ -34,7 +31,6 @@ describe('errors/messages', (): void => {
     ['test', { data: { errors: { test: ['testing errors'] } } }],
   ])('hasMessage returns boolean based on input', (key, response): void => {
     expect.assertions(1)
-    // eslint-disable-next-line jest/prefer-inline-snapshots
     expect(messages.hasMessage(key, response)).toMatchSnapshot()
   })
 
@@ -43,7 +39,6 @@ describe('errors/messages', (): void => {
     ['test', { data: { errors: { test: ['testing errors'] } } }, undefined],
   ])('getMessage returns string based on input', (key, response, defaultMessage): void => {
     expect.assertions(1)
-    // eslint-disable-next-line jest/prefer-inline-snapshots
     expect(messages.getMessage(key, response, defaultMessage)).toMatchSnapshot()
   })
 })

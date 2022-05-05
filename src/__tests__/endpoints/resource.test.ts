@@ -32,17 +32,19 @@ describe(`${ResourceEndpoint.name}`, (): void => {
     const methodCalled = jest.spyOn(endpoint, calls).mockImplementation((): any => true)
     await callEndpoint(endpoint)[method](...params)
     expect(methodCalled).toHaveBeenCalledTimes(1)
-    // eslint-disable-next-line jest/prefer-inline-snapshots
     expect(methodCalled.mock.calls[0]).toMatchSnapshot()
   })
 
-  it.each([[null], [123]])('the storeOrUpdate calls store or update id is %p', (id: any) => {
+  it.each([
+    [null, 1, 0],
+    [123, 0, 1],
+  ])('the storeOrUpdate calls store or update id is %p', async (id: any, storeCalled, updatedCalled) => {
     expect.assertions(2)
     const endpoint = new ResourceEndpoint()
     const store = jest.spyOn(endpoint, 'store').mockImplementation((): any => true)
     const update = jest.spyOn(endpoint, 'update').mockImplementation((): any => true)
-    endpoint.storeOrUpdate(id, { title: 'foo' })
-    expect(store).toHaveBeenCalledTimes(id ? 0 : 1)
-    expect(update).toHaveBeenCalledTimes(id ? 1 : 0)
+    await endpoint.storeOrUpdate(id, { title: 'foo' })
+    expect(store).toHaveBeenCalledTimes(storeCalled)
+    expect(update).toHaveBeenCalledTimes(updatedCalled)
   })
 })
