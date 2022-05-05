@@ -51,7 +51,7 @@
   "dependencies": {
     "axios": "^0.27.2",
     "qs": "^6.10.1",
-    "url-join": "^5.0.0"
+    "url-join": "^4.0.1"
   },
   "devDependencies": {
     "@types/jest": "^27.5.0",
@@ -73,6 +73,7 @@
     "eslint-plugin-standard": "^5.0.0",
     "husky": "^7.0.1",
     "jest": "^28.0.3",
+    "jest-environment-jsdom": "^28.0.2",
     "lint-staged": "^12.4.1",
     "prettier": "^2.3.2",
     "source-map-loader": "^3.0.0",
