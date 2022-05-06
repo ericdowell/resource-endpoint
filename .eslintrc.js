@@ -59,7 +59,7 @@ module.exports = {
       parser,
       plugins: [...plugins, 'jest'],
       parserOptions,
-      extends: ['plugin:jest/all'],
+      extends: ['plugin:jest/all', ...lintExtends],
       rules: {
         'jest/prefer-lowercase-title': [
           'error',
