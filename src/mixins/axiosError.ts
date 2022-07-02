@@ -17,7 +17,7 @@ export function AxiosErrorMixin<T extends Constructor<any>>(superClass: T) {
     handleError(error: AxiosError | Error): never {
       let message = this.defaultErrorMessage
       if (!axios.isAxiosError(error)) {
-        const axiosErr = new AxiosError(error.message)
+        const axiosErr = new AxiosError(error?.message)
         axiosErr.response = {
           headers: {},
           config: {},
@@ -31,11 +31,14 @@ export function AxiosErrorMixin<T extends Constructor<any>>(superClass: T) {
         throw axiosErr
       }
       const { errors, message: responseMessage } = safeResponseData<Record<string, unknown>>(error.response)
-      // Matches what we want from our response.
+      if (typeof responseMessage === 'string') {
+        message = responseMessage
+      }
+      if (!error.message) {
+        error.message = message
+      }
       if (errors && typeof errors === 'object') {
         throw error
-      } else if (typeof responseMessage === 'string') {
-        message = responseMessage
       }
       error.response = {
         headers: error?.response?.headers ?? {},
