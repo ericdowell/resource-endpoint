@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AxiosErrorMixin handleError throw AxiosError based on input [Error: foo bar issue] 1`] = `[AxiosError: foo bar issue]`;
+
+exports[`AxiosErrorMixin handleError throw AxiosError based on input {"config": [Object], "data": [Object], "headers": [Object], "status": 400, "statusText": "Bad Request"} 1`] = `[AxiosError: An unexpected error has occurred. Please try again.]`;
+
+exports[`AxiosErrorMixin handleError throw AxiosError based on input {"config": [Object], "data": [Object], "headers": [Object], "status": 422, "statusText": "Unprocessable Entity"} 1`] = `[AxiosError: hello foo bar]`;
+
+exports[`AxiosErrorMixin handleError throw AxiosError based on input {"data": [Object]} 1`] = `[AxiosError: An unexpected error has occurred. Please try again.]`;
+
+exports[`AxiosErrorMixin handleError throw AxiosError based on input {"data": undefined} 1`] = `[AxiosError: An unexpected error has occurred. Please try again.]`;
+
+exports[`AxiosErrorMixin handleError throw AxiosError based on input undefined 1`] = `[AxiosError]`;
