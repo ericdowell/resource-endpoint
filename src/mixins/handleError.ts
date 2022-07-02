@@ -1,5 +1,6 @@
 import { AxiosError, AxiosResponse } from 'axios'
 import { Constructor } from './types'
+import { defaultErrorMessage as constDefaultErrorMessage, errorsBlock as baseErrorsBlock } from './helpers'
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function HandleErrorMixin<T extends Constructor<any>>(superClass: T) {
@@ -12,13 +13,11 @@ export function HandleErrorMixin<T extends Constructor<any>>(superClass: T) {
     }
 
     get defaultErrorMessage(): string {
-      return 'An unexpected error has occurred. Please try again.'
+      return constDefaultErrorMessage
     }
 
-    errorsBlock(message: string): any {
-      return {
-        message,
-      }
+    errorsBlock(message: string): { message: string } {
+      return baseErrorsBlock(message)
     }
 
     handleError<T = any>(error: AxiosError<T> | any): AxiosResponse<T | { message?: string; errors: any }> {
