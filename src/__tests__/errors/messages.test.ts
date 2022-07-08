@@ -5,7 +5,7 @@ describe('errors/messages', (): void => {
     [undefined, undefined],
     [undefined, 'default message'],
     [{ data: { message: 'message' } }, undefined],
-  ])('getFallbackMessage returns message based on input', (response, defaultMessage): void => {
+  ])('getFallbackMessage returns message based on input', (response: any, defaultMessage): void => {
     expect.assertions(1)
     expect(messages.getFallbackMessage(response, defaultMessage)).toMatchSnapshot()
   })

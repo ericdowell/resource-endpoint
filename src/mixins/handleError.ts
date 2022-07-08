@@ -1,6 +1,10 @@
 import { AxiosError, AxiosResponse } from 'axios'
 import { Constructor } from './types'
-import { defaultErrorMessage as constDefaultErrorMessage, errorsBlock as baseErrorsBlock } from './helpers'
+import {
+  getFallbackMessage,
+  defaultErrorMessage as constDefaultErrorMessage,
+  errorsBlock as baseErrorsBlock,
+} from '../errors/messages'
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function HandleErrorMixin<T extends Constructor<any>>(superClass: T) {
@@ -16,6 +20,10 @@ export function HandleErrorMixin<T extends Constructor<any>>(superClass: T) {
       return constDefaultErrorMessage
     }
 
+    getUserFriendlyMessage(response: AxiosResponse<unknown> | undefined): string {
+      return getFallbackMessage(response)
+    }
+
     errorsBlock(message: string): { message: string } {
       return baseErrorsBlock(message)
     }
@@ -24,11 +32,9 @@ export function HandleErrorMixin<T extends Constructor<any>>(superClass: T) {
       if (this.shouldThrowError) {
         throw error
       }
-      let message = this.defaultErrorMessage
+      const message = this.getUserFriendlyMessage(error.response)
       if (error?.response?.data?.errors) {
         return error.response
-      } else if (typeof error?.response?.data?.message === 'string') {
-        message = error.response.data.message
       }
       return {
         headers: error?.response?.headers,
