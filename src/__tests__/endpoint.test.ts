@@ -36,9 +36,9 @@ describe(`${Endpoint.name}`, (): void => {
   it('the paramsSerializer will return function that calls qs.stringify', () => {
     expect.assertions(2)
     const stringify = jest.spyOn(qs, 'stringify').mockImplementation((): any => 'foo')
-    const paramsSerializer = new Endpoint().paramsSerializer
+    const paramsSerializer = new Endpoint().paramsSerializer as any
     expect(stringify).toHaveBeenCalledTimes(0)
-    paramsSerializer({})
+    paramsSerializer?.serialize({})
     expect(stringify).toHaveBeenCalledTimes(1)
     stringify.mockRestore()
   })
@@ -64,9 +64,7 @@ describe(`${Endpoint.name}`, (): void => {
     const config: AxiosRequestConfig = {
       baseURL: 'https://example.com',
       method: 'PATCH',
-      paramsSerializer: {
-        serialize: endpoint.paramsSerializer,
-      },
+      paramsSerializer: endpoint.paramsSerializer,
       url: 'test/path',
     }
     expect(endpoint.requestConfig(config)).toMatchInlineSnapshot(`

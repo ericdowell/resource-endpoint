@@ -1,4 +1,4 @@
-import { AxiosError, AxiosRequestConfig, AxiosResponse, CustomParamsSerializer } from 'axios'
+import { AxiosError, AxiosRequestConfig, AxiosResponse, ParamsSerializerOptions } from 'axios'
 import { Options, globalOptions } from './options'
 import qs, { IStringifyOptions } from 'qs'
 import urljoin from 'url-join'
@@ -51,8 +51,10 @@ export class Endpoint {
     return { arrayFormat: 'brackets' }
   }
 
-  get paramsSerializer(): CustomParamsSerializer {
-    return (params): string => qs.stringify(params, this.stringifyOptions)
+  get paramsSerializer(): ParamsSerializerOptions {
+    return {
+      serialize: (params) => qs.stringify(params, this.stringifyOptions),
+    }
   }
 
   // Returns AxiosRequestConfig passed to axios.request.
@@ -60,10 +62,7 @@ export class Endpoint {
     const config: AxiosRequestConfig = { ...this.config, ...requestConfig }
     config.baseURL = config.baseURL ?? this.baseURL
     config.headers = { ...this.config.headers, ...config.headers }
-    if (typeof config.paramsSerializer === 'undefined') {
-      config.paramsSerializer = {}
-    }
-    config.paramsSerializer.serialize = config.paramsSerializer?.serialize ?? this.paramsSerializer
+    config.paramsSerializer = config.paramsSerializer ?? this.paramsSerializer
     return config
   }
 
