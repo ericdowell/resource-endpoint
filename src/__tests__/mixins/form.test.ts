@@ -29,7 +29,9 @@ describe(`${FormMixin.name}`, (): void => {
           "Content-Type": "application/x-www-form-urlencoded",
         },
         "method": "get",
-        "paramsSerializer": [Function],
+        "paramsSerializer": Object {
+          "serialize": [Function],
+        },
         "url": "url",
       }
     `)
@@ -61,7 +63,9 @@ describe(`${FormMixin.name}`, (): void => {
           "Content-Type": "application/x-www-form-urlencoded",
         },
         "method": "get",
-        "paramsSerializer": [Function],
+        "paramsSerializer": Object {
+          "serialize": [Function],
+        },
         "url": "url",
       }
     `)
@@ -82,7 +86,9 @@ describe(`${FormMixin.name}`, (): void => {
           "Content-Type": "application/x-www-form-urlencoded",
         },
         "method": "get",
-        "paramsSerializer": [Function],
+        "paramsSerializer": Object {
+          "serialize": [Function],
+        },
         "url": "url",
       }
     `)

@@ -19,7 +19,9 @@ describe(`${ApiMixin.name}`, (): void => {
         },
         "headers": Object {},
         "method": "get",
-        "paramsSerializer": [Function],
+        "paramsSerializer": Object {
+          "serialize": [Function],
+        },
         "url": "test/url",
       }
     `)

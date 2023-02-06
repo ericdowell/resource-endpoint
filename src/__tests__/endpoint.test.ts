@@ -50,7 +50,9 @@ describe(`${Endpoint.name}`, (): void => {
         "baseURL": "http://localhost",
         "headers": Object {},
         "method": "get",
-        "paramsSerializer": [Function],
+        "paramsSerializer": Object {
+          "serialize": [Function],
+        },
         "url": "test/path",
       }
     `)
@@ -62,7 +64,9 @@ describe(`${Endpoint.name}`, (): void => {
     const config: AxiosRequestConfig = {
       baseURL: 'https://example.com',
       method: 'PATCH',
-      paramsSerializer: endpoint.paramsSerializer,
+      paramsSerializer: {
+        serialize: endpoint.paramsSerializer,
+      },
       url: 'test/path',
     }
     expect(endpoint.requestConfig(config)).toMatchInlineSnapshot(`
@@ -70,7 +74,9 @@ describe(`${Endpoint.name}`, (): void => {
         "baseURL": "https://example.com",
         "headers": Object {},
         "method": "PATCH",
-        "paramsSerializer": [Function],
+        "paramsSerializer": Object {
+          "serialize": [Function],
+        },
         "url": "test/path",
       }
     `)

@@ -1,5 +1,5 @@
 import { Constructor } from './types'
-import axios, { AxiosError } from 'axios'
+import axios, { AxiosError, AxiosHeaders } from 'axios'
 import { safeResponseData } from '../helpers'
 import { defaultErrorMessage as constDefaultErrorMessage, errorsBlock as baseErrorsBlock } from './helpers'
 
@@ -20,7 +20,9 @@ export function AxiosErrorMixin<T extends Constructor<any>>(superClass: T) {
         const axiosErr = new AxiosError(error?.message)
         axiosErr.response = {
           headers: {},
-          config: {},
+          config: {
+            headers: new AxiosHeaders(),
+          },
           status: 500,
           statusText: 'Internal Server Error',
           data: {
@@ -42,8 +44,11 @@ export function AxiosErrorMixin<T extends Constructor<any>>(superClass: T) {
       }
       error.response = {
         headers: error?.response?.headers ?? {},
-        config: error?.config ?? error?.response?.config,
         status: error?.response?.status ?? 500,
+        config: error?.config ??
+          error?.response?.config ?? {
+            headers: new AxiosHeaders(),
+          },
         statusText: error?.response?.statusText ?? 'Internal Server Error',
         data: {
           message,
