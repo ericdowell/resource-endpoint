@@ -36,9 +36,9 @@ describe(`${Endpoint.name}`, (): void => {
   it('the paramsSerializer will return function that calls qs.stringify', () => {
     expect.assertions(2)
     const stringify = jest.spyOn(qs, 'stringify').mockImplementation((): any => 'foo')
-    const paramsSerializer = new Endpoint().paramsSerializer
+    const paramsSerializer = new Endpoint().paramsSerializer as any
     expect(stringify).toHaveBeenCalledTimes(0)
-    paramsSerializer({})
+    paramsSerializer?.serialize({})
     expect(stringify).toHaveBeenCalledTimes(1)
     stringify.mockRestore()
   })
@@ -50,7 +50,9 @@ describe(`${Endpoint.name}`, (): void => {
         "baseURL": "http://localhost",
         "headers": Object {},
         "method": "get",
-        "paramsSerializer": [Function],
+        "paramsSerializer": Object {
+          "serialize": [Function],
+        },
         "url": "test/path",
       }
     `)
@@ -70,7 +72,9 @@ describe(`${Endpoint.name}`, (): void => {
         "baseURL": "https://example.com",
         "headers": Object {},
         "method": "PATCH",
-        "paramsSerializer": [Function],
+        "paramsSerializer": Object {
+          "serialize": [Function],
+        },
         "url": "test/path",
       }
     `)

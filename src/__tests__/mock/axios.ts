@@ -1,4 +1,4 @@
-import { AxiosError } from 'axios'
+import { AxiosError, AxiosHeaders } from 'axios'
 
 export const mockResponse = {
   config: {},
@@ -10,7 +10,9 @@ export async function BasicMock(config: any): Promise<any> {
     return mockResponse
   }
   const error = new Error() as AxiosError
-  error.config = {}
+  error.config = {
+    headers: new AxiosHeaders(),
+  }
   error.response = {
     data: {
       message: config.message,

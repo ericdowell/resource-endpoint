@@ -1,4 +1,4 @@
-import { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
+import { AxiosError, AxiosRequestConfig, AxiosResponse, ParamsSerializerOptions } from 'axios'
 import { Options, globalOptions } from './options'
 import qs, { IStringifyOptions } from 'qs'
 import urljoin from 'url-join'
@@ -51,8 +51,10 @@ export class Endpoint {
     return { arrayFormat: 'brackets' }
   }
 
-  get paramsSerializer(): (params: any) => string {
-    return (params): string => qs.stringify(params, this.stringifyOptions)
+  get paramsSerializer(): ParamsSerializerOptions {
+    return {
+      serialize: (params) => qs.stringify(params, this.stringifyOptions),
+    }
   }
 
   // Returns AxiosRequestConfig passed to axios.request.

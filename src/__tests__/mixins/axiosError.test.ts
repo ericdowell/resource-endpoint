@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosResponse } from 'axios'
+import axios, { AxiosError, AxiosHeaders, AxiosResponse } from 'axios'
 import { AxiosErrorMixin } from '../../mixins'
 import { Endpoint } from '../../endpoint'
 import { BasicMock } from '../mock/axios'
@@ -29,7 +29,9 @@ const makeAxiosError: TransformInput = (axiosResponse?: Partial<AxiosResponse>):
       status: 500,
       statusText: 'Testing',
       headers: {},
-      config: {},
+      config: {
+        headers: new AxiosHeaders(),
+      },
       ...axiosResponse,
     }
   }
